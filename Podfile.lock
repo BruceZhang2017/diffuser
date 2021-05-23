@@ -1,0 +1,120 @@
+PODS:
+  - CocoaAsyncSocket (7.6.5)
+  - SVProgressHUD (2.2.5)
+  - TuyaSmartActivatorCoreKit (3.26.5):
+    - TuyaSmartDeviceCoreKit
+  - TuyaSmartActivatorKit (3.26.5):
+    - TuyaSmartActivatorCoreKit
+    - TuyaSmartDeviceKit
+  - TuyaSmartBaseKit (3.26.5):
+    - TuyaSmartUtil
+    - YYModel
+  - TuyaSmartBLEKit (3.26.5):
+    - TuyaSmartBaseKit
+    - TuyaSmartDeviceCoreKit (>= 3.20.0)
+    - TYBluetooth (< 10.0)
+  - TuyaSmartBLEMeshKit (3.26.5):
+    - TuyaSmartActivatorCoreKit
+    - TuyaSmartBaseKit
+    - TuyaSmartBLEKit
+    - TuyaSmartDeviceCoreKit (>= 3.20.0)
+    - TYBluetooth (< 10.0)
+  - TuyaSmartDefaultPanelKit (1.0.0):
+    - TuyaSmartDeviceKit
+  - TuyaSmartDeviceCoreKit (3.26.5.1):
+    - TuyaSmartBaseKit
+    - TuyaSmartMQTTChannelKit
+    - TuyaSmartSocketChannelKit
+  - TuyaSmartDeviceKit (3.26.5.1):
+    - TuyaSmartBaseKit
+    - TuyaSmartDeviceCoreKit (>= 3.21.0)
+  - TuyaSmartFeedbackKit (3.26.5):
+    - TuyaSmartBaseKit
+  - TuyaSmartHomeKit (3.26.5):
+    - TuyaSmartActivatorCoreKit (>= 3.26.5)
+    - TuyaSmartActivatorKit (>= 3.26.5)
+    - TuyaSmartBaseKit (>= 3.26.5)
+    - TuyaSmartBLEKit (>= 3.26.5)
+    - TuyaSmartBLEMeshKit (>= 3.26.5)
+    - TuyaSmartDefaultPanelKit
+    - TuyaSmartDeviceCoreKit (>= 3.26.5)
+    - TuyaSmartDeviceKit (>= 3.26.5)
+    - TuyaSmartFeedbackKit (>= 3.26.5)
+    - TuyaSmartMessageKit (>= 3.26.5)
+    - TuyaSmartMQTTChannelKit (>= 3.26.5)
+    - TuyaSmartSceneKit (>= 3.25.2)
+    - TuyaSmartSocketChannelKit (>= 3.26.5)
+    - TuyaSmartTimerKit (>= 3.26.5)
+  - TuyaSmartMessageKit (3.26.5):
+    - TuyaSmartBaseKit
+  - TuyaSmartMQTTChannelKit (3.26.5):
+    - TuyaSmartBaseKit
+    - TuyaSmartQUIC
+  - TuyaSmartQUIC (1.1.1)
+  - TuyaSmartSceneKit (3.25.2):
+    - TuyaSmartBaseKit
+    - TuyaSmartDeviceKit
+  - TuyaSmartSocketChannelKit (3.26.5):
+    - CocoaAsyncSocket (>= 7.4.3)
+    - TuyaSmartBaseKit
+  - TuyaSmartTimerKit (3.26.5):
+    - TuyaSmartBaseKit
+    - TuyaSmartDeviceKit
+  - TuyaSmartUtil (3.26.5)
+  - TYBluetooth (3.25.4)
+  - YYModel (1.0.4)
+
+DEPENDENCIES:
+  - SVProgressHUD
+  - TuyaSmartHomeKit
+
+SPEC REPOS:
+  trunk:
+    - CocoaAsyncSocket
+    - SVProgressHUD
+    - TuyaSmartActivatorCoreKit
+    - TuyaSmartActivatorKit
+    - TuyaSmartBaseKit
+    - TuyaSmartBLEKit
+    - TuyaSmartBLEMeshKit
+    - TuyaSmartDefaultPanelKit
+    - TuyaSmartDeviceCoreKit
+    - TuyaSmartDeviceKit
+    - TuyaSmartFeedbackKit
+    - TuyaSmartHomeKit
+    - TuyaSmartMessageKit
+    - TuyaSmartMQTTChannelKit
+    - TuyaSmartQUIC
+    - TuyaSmartSceneKit
+    - TuyaSmartSocketChannelKit
+    - TuyaSmartTimerKit
+    - TuyaSmartUtil
+    - TYBluetooth
+    - YYModel
+
+SPEC CHECKSUMS:
+  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  TuyaSmartActivatorCoreKit: d509bda43cca84efb422d7d54a44f6da4eb85f29
+  TuyaSmartActivatorKit: 3a43f6ebfd54ebebc5350f4577139f142671d9b8
+  TuyaSmartBaseKit: 8d32545fabb4967b81c14a7593e30b82b5125b95
+  TuyaSmartBLEKit: 692cd50cb8933930ae1face1268989c0b7104502
+  TuyaSmartBLEMeshKit: 1c77750da1e3320e42fe830506ab7318b6fa013d
+  TuyaSmartDefaultPanelKit: afb7cc9014304281c7de48548f06d03a61a27f07
+  TuyaSmartDeviceCoreKit: 8243b9c605c7e8804a9de7107097e6224086169f
+  TuyaSmartDeviceKit: efe5b08935cc20c740fd251c380c26d181b0043b
+  TuyaSmartFeedbackKit: f8e95b5304ddcf2e57fae99025e9574b192c8ea0
+  TuyaSmartHomeKit: 508b27634c1930083a5024f721f5ced25f6c4a2e
+  TuyaSmartMessageKit: 218896d3d12b1ecc99451c032c368e6be579ee3c
+  TuyaSmartMQTTChannelKit: 6036218cb962b5482fe087457e960082669efe5f
+  TuyaSmartQUIC: 5bb81563fedf5b739ac50a5abbf42ec807cfb64b
+  TuyaSmartSceneKit: 6c5a9c6b31fe2ecdc16b7d370375fc84a0b8e8ae
+  TuyaSmartSocketChannelKit: 8a3aa43446577589e0e5f0bcf34b41173cbdb071
+  TuyaSmartTimerKit: 5cf69cc647178ecdbf1bfba10687789514bfe958
+  TuyaSmartUtil: 9e380a1c9e4fa96cbfa53d5c53695dc6f7c8afb6
+  TYBluetooth: 46ed69a8b42a2a6566dd86af7a772f51719ed4ab
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+
+PODFILE CHECKSUM: 90773628484e0acf40ce8bd67face4c14e7e94ff
+
+COCOAPODS: 1.10.1
