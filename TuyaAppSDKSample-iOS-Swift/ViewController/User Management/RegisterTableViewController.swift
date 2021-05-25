@@ -7,20 +7,20 @@
 import UIKit
 import TuyaSmartBaseKit
 
-class RegisterTableViewController: UITableViewController {
+class RegisterTableViewController: BaseTableViewController {
     
     // MARK: - IBOutlet
-    @IBOutlet weak var countryCodeTextField: UITextField!
-    @IBOutlet weak var accountTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var verificationCodeTextField: UITextField!
+    @IBOutlet weak var countryCodeTextField: MTextField!
+    @IBOutlet weak var accountTextField: MTextField!
+    @IBOutlet weak var passwordTextField: MTextField!
+    @IBOutlet weak var verificationCodeTextField: MTextField!
     @IBOutlet weak var sendVerificationCodeButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: 375, height: 150)
     }
 
     // MARK: - IBAction

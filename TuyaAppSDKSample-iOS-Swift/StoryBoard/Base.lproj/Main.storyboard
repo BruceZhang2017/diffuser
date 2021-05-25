@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="d5n-Sr-JsU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="d5n-Sr-JsU">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tuya SDK Sample-->
+        <!--Main View Controller-->
         <scene sceneID="u0i-Jf-8hX">
             <objects>
                 <viewController id="YoJ-f1-LxW" customClass="MainViewController" customModule="TuyaAppSDKSample_iOS_Swift" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,57 +17,74 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="d1U-b2-hBU">
-                                <rect key="frame" x="44" y="678" width="326" height="124"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="d1U-b2-hBU">
+                                <rect key="frame" x="20" y="746" width="374" height="96"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cbb-x5-OQ8">
-                                        <rect key="frame" x="0.0" y="0.0" width="326" height="50"/>
-                                        <color key="backgroundColor" name="AccentColor"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cbb-x5-OQ8">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
+                                        <color key="backgroundColor" red="0.73333333333333328" green="0.60784313725490191" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="6d4-GO-JTi"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="6d4-GO-JTi"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Login">
+                                        <state key="normal" title="Get Started">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="VNx-v9-JaH" kind="show" id="0dG-PL-aKf"/>
+                                            <segue destination="bR7-Oz-qax" kind="show" id="oWb-Ax-BD6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YiB-nC-tNo">
-                                        <rect key="frame" x="0.0" y="74" width="326" height="50"/>
-                                        <color key="backgroundColor" name="AccentColor"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YiB-nC-tNo">
+                                        <rect key="frame" x="0.0" y="56" width="374" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="U4Z-C7-vZX"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="U4Z-C7-vZX"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Register">
+                                        <state key="normal" title="Sign In">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="bR7-Oz-qax" kind="show" id="vCm-SS-mbx"/>
+                                            <segue destination="VNx-v9-JaH" kind="show" id="POj-Lg-sOn"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home SDK Ver: 3.25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGF-Pc-rVR">
-                                <rect key="frame" x="145" y="846" width="124" height="16"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" systemColor="secondaryLabelColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start_screen_bg" translatesAutoresizingMaskIntoConstraints="NO" id="gyZ-lp-4Bt">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="427"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gyZ-lp-4Bt" secondAttribute="height" multiplier="320:330" id="rzq-iE-czS"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start_screen_log" translatesAutoresizingMaskIntoConstraints="NO" id="ePW-CW-ovu">
+                                <rect key="frame" x="80.5" y="46" width="253" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="enl-xf-1Cb"/>
+                                    <constraint firstAttribute="width" constant="253" id="mcS-T8-47V"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start_screen_device" translatesAutoresizingMaskIntoConstraints="NO" id="HNK-De-T7w">
+                                <rect key="frame" x="54" y="230" width="306" height="306"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="HNK-De-T7w" secondAttribute="height" id="0kO-uc-tYf"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="I9M-Sv-At2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="bGF-Pc-rVR" firstAttribute="top" secondItem="d1U-b2-hBU" secondAttribute="bottom" constant="44" id="AYz-p6-0Qa"/>
-                            <constraint firstItem="I9M-Sv-At2" firstAttribute="trailing" secondItem="d1U-b2-hBU" secondAttribute="trailing" constant="44" id="YO0-eF-l8E"/>
-                            <constraint firstItem="bGF-Pc-rVR" firstAttribute="bottom" secondItem="I9M-Sv-At2" secondAttribute="bottom" id="gLv-LE-N7e"/>
-                            <constraint firstItem="d1U-b2-hBU" firstAttribute="leading" secondItem="I9M-Sv-At2" secondAttribute="leading" constant="44" id="qs9-XA-Noh"/>
-                            <constraint firstItem="bGF-Pc-rVR" firstAttribute="centerX" secondItem="2rq-zy-7ke" secondAttribute="centerX" id="u2Q-Vt-ae1"/>
+                            <constraint firstAttribute="top" secondItem="HNK-De-T7w" secondAttribute="top" constant="-230" id="Kpp-74-Erb"/>
+                            <constraint firstItem="gyZ-lp-4Bt" firstAttribute="leading" secondItem="I9M-Sv-At2" secondAttribute="leading" id="Oxb-6F-Jci"/>
+                            <constraint firstItem="gyZ-lp-4Bt" firstAttribute="top" secondItem="2rq-zy-7ke" secondAttribute="top" id="TSn-Qq-gNm"/>
+                            <constraint firstItem="I9M-Sv-At2" firstAttribute="trailing" secondItem="HNK-De-T7w" secondAttribute="trailing" constant="54" id="YNI-eI-66W"/>
+                            <constraint firstItem="I9M-Sv-At2" firstAttribute="trailing" secondItem="d1U-b2-hBU" secondAttribute="trailing" constant="20" id="YO0-eF-l8E"/>
+                            <constraint firstItem="gyZ-lp-4Bt" firstAttribute="trailing" secondItem="I9M-Sv-At2" secondAttribute="trailing" id="bFp-2q-zDc"/>
+                            <constraint firstItem="ePW-CW-ovu" firstAttribute="top" secondItem="2rq-zy-7ke" secondAttribute="top" constant="46" id="mCb-Gi-z4y"/>
+                            <constraint firstItem="HNK-De-T7w" firstAttribute="leading" secondItem="I9M-Sv-At2" secondAttribute="leading" constant="54" id="niF-8m-KBT"/>
+                            <constraint firstItem="ePW-CW-ovu" firstAttribute="centerX" secondItem="I9M-Sv-At2" secondAttribute="centerX" id="paZ-te-AAx"/>
+                            <constraint firstItem="d1U-b2-hBU" firstAttribute="leading" secondItem="I9M-Sv-At2" secondAttribute="leading" constant="20" id="qs9-XA-Noh"/>
+                            <constraint firstItem="I9M-Sv-At2" firstAttribute="bottom" secondItem="d1U-b2-hBU" secondAttribute="bottom" constant="20" id="sTQ-Yf-TUj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Tuya SDK Sample" id="CWv-aU-yDU"/>
+                    <navigationItem key="navigationItem" id="CWv-aU-yDU"/>
                     <connections>
                         <outlet property="loginButton" destination="Cbb-x5-OQ8" id="5gK-iQ-UZ1"/>
                         <outlet property="registerButton" destination="YiB-nC-tNo" id="Hxp-gk-jX0"/>
@@ -76,7 +92,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HL3-FY-208" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="501" y="-481"/>
+            <point key="canvasLocation" x="500.00000000000006" y="-481.47321428571428"/>
         </scene>
         <!--Login-->
         <scene sceneID="Pq1-j4-K17">
@@ -86,7 +102,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fzJ-Pe-riu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1070" y="-498"/>
+            <point key="canvasLocation" x="1082" y="-413"/>
         </scene>
         <!--Register-->
         <scene sceneID="e71-WZ-2iH">
@@ -103,8 +119,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d5n-Sr-JsU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Nch-4k-wVV">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nch-4k-wVV">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -118,14 +134,14 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="start_screen_bg" width="320" height="330"/>
+        <image name="start_screen_device" width="213" height="213"/>
+        <image name="start_screen_log" width="253" height="90"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

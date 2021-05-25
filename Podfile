@@ -4,6 +4,8 @@ source 'https://github.com/TuyaInc/TuyaPublicSpecs.git'
 target 'TuyaAppSDKSample-iOS-Swift' do
   pod 'SVProgressHUD'
   pod 'TuyaSmartHomeKit'
+  pod 'Then'
+  pod 'SnapKit'
 end
 
 post_install do |installer|

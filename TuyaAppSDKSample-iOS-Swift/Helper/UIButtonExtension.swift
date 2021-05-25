@@ -8,7 +8,7 @@ import UIKit
 
 extension UIButton {
     func roundCorner(radius: CGFloat = 5) {
-        self.layer.cornerRadius = 5.0
+        self.layer.cornerRadius = radius
         self.clipsToBounds = true
     }
 }

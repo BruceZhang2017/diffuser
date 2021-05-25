@@ -23,44 +23,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultStyle(.dark)
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        
-        if #available(iOS 13.0, *) {
-            // Will go into scene delegate
+        setupCommon()
+        if TuyaSmartUser.sharedInstance().isLogin {
+            // User has already logged, launch the app with the main view controller.
+            let storyboard = UIStoryboard(name: "TuyaSmartMain", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController()
+            window?.rootViewController = vc
+            window?.makeKeyAndVisible()
         } else {
-            if TuyaSmartUser.sharedInstance().isLogin {
-                // User has already logged, launch the app with the main view controller.
-                let storyboard = UIStoryboard(name: "TuyaSmartMain", bundle: nil)
-                let vc = storyboard.instantiateInitialViewController()
-                window?.rootViewController = vc
-                window?.makeKeyAndVisible()
-            } else {
-                // There's no user logged, launch the app with the login and register view controller.
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateInitialViewController()
-                window?.rootViewController = vc
-                window?.makeKeyAndVisible()
-            }
+            // There's no user logged, launch the app with the login and register view controller.
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController()
+            window?.rootViewController = vc
+            window?.makeKeyAndVisible()
         }
         
         return true
     }
-
-    // MARK: UISceneSession Lifecycle
-
-    @available(iOS 13.0, *)
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    
+    private func setupCommon() {
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UIBarButtonItem.appearance().tintColor = UIColor.hex(color: "BB9BC5")
     }
-
-    @available(iOS 13.0, *)
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
-
 }
 

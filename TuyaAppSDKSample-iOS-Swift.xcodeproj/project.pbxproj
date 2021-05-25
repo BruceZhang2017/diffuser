@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		10F4AAB953F4FBCFFBD0F199 /* libPods-TuyaAppSDKSample-iOS-Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A631D49E2E0E816D32C2CC /* libPods-TuyaAppSDKSample-iOS-Swift.a */; };
+		9A2556E6265BCFCC008B6946 /* screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2556E5265BCFCC008B6946 /* screen.png */; };
+		9A2556E8265BD036008B6946 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2556E7265BD036008B6946 /* logo.png */; };
+		9A2556EA265C82BE008B6946 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556E9265C82BE008B6946 /* RegisterViewController.swift */; };
+		9A2556EC265C9266008B6946 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556EB265C9266008B6946 /* BaseViewController.swift */; };
+		9A2556EE265C9274008B6946 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556ED265C9274008B6946 /* BaseTableViewController.swift */; };
+		9A2556F0265CA453008B6946 /* MTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556EF265CA453008B6946 /* MTextField.swift */; };
 		9AB5DFC3265A3FDF00E61BF4 /* t_s.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */; };
 		AF00605D25EC968A001462B8 /* TimeZoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */; };
 		AF00606125ECBF3A001462B8 /* TemperatureUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */; };
@@ -38,7 +44,6 @@
 		AF3B498C25B8093600286C4A /* APMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3B498A25B8093600286C4A /* APMode.storyboard */; };
 		AF3B499125B8095800286C4A /* DeviceList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3B498F25B8095800286C4A /* DeviceList.storyboard */; };
 		AF5531E025A5992500E13562 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5531DF25A5992500E13562 /* AppDelegate.swift */; };
-		AF5531E225A5992500E13562 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5531E125A5992500E13562 /* SceneDelegate.swift */; };
 		AF5531E925A5992800E13562 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF5531E825A5992800E13562 /* Assets.xcassets */; };
 		AF55320D25A59BE800E13562 /* AppKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF55320C25A59BE800E13562 /* AppKey.swift */; };
 		AF5E2F3E25A5A08600DAF14E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF5E2F3425A5A08600DAF14E /* LaunchScreen.storyboard */; };
@@ -72,6 +77,12 @@
 /* Begin PBXFileReference section */
 		207E8BAF216CF8ED00C5937A /* Pods-TuyaAppSDKSample-iOS-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyaAppSDKSample-iOS-Swift.release.xcconfig"; path = "Target Support Files/Pods-TuyaAppSDKSample-iOS-Swift/Pods-TuyaAppSDKSample-iOS-Swift.release.xcconfig"; sourceTree = "<group>"; };
 		98A631D49E2E0E816D32C2CC /* libPods-TuyaAppSDKSample-iOS-Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TuyaAppSDKSample-iOS-Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A2556E5265BCFCC008B6946 /* screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screen.png; sourceTree = "<group>"; };
+		9A2556E7265BD036008B6946 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		9A2556E9265C82BE008B6946 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		9A2556EB265C9266008B6946 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		9A2556ED265C9274008B6946 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		9A2556EF265CA453008B6946 /* MTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTextField.swift; sourceTree = "<group>"; };
 		9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = t_s.bmp; sourceTree = "<group>"; };
 		AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneTableViewController.swift; sourceTree = "<group>"; };
 		AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnitTableViewController.swift; sourceTree = "<group>"; };
@@ -104,7 +115,6 @@
 		AF3B499025B8095800286C4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DeviceList.storyboard; sourceTree = "<group>"; };
 		AF5531DC25A5992500E13562 /* TuyaAppSDKSample-iOS-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TuyaAppSDKSample-iOS-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF5531DF25A5992500E13562 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AF5531E125A5992500E13562 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AF5531E825A5992800E13562 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF5531ED25A5992800E13562 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF55320C25A59BE800E13562 /* AppKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKey.swift; sourceTree = "<group>"; };
@@ -173,6 +183,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9A2556E4265BCF6C008B6946 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				9A2556E5265BCFCC008B6946 /* screen.png */,
+				9A2556E7265BD036008B6946 /* logo.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		AF21C20425B03FAC00D52FBA /* Device Network Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,7 +243,7 @@
 				9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */,
 				AF55320C25A59BE800E13562 /* AppKey.swift */,
 				AF5531DF25A5992500E13562 /* AppDelegate.swift */,
-				AF5531E125A5992500E13562 /* SceneDelegate.swift */,
+				9A2556E4265BCF6C008B6946 /* Resource */,
 				AF5E2F3325A5A08600DAF14E /* StoryBoard */,
 				AF5E2F4625A5A4F300DAF14E /* ViewController */,
 				AF5E2F5025A5D5FB00DAF14E /* Helper */,
@@ -263,6 +282,8 @@
 		AF5E2F4625A5A4F300DAF14E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9A2556EB265C9266008B6946 /* BaseViewController.swift */,
+				9A2556ED265C9274008B6946 /* BaseTableViewController.swift */,
 				AF3A259B25A835AE003EB9FF /* MainViewController.swift */,
 				AF5E2F4725A5A51B00DAF14E /* TuyaSmartMainTableViewController.swift */,
 				AF5E2F4B25A5D26E00DAF14E /* User Management */,
@@ -277,6 +298,8 @@
 			isa = PBXGroup;
 			children = (
 				AF3A25B425A9ADD6003EB9FF /* AccountType.swift */,
+				9A2556EF265CA453008B6946 /* MTextField.swift */,
+				9A2556E9265C82BE008B6946 /* RegisterViewController.swift */,
 				AF5E2F4C25A5D28A00DAF14E /* RegisterTableViewController.swift */,
 				AF3A25A625A844DA003EB9FF /* LoginTableViewController.swift */,
 				AF3A25A925A98A77003EB9FF /* ResetPasswordTableViewController.swift */,
@@ -395,8 +418,10 @@
 			files = (
 				AF3B499125B8095800286C4A /* DeviceList.storyboard in Resources */,
 				AF5E66DC25F77E14001D3C15 /* ZigbeeSubdevice.storyboard in Resources */,
+				9A2556E8265BD036008B6946 /* logo.png in Resources */,
 				AF5E66D425F77DA7001D3C15 /* DualMode.storyboard in Resources */,
 				AF3B498C25B8093600286C4A /* APMode.storyboard in Resources */,
+				9A2556E6265BCFCC008B6946 /* screen.png in Resources */,
 				AF5E2F4125A5A08600DAF14E /* Login.storyboard in Resources */,
 				AF5E2F4025A5A08600DAF14E /* Main.storyboard in Resources */,
 				9AB5DFC3265A3FDF00E61BF4 /* t_s.bmp in Resources */,
@@ -487,6 +512,7 @@
 				AF00606B25EE6A41001462B8 /* DualModeTableViewController.swift in Sources */,
 				AFBB5BC225B95F3C006BDDD7 /* DeviceStatusBehaveCell.swift in Sources */,
 				AFBB5BBF25B95BBA006BDDD7 /* NotificationName.swift in Sources */,
+				9A2556EC265C9266008B6946 /* BaseViewController.swift in Sources */,
 				AF96112425B17F38000971CC /* DeviceListTableViewController.swift in Sources */,
 				AF00607225EE6C79001462B8 /* ZigbeeSubdeviceTableViewController.swift in Sources */,
 				AF3A259C25A835AE003EB9FF /* MainViewController.swift in Sources */,
@@ -495,10 +521,12 @@
 				AF00606E25EE6B30001462B8 /* ZigbeeGatewayViewController.swift in Sources */,
 				AF3A25D025AECFCF003EB9FF /* HomeDetailTableViewController.swift in Sources */,
 				AF3A25BD25AD9AE1003EB9FF /* NewHomeTableViewController.swift in Sources */,
+				9A2556EE265C9274008B6946 /* BaseTableViewController.swift in Sources */,
 				AF05ECC625CB968500C84AF6 /* DeviceDetailTableViewController.swift in Sources */,
 				AF21C20625B0400F00D52FBA /* EZModeTableViewController.swift in Sources */,
 				AF3A25AA25A98A77003EB9FF /* ResetPasswordTableViewController.swift in Sources */,
 				AF3A25A725A844DA003EB9FF /* LoginTableViewController.swift in Sources */,
+				9A2556F0265CA453008B6946 /* MTextField.swift in Sources */,
 				AF5E2F5225A5D60B00DAF14E /* Alert.swift in Sources */,
 				AF3A25B925AD7CC1003EB9FF /* UserInformationTableViewController.swift in Sources */,
 				AF3A25C125AE904C003EB9FF /* Home.swift in Sources */,
@@ -518,7 +546,7 @@
 				AF3A25B225A99E02003EB9FF /* UIViewControllerExtension.swift in Sources */,
 				AF9612F625B6C80E000971CC /* EnumTableViewCell.swift in Sources */,
 				AF96129D25B5ACE6000971CC /* SwitchTableViewCell.swift in Sources */,
-				AF5531E225A5992500E13562 /* SceneDelegate.swift in Sources */,
+				9A2556EA265C82BE008B6946 /* RegisterViewController.swift in Sources */,
 				AF96133C25B7085D000971CC /* StringTableViewCell.swift in Sources */,
 				AF3A25C925AE9F9A003EB9FF /* HomeListTableViewController.swift in Sources */,
 			);
