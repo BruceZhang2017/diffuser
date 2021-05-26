@@ -14,6 +14,13 @@
 		9A2556EC265C9266008B6946 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556EB265C9266008B6946 /* BaseViewController.swift */; };
 		9A2556EE265C9274008B6946 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556ED265C9274008B6946 /* BaseTableViewController.swift */; };
 		9A2556F0265CA453008B6946 /* MTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556EF265CA453008B6946 /* MTextField.swift */; };
+		9A2556F2265CCA73008B6946 /* LoginOtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556F1265CCA73008B6946 /* LoginOtherViewController.swift */; };
+		9A2556F4265D1A61008B6946 /* DeviceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556F3265D1A61008B6946 /* DeviceMainViewController.swift */; };
+		9A4CEFF9265DE4A20098071F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CEFF8265DE4A20098071F /* SettingsTableViewController.swift */; };
+		9A4CEFFB265E04A40098071F /* ContactUSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CEFFA265E04A40098071F /* ContactUSViewController.swift */; };
+		9A4CEFFD265E47A00098071F /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CEFFC265E47A00098071F /* FAQViewController.swift */; };
+		9A4CEFFF265E6ECB0098071F /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CEFFE265E6ECB0098071F /* MyAccountViewController.swift */; };
+		9A4CF001265E77B80098071F /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF000265E77B80098071F /* TutorialViewController.swift */; };
 		9AB5DFC3265A3FDF00E61BF4 /* t_s.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */; };
 		AF00605D25EC968A001462B8 /* TimeZoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */; };
 		AF00606125ECBF3A001462B8 /* TemperatureUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */; };
@@ -83,6 +90,13 @@
 		9A2556EB265C9266008B6946 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9A2556ED265C9274008B6946 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		9A2556EF265CA453008B6946 /* MTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTextField.swift; sourceTree = "<group>"; };
+		9A2556F1265CCA73008B6946 /* LoginOtherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOtherViewController.swift; sourceTree = "<group>"; };
+		9A2556F3265D1A61008B6946 /* DeviceMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMainViewController.swift; sourceTree = "<group>"; };
+		9A4CEFF8265DE4A20098071F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		9A4CEFFA265E04A40098071F /* ContactUSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUSViewController.swift; sourceTree = "<group>"; };
+		9A4CEFFC265E47A00098071F /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
+		9A4CEFFE265E6ECB0098071F /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
+		9A4CF000265E77B80098071F /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = t_s.bmp; sourceTree = "<group>"; };
 		AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneTableViewController.swift; sourceTree = "<group>"; };
 		AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnitTableViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +300,7 @@
 				9A2556ED265C9274008B6946 /* BaseTableViewController.swift */,
 				AF3A259B25A835AE003EB9FF /* MainViewController.swift */,
 				AF5E2F4725A5A51B00DAF14E /* TuyaSmartMainTableViewController.swift */,
+				9A4CEFF8265DE4A20098071F /* SettingsTableViewController.swift */,
 				AF5E2F4B25A5D26E00DAF14E /* User Management */,
 				AF3A25BB25AD9AC3003EB9FF /* Home Management */,
 				AF21C20425B03FAC00D52FBA /* Device Network Configuration */,
@@ -302,10 +317,15 @@
 				9A2556E9265C82BE008B6946 /* RegisterViewController.swift */,
 				AF5E2F4C25A5D28A00DAF14E /* RegisterTableViewController.swift */,
 				AF3A25A625A844DA003EB9FF /* LoginTableViewController.swift */,
+				9A2556F1265CCA73008B6946 /* LoginOtherViewController.swift */,
 				AF3A25A925A98A77003EB9FF /* ResetPasswordTableViewController.swift */,
 				AF3A25B825AD7CC1003EB9FF /* UserInformationTableViewController.swift */,
 				AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */,
 				AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */,
+				9A4CEFFA265E04A40098071F /* ContactUSViewController.swift */,
+				9A4CEFFC265E47A00098071F /* FAQViewController.swift */,
+				9A4CEFFE265E6ECB0098071F /* MyAccountViewController.swift */,
+				9A4CF000265E77B80098071F /* TutorialViewController.swift */,
 			);
 			path = "User Management";
 			sourceTree = "<group>";
@@ -329,6 +349,7 @@
 				AF96112325B17F38000971CC /* DeviceListTableViewController.swift */,
 				AF96129825B58CE1000971CC /* DeviceControlTableViewController.swift */,
 				AF05ECC525CB968500C84AF6 /* DeviceDetailTableViewController.swift */,
+				9A2556F3265D1A61008B6946 /* DeviceMainViewController.swift */,
 			);
 			path = "Device Management";
 			sourceTree = "<group>";
@@ -514,6 +535,8 @@
 				AFBB5BBF25B95BBA006BDDD7 /* NotificationName.swift in Sources */,
 				9A2556EC265C9266008B6946 /* BaseViewController.swift in Sources */,
 				AF96112425B17F38000971CC /* DeviceListTableViewController.swift in Sources */,
+				9A2556F2265CCA73008B6946 /* LoginOtherViewController.swift in Sources */,
+				9A4CF001265E77B80098071F /* TutorialViewController.swift in Sources */,
 				AF00607225EE6C79001462B8 /* ZigbeeSubdeviceTableViewController.swift in Sources */,
 				AF3A259C25A835AE003EB9FF /* MainViewController.swift in Sources */,
 				AF3A25A425A8426D003EB9FF /* UIButtonExtension.swift in Sources */,
@@ -532,17 +555,22 @@
 				AF3A25C125AE904C003EB9FF /* Home.swift in Sources */,
 				AF5E2F4825A5A51B00DAF14E /* TuyaSmartMainTableViewController.swift in Sources */,
 				AF3B498025B7D6C000286C4A /* DeviceControlCell.swift in Sources */,
+				9A4CEFFF265E6ECB0098071F /* MyAccountViewController.swift in Sources */,
+				9A4CEFF9265DE4A20098071F /* SettingsTableViewController.swift in Sources */,
 				AF00605D25EC968A001462B8 /* TimeZoneTableViewController.swift in Sources */,
 				AF00606125ECBF3A001462B8 /* TemperatureUnitTableViewController.swift in Sources */,
 				AF5E2F4D25A5D28A00DAF14E /* RegisterTableViewController.swift in Sources */,
+				9A2556F4265D1A61008B6946 /* DeviceMainViewController.swift in Sources */,
 				AF3A25B525A9ADD6003EB9FF /* AccountType.swift in Sources */,
 				AF37DBB425AEE842000EB0FD /* EditHomeTableViewController.swift in Sources */,
+				9A4CEFFD265E47A00098071F /* FAQViewController.swift in Sources */,
 				AF5531E025A5992500E13562 /* AppDelegate.swift in Sources */,
 				AF55320D25A59BE800E13562 /* AppKey.swift in Sources */,
 				AF00607625EE6D33001462B8 /* ChooseGatewayTableViewController.swift in Sources */,
 				AF60B88C25BBC1F600E18F6F /* APModeTableViewController.swift in Sources */,
 				AF9612F325B6C6ED000971CC /* SliderTableViewCell.swift in Sources */,
 				AF00606725EE638D001462B8 /* BLEModeViewController.swift in Sources */,
+				9A4CEFFB265E04A40098071F /* ContactUSViewController.swift in Sources */,
 				AF3A25B225A99E02003EB9FF /* UIViewControllerExtension.swift in Sources */,
 				AF9612F625B6C80E000971CC /* EnumTableViewCell.swift in Sources */,
 				AF96129D25B5ACE6000971CC /* SwitchTableViewCell.swift in Sources */,

@@ -14,7 +14,7 @@ class DeviceListTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 110)
         if Home.current != nil {
             home = TuyaSmartHome(homeId: Home.current!.homeId)
             home?.delegate = self
@@ -29,7 +29,9 @@ class DeviceListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return home?.deviceList.count ?? 0
+        let count = home?.deviceList.count ?? 0
+        view.isHidden = count == 0
+        return count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

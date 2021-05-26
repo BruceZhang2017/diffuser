@@ -7,18 +7,21 @@
 import UIKit
 import TuyaSmartBaseKit
 
-class LoginTableViewController: UITableViewController {
+let screenWidth = UIScreen.main.bounds.size.width
+let screenHeight = UIScreen.main.bounds.size.height
+
+class LoginTableViewController: BaseTableViewController {
     // MARK: - IBOutlet
-    @IBOutlet weak var countryCodeTextField: UITextField!
-    @IBOutlet weak var accountTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var countryCodeTextField: MTextField!
+    @IBOutlet weak var accountTextField: MTextField!
+    @IBOutlet weak var passwordTextField: MTextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var forgetPasswordButton: UIButton!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 150)
+        tableView.tableFooterView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 250)
     }
     
     @IBAction func loginTapped(_ sender: UIButton) {
@@ -74,7 +77,7 @@ class LoginTableViewController: UITableViewController {
         if indexPath.section == 1 {
             loginButton.sendActions(for: .touchUpInside)
         } else if indexPath.section == 2 {
-            forgetPasswordButton.sendActions(for: .touchUpInside)
+            //forgetPasswordButton.sendActions(for: .touchUpInside)
         }
     }
 }
