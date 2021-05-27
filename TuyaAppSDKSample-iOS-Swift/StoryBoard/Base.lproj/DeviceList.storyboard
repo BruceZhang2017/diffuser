@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -161,6 +162,103 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v4V-za-LmF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2540.579710144928" y="846.42857142857144"/>
+        </scene>
+        <!--ScanQR Code View Controller-->
+        <scene sceneID="U30-9r-RHt">
+            <objects>
+                <viewController storyboardIdentifier="ScanQRCodeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="s5v-Am-j8j" customClass="ScanQRCodeViewController" customModule="TuyaAppSDKSample_iOS_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g9h-87-335">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="wWK-7Y-bRV">
+                                <rect key="frame" x="190.5" y="44" width="33" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="3H4-nw-GdY"/>
+                                    <constraint firstAttribute="width" constant="33" id="WDO-Dr-1Pc"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCAN THE QR CODE TO GET STARTED" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5c4-sF-dyk">
+                                <rect key="frame" x="25" y="122" width="364" height="86"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <color key="textColor" red="0.1764705882352941" green="0.21568627450980393" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qy3-An-pq8">
+                                <rect key="frame" x="40" y="218" width="334" height="1"/>
+                                <color key="backgroundColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="9wb-ec-VmG"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bme-LK-8fc">
+                                <rect key="frame" x="25" y="810" width="364" height="1"/>
+                                <color key="backgroundColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="5bx-cI-Nb0"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My label is damaged/unreadable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EfB-bP-iSs">
+                                <rect key="frame" x="84" y="821" width="246" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.96078431372549022" green="0.396078431372549" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKF-aa-xtx">
+                                <rect key="frame" x="20" y="750" width="374" height="40"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.60784313729999995" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Rge-T0-YES"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Enter My S/N Number Manually"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="eCK-n2-h3S" kind="show" id="OPI-RX-0Td"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tKA-fT-D8Q">
+                                <rect key="frame" x="0.0" y="249" width="414" height="471"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tth-9U-CfW"/>
+                        <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="tth-9U-CfW" firstAttribute="bottom" secondItem="EfB-bP-iSs" secondAttribute="bottom" constant="20" id="3So-mU-eFC"/>
+                            <constraint firstAttribute="trailing" secondItem="Qy3-An-pq8" secondAttribute="trailing" constant="40" id="Au8-wO-4dj"/>
+                            <constraint firstItem="tKF-aa-xtx" firstAttribute="leading" secondItem="tth-9U-CfW" secondAttribute="leading" constant="20" id="DsZ-lW-kWJ"/>
+                            <constraint firstItem="Bme-LK-8fc" firstAttribute="leading" secondItem="g9h-87-335" secondAttribute="leading" constant="25" id="HuZ-NH-ii7"/>
+                            <constraint firstItem="Bme-LK-8fc" firstAttribute="top" secondItem="tKF-aa-xtx" secondAttribute="bottom" constant="20" id="JKv-fP-hgZ"/>
+                            <constraint firstItem="EfB-bP-iSs" firstAttribute="centerX" secondItem="tth-9U-CfW" secondAttribute="centerX" id="MT7-e2-jHo"/>
+                            <constraint firstItem="Qy3-An-pq8" firstAttribute="top" secondItem="5c4-sF-dyk" secondAttribute="bottom" constant="10" id="NDC-Xh-fAp"/>
+                            <constraint firstItem="Qy3-An-pq8" firstAttribute="leading" secondItem="g9h-87-335" secondAttribute="leading" constant="40" id="NbT-bd-oLc"/>
+                            <constraint firstItem="tKA-fT-D8Q" firstAttribute="top" secondItem="Qy3-An-pq8" secondAttribute="bottom" constant="30" id="Qbk-Gd-qbM"/>
+                            <constraint firstItem="5c4-sF-dyk" firstAttribute="leading" secondItem="g9h-87-335" secondAttribute="leading" constant="25" id="UEI-FQ-70f"/>
+                            <constraint firstItem="tth-9U-CfW" firstAttribute="trailing" secondItem="tKF-aa-xtx" secondAttribute="trailing" constant="20" id="Wwb-q2-RQb"/>
+                            <constraint firstItem="Qy3-An-pq8" firstAttribute="top" secondItem="5c4-sF-dyk" secondAttribute="bottom" constant="10" id="XGD-Hg-Chl"/>
+                            <constraint firstItem="EfB-bP-iSs" firstAttribute="top" secondItem="Bme-LK-8fc" secondAttribute="bottom" constant="10" id="dwt-Ac-R3c"/>
+                            <constraint firstItem="tth-9U-CfW" firstAttribute="trailing" secondItem="5c4-sF-dyk" secondAttribute="trailing" constant="25" id="dxu-sM-Qam"/>
+                            <constraint firstItem="tKF-aa-xtx" firstAttribute="top" secondItem="tKA-fT-D8Q" secondAttribute="bottom" constant="30" id="eVP-LM-qHv"/>
+                            <constraint firstItem="5c4-sF-dyk" firstAttribute="top" secondItem="wWK-7Y-bRV" secondAttribute="bottom" constant="30" id="g0c-Wj-fIQ"/>
+                            <constraint firstItem="wWK-7Y-bRV" firstAttribute="centerX" secondItem="tth-9U-CfW" secondAttribute="centerX" id="gpK-A1-gzR"/>
+                            <constraint firstItem="wWK-7Y-bRV" firstAttribute="top" secondItem="tth-9U-CfW" secondAttribute="top" id="h2X-zP-Kio"/>
+                            <constraint firstItem="tKA-fT-D8Q" firstAttribute="trailing" secondItem="tth-9U-CfW" secondAttribute="trailing" id="jzU-jr-jGZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Bme-LK-8fc" secondAttribute="trailing" constant="25" id="mqv-rj-naz"/>
+                            <constraint firstItem="tKA-fT-D8Q" firstAttribute="leading" secondItem="tth-9U-CfW" secondAttribute="leading" id="tSg-Ir-ezp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="qrView" destination="tKA-fT-D8Q" id="SJ3-0w-ArO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XPa-KV-m6c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2540.579710144928" y="1581.6964285714284"/>
         </scene>
         <!--Device Control Table View Controller-->
         <scene sceneID="zQY-uG-1BF">
@@ -525,6 +623,123 @@
             </objects>
             <point key="canvasLocation" x="4226" y="846"/>
         </scene>
+        <!--SNViewController-->
+        <scene sceneID="MEr-Rv-aTx">
+            <objects>
+                <viewController storyboardIdentifier="SNViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eCK-n2-h3S" userLabel="SNViewController" customClass="SNViewController" customModule="TuyaAppSDKSample_iOS_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CNE-SM-FPb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HpL-DI-hjA">
+                                <rect key="frame" x="190.5" y="0.0" width="33" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="Kqh-Kf-Bn8"/>
+                                    <constraint firstAttribute="width" constant="33" id="f0W-Ff-IDT"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HAVING TROUBLE WITH THE QR CODE? " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoc-xW-TH8">
+                                <rect key="frame" x="25" y="98" width="364" height="86"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <color key="textColor" red="0.1764705882352941" green="0.21568627450980393" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tm0-Wm-KB0">
+                                <rect key="frame" x="25" y="726" width="364" height="1"/>
+                                <color key="backgroundColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="EqR-a4-Dhs"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The S/N Number can be found on the bottom of the device" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKZ-e1-2Mv">
+                                <rect key="frame" x="20" y="747" width="374" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.1764705882352941" green="0.21568627450980393" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgS-bu-bNx">
+                                <rect key="frame" x="20" y="329.5" width="374" height="40"/>
+                                <color key="backgroundColor" red="0.73333333329999995" green="0.60784313729999995" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hva-Ck-jxC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Continue"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="continueNext:" destination="eCK-n2-h3S" eventType="touchUpInside" id="pXq-LP-c9i"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="S/N Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bqr-bs-AwI" customClass="MTextField" customModule="TuyaAppSDKSample_iOS_Swift" customModuleProvider="target">
+                                <rect key="frame" x="20" y="269.5" width="374" height="40"/>
+                                <color key="backgroundColor" red="0.92941176470588238" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="DrB-30-Efx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ENTER MY S/N NUMBER MANUALLY" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6f-dV-ucc">
+                                <rect key="frame" x="20" y="245" width="278.5" height="19.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="textColor" red="0.1764705882" green="0.2156862745" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hZa-cH-Rm6"/>
+                        <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="sgS-bu-bNx" firstAttribute="leading" secondItem="hZa-cH-Rm6" secondAttribute="leading" constant="20" id="3vo-rQ-qjG"/>
+                            <constraint firstItem="HpL-DI-hjA" firstAttribute="top" secondItem="hZa-cH-Rm6" secondAttribute="top" id="5Ti-QW-OCM"/>
+                            <constraint firstItem="hZa-cH-Rm6" firstAttribute="bottom" secondItem="QKZ-e1-2Mv" secondAttribute="bottom" constant="20" id="5hF-DR-LYV"/>
+                            <constraint firstItem="QKZ-e1-2Mv" firstAttribute="centerX" secondItem="hZa-cH-Rm6" secondAttribute="centerX" id="7xP-ZS-ReT"/>
+                            <constraint firstItem="Tm0-Wm-KB0" firstAttribute="leading" secondItem="CNE-SM-FPb" secondAttribute="leading" constant="25" id="Afg-kR-tt8"/>
+                            <constraint firstAttribute="trailing" secondItem="QKZ-e1-2Mv" secondAttribute="trailing" constant="20" id="ByC-AD-snZ"/>
+                            <constraint firstItem="yoc-xW-TH8" firstAttribute="leading" secondItem="CNE-SM-FPb" secondAttribute="leading" constant="25" id="N3R-jg-l7i"/>
+                            <constraint firstItem="hZa-cH-Rm6" firstAttribute="trailing" secondItem="yoc-xW-TH8" secondAttribute="trailing" constant="25" id="NDu-8A-bCG"/>
+                            <constraint firstItem="QKZ-e1-2Mv" firstAttribute="leading" secondItem="CNE-SM-FPb" secondAttribute="leading" constant="20" id="SeD-WK-JfY"/>
+                            <constraint firstItem="sgS-bu-bNx" firstAttribute="top" secondItem="bqr-bs-AwI" secondAttribute="bottom" constant="20" id="VOS-OP-sIU"/>
+                            <constraint firstItem="yoc-xW-TH8" firstAttribute="top" secondItem="HpL-DI-hjA" secondAttribute="bottom" constant="50" id="XfF-Xn-OnB"/>
+                            <constraint firstItem="bqr-bs-AwI" firstAttribute="top" secondItem="e6f-dV-ucc" secondAttribute="bottom" constant="5" id="Zoe-To-UrY"/>
+                            <constraint firstItem="hZa-cH-Rm6" firstAttribute="trailing" secondItem="bqr-bs-AwI" secondAttribute="trailing" constant="20" id="cTH-zr-0w2"/>
+                            <constraint firstItem="hZa-cH-Rm6" firstAttribute="trailing" secondItem="sgS-bu-bNx" secondAttribute="trailing" constant="20" id="fcc-JL-yxQ"/>
+                            <constraint firstItem="bqr-bs-AwI" firstAttribute="leading" secondItem="hZa-cH-Rm6" secondAttribute="leading" constant="20" id="kJd-C4-uau"/>
+                            <constraint firstItem="e6f-dV-ucc" firstAttribute="leading" secondItem="hZa-cH-Rm6" secondAttribute="leading" constant="20" id="omW-kZ-zpc"/>
+                            <constraint firstItem="e6f-dV-ucc" firstAttribute="top" secondItem="yoc-xW-TH8" secondAttribute="bottom" constant="61" id="slJ-US-gRZ"/>
+                            <constraint firstItem="HpL-DI-hjA" firstAttribute="centerX" secondItem="hZa-cH-Rm6" secondAttribute="centerX" id="wn6-MZ-mbL"/>
+                            <constraint firstAttribute="trailing" secondItem="Tm0-Wm-KB0" secondAttribute="trailing" constant="25" id="xiO-GI-lbQ"/>
+                            <constraint firstItem="QKZ-e1-2Mv" firstAttribute="top" secondItem="Tm0-Wm-KB0" secondAttribute="bottom" constant="20" id="z2P-ly-imW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="WNw-Mg-o6T"/>
+                    <connections>
+                        <outlet property="snTextfield" destination="bqr-bs-AwI" id="bmB-sH-I6X"/>
+                        <segue destination="O47-Rn-iws" kind="show" identifier="DualMode" id="kui-90-Gm6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bPR-6o-KsX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3426" y="1582"/>
+        </scene>
+        <!--DualMode-->
+        <scene sceneID="lbp-ps-GpZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DualMode" id="O47-Rn-iws" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Igh-g6-spq"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O5W-W9-ZD8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4119" y="1586"/>
+        </scene>
     </scenes>
     <resources>
         <image name="add" width="45.666667938232422" height="45.666667938232422"/>
@@ -532,6 +747,7 @@
         <image name="diffuser" width="117" height="117"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="f100" width="122.66666412353516" height="123"/>
+        <image name="logo" width="33" height="47.666667938232422"/>
         <image name="more_horiz_black" width="35" height="35"/>
         <image name="paperplane.fill" catalog="system" width="128" height="118"/>
         <systemColor name="secondaryLabelColor">

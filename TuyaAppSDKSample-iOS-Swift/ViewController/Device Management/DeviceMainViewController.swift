@@ -6,6 +6,8 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
+import AVKit
 
 class DeviceMainViewController: BaseViewController {
     @IBOutlet weak var tabView: UIView!
@@ -48,7 +50,20 @@ class DeviceMainViewController: BaseViewController {
         settingsVC.view.isHidden = false
         deviceList.view.isHidden = true
     }
+    
+    @IBAction private func handleConnectMyDevice(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "DeviceList", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as? ScanQRCodeViewController
+        vc?.scanResultDelegate = self
+        navigationController?.pushViewController(vc!, animated: true)
+    }
 
+    @IBAction private func watchtutorail(_ sender: Any) {
+        let player = AVPlayer(url: URL(string: "https://vd2.bdstatic.com//mda-ki5mbenfqf5hkpxn//mda-ki5mbenfqf5hkpxn.mp4?playlist=%5B%22hd%22%2C%22sc%22%5D&v_from_s=gz_haokan_4469&auth_key=1622043474-0-0-cdc5be81808e389dfacd496383d6a6f6&bcevod_channel=searchbox_feed&pd=1&pt=3&abtest=3000165_2")!)
+        let vc = AVPlayerViewController()
+        vc.player = player
+        present(vc, animated: true, completion: nil)
+    }
 }
 
 public extension UIDevice {
@@ -62,5 +77,18 @@ public extension UIDevice {
             }
         }
         return false
+    }
+}
+
+extension DeviceMainViewController: LBXScanViewControllerDelegate {
+    func scanFinished(scanResult: LBXScanResult, error: String?) {
+        NSLog("scanResult:\(scanResult)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+            [weak self] in
+            let sb = UIStoryboard(name: "DualMode", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "DualModeTableViewController")
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
 }

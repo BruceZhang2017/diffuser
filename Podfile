@@ -6,6 +6,8 @@ target 'TuyaAppSDKSample-iOS-Swift' do
   pod 'TuyaSmartHomeKit'
   pod 'Then'
   pod 'SnapKit'
+  pod 'Toaster'
+  pod 'IQKeyboardManagerSwift'
 end
 
 post_install do |installer|

@@ -7,7 +7,7 @@
 import UIKit
 import TuyaSmartBLEKit
 
-class DualModeTableViewController: UITableViewController {
+class DualModeViewController: UIViewController {
     
     // MARK: - IBOutlet
     @IBOutlet weak var ssidTextField: UITextField!
@@ -15,6 +15,11 @@ class DualModeTableViewController: UITableViewController {
     
     // MARK: - Property
     private var isSuccess = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "搜索", style: .plain, target: self, action: #selector(searchTapped(_:)))
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -22,7 +27,7 @@ class DualModeTableViewController: UITableViewController {
         stopConfiguring()
     }
 
-    @IBAction func searchTapped(_ sender: UIBarButtonItem) {
+    @objc func searchTapped(_ sender: UIBarButtonItem) {
         TuyaSmartBLEManager.sharedInstance().delegate = self
         
         // Start finding un-paired BLE devices, it's the same process as single BLE mode.
@@ -46,7 +51,7 @@ class DualModeTableViewController: UITableViewController {
     }
 }
 
-extension DualModeTableViewController: TuyaSmartBLEManagerDelegate {
+extension DualModeViewController: TuyaSmartBLEManagerDelegate {
     
     // When the BLE detector finds one un-paired BLE device, this delegate method will be called.
     func didDiscoveryDevice(withDeviceInfo deviceInfo: TYBLEAdvModel) {
@@ -70,7 +75,7 @@ extension DualModeTableViewController: TuyaSmartBLEManagerDelegate {
     }
 }
 
-extension DualModeTableViewController: TuyaSmartBLEWifiActivatorDelegate {
+extension DualModeViewController: TuyaSmartBLEWifiActivatorDelegate {
     
     // When the device connected to the router and activate itself successfully to the cloud, this delegate method will be called.
     func bleWifiActivator(_ activator: TuyaSmartBLEWifiActivator, didReceiveBLEWifiConfigDevice deviceModel: TuyaSmartDeviceModel?, error: Error?) {

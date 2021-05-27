@@ -288,8 +288,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OwQ-RZ-D4l">
-                                        <rect key="frame" x="19" y="278" width="374" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OwQ-RZ-D4l">
+                                        <rect key="frame" x="20" y="278" width="374" height="60"/>
                                         <color key="backgroundColor" red="0.73333333329999995" green="0.60784313729999995" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="uhU-PK-EhO"/>
@@ -301,6 +301,9 @@
                                                 <integer key="value" value="4"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handleConnectMyDevice:" destination="JuE-11-NEL" eventType="touchUpInside" id="Lcx-2q-2ZV"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tXK-sM-1o3">
                                         <rect key="frame" x="68" y="755" width="278.5" height="33"/>
@@ -317,6 +320,9 @@
                                                 <state key="normal" title="Watch a Setup Tutorial">
                                                     <color key="titleColor" red="0.73333333329999995" green="0.60784313729999995" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="watchtutorail:" destination="JuE-11-NEL" eventType="touchUpInside" id="4eo-Xy-H8c"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

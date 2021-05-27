@@ -6,6 +6,7 @@
 
 import UIKit
 import TuyaSmartBaseKit
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Initialize TuyaSmartSDK
         TuyaSmartSDK.sharedInstance().start(withAppKey: AppKey.appKey, secretKey: AppKey.secretKey)
-        
+        IQKeyboardManager.shared.enable = true
         // Enable debug mode, which allows you to see logs.
         #if DEBUG
         TuyaSmartSDK.sharedInstance().debugMode = true

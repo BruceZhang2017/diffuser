@@ -21,6 +21,10 @@
 		9A4CEFFD265E47A00098071F /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CEFFC265E47A00098071F /* FAQViewController.swift */; };
 		9A4CEFFF265E6ECB0098071F /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CEFFE265E6ECB0098071F /* MyAccountViewController.swift */; };
 		9A4CF001265E77B80098071F /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF000265E77B80098071F /* TutorialViewController.swift */; };
+		9A4CF005265E971A0098071F /* SNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF004265E971A0098071F /* SNViewController.swift */; };
+		9A4CF010265F0C8C0098071F /* LBXPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF009265F0C8B0098071F /* LBXPermissions.swift */; };
+		9A4CF011265F0C8C0098071F /* ScanQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF00A265F0C8C0098071F /* ScanQRCodeViewController.swift */; };
+		9A4CF014265F0C8C0098071F /* LBXScanWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF00D265F0C8C0098071F /* LBXScanWrapper.swift */; };
 		9AB5DFC3265A3FDF00E61BF4 /* t_s.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */; };
 		AF00605D25EC968A001462B8 /* TimeZoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */; };
 		AF00606125ECBF3A001462B8 /* TemperatureUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */; };
@@ -97,6 +101,10 @@
 		9A4CEFFC265E47A00098071F /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		9A4CEFFE265E6ECB0098071F /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		9A4CF000265E77B80098071F /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		9A4CF004265E971A0098071F /* SNViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNViewController.swift; sourceTree = "<group>"; };
+		9A4CF009265F0C8B0098071F /* LBXPermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXPermissions.swift; sourceTree = "<group>"; };
+		9A4CF00A265F0C8C0098071F /* ScanQRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRCodeViewController.swift; sourceTree = "<group>"; };
+		9A4CF00D265F0C8C0098071F /* LBXScanWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanWrapper.swift; sourceTree = "<group>"; };
 		9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = t_s.bmp; sourceTree = "<group>"; };
 		AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneTableViewController.swift; sourceTree = "<group>"; };
 		AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnitTableViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +212,16 @@
 				9A2556E7265BD036008B6946 /* logo.png */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		9A4CF006265F0C830098071F /* QR */ = {
+			isa = PBXGroup;
+			children = (
+				9A4CF009265F0C8B0098071F /* LBXPermissions.swift */,
+				9A4CF00A265F0C8C0098071F /* ScanQRCodeViewController.swift */,
+				9A4CF00D265F0C8C0098071F /* LBXScanWrapper.swift */,
+			);
+			path = QR;
 			sourceTree = "<group>";
 		};
 		AF21C20425B03FAC00D52FBA /* Device Network Configuration */ = {
@@ -344,12 +362,14 @@
 		AF96112225B17F1E000971CC /* Device Management */ = {
 			isa = PBXGroup;
 			children = (
+				9A4CF006265F0C830098071F /* QR */,
 				AF96129B25B5ACC2000971CC /* Cell */,
 				AF3B497F25B7D6C000286C4A /* DeviceControlCell.swift */,
 				AF96112325B17F38000971CC /* DeviceListTableViewController.swift */,
 				AF96129825B58CE1000971CC /* DeviceControlTableViewController.swift */,
 				AF05ECC525CB968500C84AF6 /* DeviceDetailTableViewController.swift */,
 				9A2556F3265D1A61008B6946 /* DeviceMainViewController.swift */,
+				9A4CF004265E971A0098071F /* SNViewController.swift */,
 			);
 			path = "Device Management";
 			sourceTree = "<group>";
@@ -533,6 +553,7 @@
 				AF00606B25EE6A41001462B8 /* DualModeTableViewController.swift in Sources */,
 				AFBB5BC225B95F3C006BDDD7 /* DeviceStatusBehaveCell.swift in Sources */,
 				AFBB5BBF25B95BBA006BDDD7 /* NotificationName.swift in Sources */,
+				9A4CF011265F0C8C0098071F /* ScanQRCodeViewController.swift in Sources */,
 				9A2556EC265C9266008B6946 /* BaseViewController.swift in Sources */,
 				AF96112425B17F38000971CC /* DeviceListTableViewController.swift in Sources */,
 				9A2556F2265CCA73008B6946 /* LoginOtherViewController.swift in Sources */,
@@ -541,11 +562,13 @@
 				AF3A259C25A835AE003EB9FF /* MainViewController.swift in Sources */,
 				AF3A25A425A8426D003EB9FF /* UIButtonExtension.swift in Sources */,
 				AF96134025B708AE000971CC /* LabelTableViewCell.swift in Sources */,
+				9A4CF005265E971A0098071F /* SNViewController.swift in Sources */,
 				AF00606E25EE6B30001462B8 /* ZigbeeGatewayViewController.swift in Sources */,
 				AF3A25D025AECFCF003EB9FF /* HomeDetailTableViewController.swift in Sources */,
 				AF3A25BD25AD9AE1003EB9FF /* NewHomeTableViewController.swift in Sources */,
 				9A2556EE265C9274008B6946 /* BaseTableViewController.swift in Sources */,
 				AF05ECC625CB968500C84AF6 /* DeviceDetailTableViewController.swift in Sources */,
+				9A4CF010265F0C8C0098071F /* LBXPermissions.swift in Sources */,
 				AF21C20625B0400F00D52FBA /* EZModeTableViewController.swift in Sources */,
 				AF3A25AA25A98A77003EB9FF /* ResetPasswordTableViewController.swift in Sources */,
 				AF3A25A725A844DA003EB9FF /* LoginTableViewController.swift in Sources */,
@@ -576,6 +599,7 @@
 				AF96129D25B5ACE6000971CC /* SwitchTableViewCell.swift in Sources */,
 				9A2556EA265C82BE008B6946 /* RegisterViewController.swift in Sources */,
 				AF96133C25B7085D000971CC /* StringTableViewCell.swift in Sources */,
+				9A4CF014265F0C8C0098071F /* LBXScanWrapper.swift in Sources */,
 				AF3A25C925AE9F9A003EB9FF /* HomeListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
