@@ -39,8 +39,9 @@ class DeviceListTableViewController: UITableViewController {
         
         guard let deviceModel = home?.deviceList[indexPath.row] else { return cell }
         
-        cell.textLabel?.text = deviceModel.name
-        cell.detailTextLabel?.text = deviceModel.isOnline ? NSLocalizedString("Online", comment: "") : NSLocalizedString("Offline", comment: "")
+        let name = deviceModel.name
+        let state = deviceModel.isOnline ? NSLocalizedString("Online", comment: "") : NSLocalizedString("Offline", comment: "")
+        print("当前设备的名称：\(name) 状态：\(state)")
         return cell
     }
     

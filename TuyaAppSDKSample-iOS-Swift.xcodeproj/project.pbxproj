@@ -25,7 +25,12 @@
 		9A4CF010265F0C8C0098071F /* LBXPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF009265F0C8B0098071F /* LBXPermissions.swift */; };
 		9A4CF011265F0C8C0098071F /* ScanQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF00A265F0C8C0098071F /* ScanQRCodeViewController.swift */; };
 		9A4CF014265F0C8C0098071F /* LBXScanWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF00D265F0C8C0098071F /* LBXScanWrapper.swift */; };
+		9A4CF017265FE5C00098071F /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF015265FE5BF0098071F /* LoadingViewController.swift */; };
+		9A4CF018265FE5C00098071F /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A4CF016265FE5BF0098071F /* LoadingViewController.xib */; };
+		9A4CF01A265FF3090098071F /* TuneSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF019265FF3090098071F /* TuneSettingsViewController.swift */; };
+		9A4CF01C2660788E0098071F /* AddSchedualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF01B2660788E0098071F /* AddSchedualViewController.swift */; };
 		9AB5DFC3265A3FDF00E61BF4 /* t_s.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */; };
+		9AD3DAD22661174200430376 /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD3DAD12661174200430376 /* DeviceTableViewCell.swift */; };
 		AF00605D25EC968A001462B8 /* TimeZoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */; };
 		AF00606125ECBF3A001462B8 /* TemperatureUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */; };
 		AF00606725EE638D001462B8 /* BLEModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606625EE638D001462B8 /* BLEModeViewController.swift */; };
@@ -105,7 +110,12 @@
 		9A4CF009265F0C8B0098071F /* LBXPermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXPermissions.swift; sourceTree = "<group>"; };
 		9A4CF00A265F0C8C0098071F /* ScanQRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRCodeViewController.swift; sourceTree = "<group>"; };
 		9A4CF00D265F0C8C0098071F /* LBXScanWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanWrapper.swift; sourceTree = "<group>"; };
+		9A4CF015265FE5BF0098071F /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		9A4CF016265FE5BF0098071F /* LoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
+		9A4CF019265FF3090098071F /* TuneSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneSettingsViewController.swift; sourceTree = "<group>"; };
+		9A4CF01B2660788E0098071F /* AddSchedualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSchedualViewController.swift; sourceTree = "<group>"; };
 		9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = t_s.bmp; sourceTree = "<group>"; };
+		9AD3DAD12661174200430376 /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
 		AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneTableViewController.swift; sourceTree = "<group>"; };
 		AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnitTableViewController.swift; sourceTree = "<group>"; };
 		AF00606625EE638D001462B8 /* BLEModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEModeViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +326,8 @@
 			children = (
 				9A2556EB265C9266008B6946 /* BaseViewController.swift */,
 				9A2556ED265C9274008B6946 /* BaseTableViewController.swift */,
+				9A4CF015265FE5BF0098071F /* LoadingViewController.swift */,
+				9A4CF016265FE5BF0098071F /* LoadingViewController.xib */,
 				AF3A259B25A835AE003EB9FF /* MainViewController.swift */,
 				AF5E2F4725A5A51B00DAF14E /* TuyaSmartMainTableViewController.swift */,
 				9A4CEFF8265DE4A20098071F /* SettingsTableViewController.swift */,
@@ -366,7 +378,10 @@
 				AF96129B25B5ACC2000971CC /* Cell */,
 				AF3B497F25B7D6C000286C4A /* DeviceControlCell.swift */,
 				AF96112325B17F38000971CC /* DeviceListTableViewController.swift */,
+				9AD3DAD12661174200430376 /* DeviceTableViewCell.swift */,
 				AF96129825B58CE1000971CC /* DeviceControlTableViewController.swift */,
+				9A4CF019265FF3090098071F /* TuneSettingsViewController.swift */,
+				9A4CF01B2660788E0098071F /* AddSchedualViewController.swift */,
 				AF05ECC525CB968500C84AF6 /* DeviceDetailTableViewController.swift */,
 				9A2556F3265D1A61008B6946 /* DeviceMainViewController.swift */,
 				9A4CF004265E971A0098071F /* SNViewController.swift */,
@@ -472,6 +487,7 @@
 				AF60B89825BC1F5600E18F6F /* NewHome.storyboard in Resources */,
 				AF5E66CF25F77D6B001D3C15 /* BLE.storyboard in Resources */,
 				AF5E2F3E25A5A08600DAF14E /* LaunchScreen.storyboard in Resources */,
+				9A4CF018265FE5C00098071F /* LoadingViewController.xib in Resources */,
 				AF5E2F3F25A5A08600DAF14E /* Register.storyboard in Resources */,
 				AF3B498725B808D700286C4A /* EZMode.storyboard in Resources */,
 				AF60B89E25BC1F6700E18F6F /* HomeList.storyboard in Resources */,
@@ -571,9 +587,11 @@
 				9A4CF010265F0C8C0098071F /* LBXPermissions.swift in Sources */,
 				AF21C20625B0400F00D52FBA /* EZModeTableViewController.swift in Sources */,
 				AF3A25AA25A98A77003EB9FF /* ResetPasswordTableViewController.swift in Sources */,
+				9A4CF017265FE5C00098071F /* LoadingViewController.swift in Sources */,
 				AF3A25A725A844DA003EB9FF /* LoginTableViewController.swift in Sources */,
 				9A2556F0265CA453008B6946 /* MTextField.swift in Sources */,
 				AF5E2F5225A5D60B00DAF14E /* Alert.swift in Sources */,
+				9A4CF01C2660788E0098071F /* AddSchedualViewController.swift in Sources */,
 				AF3A25B925AD7CC1003EB9FF /* UserInformationTableViewController.swift in Sources */,
 				AF3A25C125AE904C003EB9FF /* Home.swift in Sources */,
 				AF5E2F4825A5A51B00DAF14E /* TuyaSmartMainTableViewController.swift in Sources */,
@@ -595,6 +613,8 @@
 				AF00606725EE638D001462B8 /* BLEModeViewController.swift in Sources */,
 				9A4CEFFB265E04A40098071F /* ContactUSViewController.swift in Sources */,
 				AF3A25B225A99E02003EB9FF /* UIViewControllerExtension.swift in Sources */,
+				9AD3DAD22661174200430376 /* DeviceTableViewCell.swift in Sources */,
+				9A4CF01A265FF3090098071F /* TuneSettingsViewController.swift in Sources */,
 				AF9612F625B6C80E000971CC /* EnumTableViewCell.swift in Sources */,
 				AF96129D25B5ACE6000971CC /* SwitchTableViewCell.swift in Sources */,
 				9A2556EA265C82BE008B6946 /* RegisterViewController.swift in Sources */,

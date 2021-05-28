@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (TYBLEAgent *)getAgentWithAgentKey:(NSString *)AgentKey;
 
++ (NSArray *)getServiceUUIDsWithAgentKey:(NSString *)AgentKey;
+
 @end
 
 NS_ASSUME_NONNULL_END

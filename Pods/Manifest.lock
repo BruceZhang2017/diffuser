@@ -64,8 +64,8 @@ PODS:
   - TuyaSmartTimerKit (3.26.5):
     - TuyaSmartBaseKit
     - TuyaSmartDeviceKit
-  - TuyaSmartUtil (3.26.5)
-  - TYBluetooth (3.25.4)
+  - TuyaSmartUtil (3.26.6)
+  - TYBluetooth (3.26.5)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -127,8 +127,8 @@ SPEC CHECKSUMS:
   TuyaSmartSceneKit: 6c5a9c6b31fe2ecdc16b7d370375fc84a0b8e8ae
   TuyaSmartSocketChannelKit: 8a3aa43446577589e0e5f0bcf34b41173cbdb071
   TuyaSmartTimerKit: 5cf69cc647178ecdbf1bfba10687789514bfe958
-  TuyaSmartUtil: 9e380a1c9e4fa96cbfa53d5c53695dc6f7c8afb6
-  TYBluetooth: 46ed69a8b42a2a6566dd86af7a772f51719ed4ab
+  TuyaSmartUtil: f43d2102d6bc5888aac9aefa9e1fb6f16e1ba852
+  TYBluetooth: c62cd8c2b1aa7352f6948a5495f164b2fb928287
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
 PODFILE CHECKSUM: ba7b2affe9fa805797f93db37aaf750475dc1494

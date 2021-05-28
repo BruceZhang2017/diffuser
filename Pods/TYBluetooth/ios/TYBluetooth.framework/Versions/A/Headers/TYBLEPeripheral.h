@@ -43,6 +43,12 @@ typedef void(^TYBLECentralPeripheralRSSIValueCallback)(NSNumber *RSSI, NSError *
  *  flag of connection
  */
 @property (nonatomic, assign) BOOL isConnected;
+
+/**
+ *  是否是APP打开之前就已经连接的蓝牙设备
+ */
+@property (nonatomic, assign) BOOL isConnectedNotOpenApp;
+
 /**
  *  是否需要恢复设备的连接状态
  */

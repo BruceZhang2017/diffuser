@@ -12,19 +12,32 @@ class DualModeViewController: UIViewController {
     // MARK: - IBOutlet
     @IBOutlet weak var ssidTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImageView: UIImageView!
     
     // MARK: - Property
     private var isSuccess = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "搜索", style: .plain, target: self, action: #selector(searchTapped(_:)))
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         stopConfiguring()
+    }
+    
+    private func startSearch() {
+        // 创建动画
+        let anim = CABasicAnimation(keyPath: "transform.rotation")
+        // 设置动画属性
+        anim.toValue = 2 * Double.pi
+        anim.repeatCount = MAXFLOAT
+        anim.duration = 5
+        anim.isRemovedOnCompletion = false
+        // 将动画添加到图层上
+        searchImageView.layer.add(anim, forKey: nil)
     }
 
     @objc func searchTapped(_ sender: UIBarButtonItem) {
@@ -60,6 +73,16 @@ extension DualModeViewController: TuyaSmartBLEManagerDelegate {
             return
         }
         
+        let type = deviceInfo.bleType
+        
+        guard
+            type == TYSmartBLETypeBLEWifiSecurity ||
+            type == TYSmartBLETypeBLEWifi ||
+            type == TYSmartBLETypeBLELTESecurity
+        else {
+            return
+        }
+        
         SVProgressHUD.show(withStatus: NSLocalizedString("Sending Data to the Device", comment: "Sending Data to the BLE Device"))
         
         // Found a BLE device, then try to config that using TuyaSmartBLEWifiActivator.
@@ -79,9 +102,15 @@ extension DualModeViewController: TuyaSmartBLEWifiActivatorDelegate {
     
     // When the device connected to the router and activate itself successfully to the cloud, this delegate method will be called.
     func bleWifiActivator(_ activator: TuyaSmartBLEWifiActivator, didReceiveBLEWifiConfigDevice deviceModel: TuyaSmartDeviceModel?, error: Error?) {
-        let name = deviceModel?.name ?? NSLocalizedString("Unknown Name", comment: "Unknown name device.")
-        SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Successfully Added \(name)", comment: "Successfully added one device."))
-        isSuccess = true
-        self.navigationController?.popViewController(animated: true)
+            guard error == nil,
+                  let deviceModel = deviceModel else {
+                return
+            }
+            
+            let name = deviceModel.name ?? NSLocalizedString("Unknown Name", comment: "Unknown name device.")
+            
+            SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Successfully Added \(name)", comment: "Successfully added one device."))
+            isSuccess = true
+            self.navigationController?.popViewController(animated: true)
     }
 }

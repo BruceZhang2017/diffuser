@@ -15,8 +15,8 @@ class DeviceMainViewController: BaseViewController {
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var tabHeight: NSLayoutConstraint!
     @IBOutlet weak var nullView: UIView!
-    var deviceList:  DeviceListTableViewController!
-    var settingsVC: SettingsTableViewController!
+    var deviceList:  DeviceListTableViewController! // 设备列表
+    var settingsVC: SettingsTableViewController! // 设置页面
     
     override func viewDidLoad() {
         super.viewDidLoad()
