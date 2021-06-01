@@ -67,16 +67,9 @@ class DeviceListTableViewController: UITableViewController {
         let cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: Int] ?? [:]
         value = cache[deviceModel.devId] ?? 0
         if value == 0 {
-            for schema in deviceModel.schemaArray {
-                if schema.name == "亮度值" {
-                    let dps = deviceModel.dps
-                    value = dps?[schema.dpId] as? Int ?? 0
-                }
-                if schema.name == "工作模式" {
-                    let dps = deviceModel.dps
-                    work = dps?[schema.dpId] as? Int ?? 0
-                }
-            }
+            let dps = deviceModel.dps
+            value = dps?["7"] as? Int ?? 0
+            work = dps?["2"] as? Int ?? 0
         }
         if value >= 128 {
             cell.scentLabel.isHidden = false
@@ -175,13 +168,7 @@ extension DeviceListTableViewController: DeviceTableViewCellDelegate {
         if deviceModel.isOnline {
             guard let deviceID = deviceModel.devId else { return }
             guard let device = TuyaSmartDevice(deviceId: deviceID) else { return }
-            for schema in deviceModel.schemaArray {
-                if schema.name == "工作模式" {
-                    guard let pid = schema.dpId else { return }
-                    publishMessage(with: [pid: button.isSelected ? "1" : "2"], device: device)
-                    break
-                }
-            }
+            publishMessage(with: ["2": button.isSelected ? "1" : "2"], device: device)
             button.isSelected = !button.isSelected
             if button.isSelected {
                 button.backgroundColor = UIColor.hex(color: "F94C4C")

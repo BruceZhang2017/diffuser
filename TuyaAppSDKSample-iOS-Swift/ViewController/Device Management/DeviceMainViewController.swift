@@ -138,13 +138,7 @@ class DeviceMainViewController: BaseViewController {
         if deviceModel.isOnline {
             guard let deviceID = deviceModel.devId else { return }
             guard let device = TuyaSmartDevice(deviceId: deviceID) else { return }
-            for schema in deviceModel.schemaArray {
-                if schema.name == "亮度值" {
-                    guard let pid = schema.dpId else { return }
-                    publishMessage(with: [pid: value], device: device)
-                    break
-                }
-            }
+            publishMessage(with: ["7": value], device: device)
         }
         deviceList?.tableView.reloadData()
     }

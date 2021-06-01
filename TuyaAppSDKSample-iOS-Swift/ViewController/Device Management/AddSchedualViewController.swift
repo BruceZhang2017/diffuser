@@ -6,6 +6,7 @@
 
 import UIKit
 import TuyaSmartDeviceCoreKit
+import Toaster
 
 class AddSchedualViewController: BaseViewController {
     @IBOutlet weak var confirmButton: UIButton!
@@ -28,6 +29,35 @@ class AddSchedualViewController: BaseViewController {
         tap2.numberOfTapsRequired = 1
         endLabel.addGestureRecognizer(tap2)
         
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "HH:mm"
+        let date = Date()
+        startTime = dateformatter.string(from: date)
+        endTime = startTime
+        
+        var value = startTime.split(separator: ":")
+        if value.count == 2 {
+            let hour = Int(value[0]) ?? 0
+            if hour >= 12 {
+                startLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+            } else {
+                startLabel.text = "\(startTime) AM"
+            }
+        }
+        
+        value = endTime.split(separator: ":")
+        if value.count == 2 {
+            let hour = Int(value[0]) ?? 0
+            if hour >= 12 {
+                endLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+            } else {
+                endLabel.text = "\(endTime) AM"
+            }
+        }
+        
+        for (i, value) in days.enumerated() {
+            buttons[i].isSelected = value > 0
+        }
     }
     
     @IBAction func selectDay(_ sender: Any) {
@@ -36,19 +66,43 @@ class AddSchedualViewController: BaseViewController {
     }
     
     @IBAction func confirm(_ sender: Any) {
+        if startTime.count == 0 || endTime.count == 0 || startTime == endTime {
+            Toast(text: "请选择时间").show()
+            return
+        }
+//        if startTime.compare(endTime) != .orderedAscending {
+//            Toast(text: "开始时间不能晚于结束时间").show()
+//            return
+//        }
+        var selected = false
+        for button in buttons {
+            if button.isSelected {
+                selected = true
+                break
+            }
+        }
+        if !selected {
+            Toast(text: "星期几必须需要").show()
+            return
+        }
+        
         var value = "8A"
         var d = 0
-        for (i, day) in days.enumerated() {
-            d += day << i
+        for (i, day) in buttons.enumerated() {
+            d += ((day.isSelected ? 1 : 0) << i)
         }
         let st = NSString(format:"%2X", d) as String
+        print("天数：\(d) \(st)")
         value += st
         value += "0c060624"
         for schedual in scheduals {
-            value += schedual
+            value += schedual.replacingOccurrences(of: ":", with: "").replacingOccurrences(of: "-", with: "")
         }
-        if scheduals.count < 5 {
-            let count = 5 - scheduals.count
+        let s = startTime.replacingOccurrences(of: ":", with: "")
+        let e = endTime.replacingOccurrences(of: ":", with: "")
+        value += "\(s)\(e)"
+        if scheduals.count + 1 < 5 {
+            let count = 5 - scheduals.count - 1
             for _ in 0..<count {
                 value += "00000000"
             }
@@ -57,6 +111,12 @@ class AddSchedualViewController: BaseViewController {
     }
     
     private func showAlert() {
+        for i in 0..<7 {
+            let v = buttons[i].isSelected ? 1 : 0
+            days[i] = Int(v)
+        }
+        scheduals.append("\(startTime)-\(endTime)")
+        
         let vc = LoadingViewController(nibName: "LoadingViewController", bundle: nil)
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overCurrentContext
@@ -119,8 +179,8 @@ extension AddSchedualViewController: ShuKeTimerPickerViewDelegate {
             let value = startTime.split(separator: ":")
             if value.count == 2 {
                 let hour = Int(value[0]) ?? 0
-                if hour > 12 {
-                    startLabel.text = "\(String(format: "%2d", hour - 12)):\(value[1]) PM"
+                if hour >= 12 {
+                    startLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
                 } else {
                     startLabel.text = "\(startTime) AM"
                 }
@@ -130,8 +190,8 @@ extension AddSchedualViewController: ShuKeTimerPickerViewDelegate {
             let value = endTime.split(separator: ":")
             if value.count == 2 {
                 let hour = Int(value[0]) ?? 0
-                if hour > 12 {
-                    endLabel.text = "\(String(format: "%2d", hour - 12)):\(value[1]) PM"
+                if hour >= 12 {
+                    endLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
                 } else {
                     endLabel.text = "\(endTime) AM"
                 }

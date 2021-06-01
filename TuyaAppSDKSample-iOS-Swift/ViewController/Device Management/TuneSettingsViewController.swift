@@ -6,6 +6,7 @@
 
 import UIKit
 import TuyaSmartDeviceCoreKit
+import Toaster
 
 var days = [0, 0, 0, 0, 0, 0, 0]
 var scheduals: [String] = []
@@ -31,6 +32,11 @@ class TuneSettingsViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleScent(_:)), name: Notification.Name("TuneSettings"), object: nil)
         refreshScent()
         deviceNameLabel.text = device?.deviceModel.name
+        deviceNameLabel.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(modifyName))
+        tap.numberOfTapsRequired = 1
+        deviceNameLabel.addGestureRecognizer(tap)
+        
         refreshIntensity()
         for button in dayButtons {
             button.setTitleColor(UIColor.hex(color: "32D62F"), for: .selected)
@@ -38,16 +44,40 @@ class TuneSettingsViewController: BaseViewController {
         publishMessage(with: ["8" : "8A"])
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if scheduals.count > 0 {
+            refreshButtons()
+            refreshSchedual()
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let d = segue.destination
-        guard let vc = d as? AddSchedualViewController else {
-            return
-        }
-        vc.device = device
+    @objc private func modifyName() {
+        let alertController = UIAlertController(title: "修改设备名称", message: nil, preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: { [weak self] (textField: UITextField!) -> Void in
+            textField.placeholder = "请输入"
+            textField.text = self?.deviceNameLabel.text
+        })
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确认", style: .default , handler: { [weak self] (action: UIAlertAction!) -> Void in
+            let login = (alertController.textFields?.first)! as UITextField
+            let str = login.text ?? "no name"
+            self?.deviceNameLabel.text = str
+            self?.device?.updateName(str, success: {
+                
+            }, failure: { error in
+                
+            })
+            
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     
     private func refreshButtons() {
@@ -58,34 +88,70 @@ class TuneSettingsViewController: BaseViewController {
     
     private func refreshSchedual() {
         if scheduals.count > 0 {
-            let item = scheduals[0]
+            guard let item = scheduals.last else {
+                return
+            }
             let array = item.split(separator: "-").map({String($0)})
             if array.count != 2 {
                 return
             }
             var value = array[0].split(separator: ":")
             var hour = Int(value[0]) ?? 0
-            if hour > 12 {
-                startLabel.text = "\(String(format: "%2d", hour - 12)):\(value[1]) PM"
+            if hour >= 12 {
+                startLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
             } else {
                 startLabel.text = "\(array[0]) AM"
             }
             
             value = array[1].split(separator: ":")
             hour = Int(value[0]) ?? 0
-            if hour > 12 {
-                endLabel.text = "\(String(format: "%2d", hour - 12)):\(value[1]) PM"
+            if hour >= 12 {
+                endLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
             } else {
                 endLabel.text = "\(array[1]) AM"
             }
+        } else {
+            startLabel.text = "00:00 AM"
+            endLabel.text = "00:00 AM"
         }
     }
     
     @IBAction private func deleteSchedual(_ sender: Any) {
+        if !(device?.deviceModel.isOnline ?? false) {
+            Toast(text: "设备不在线").show()
+            return
+        }
+        if scheduals.count == 0 {
+            Toast(text: "you don't have a schedual").show()
+            return
+        }
         let alert = UIAlertController(title: nil, message: "Are you sure you want to delete this schedule?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        let delete = UIAlertAction(title: "Delete", style: .default, handler: { action in
-            
+        let delete = UIAlertAction(title: "Delete", style: .default, handler: { [weak self] action in
+            var value = "8A"
+            var d = 0
+            for (i, day) in days.enumerated() {
+                d += (day << i)
+            }
+            let st = NSString(format:"%2X", d) as String
+            print("天数：\(d) \(st)")
+            value += st
+            value += "0c060624"
+            for (i, schedual) in scheduals.enumerated() {
+                if i == scheduals.count - 1 {
+                    break
+                }
+                value += schedual.replacingOccurrences(of: ":", with: "").replacingOccurrences(of: "-", with: "")
+            }
+            if scheduals.count - 1 < 5 {
+                let count = 5 - scheduals.count + 1
+                for _ in 0..<count {
+                    value += "00000000"
+                }
+            }
+            self?.publishMessage(with: ["8" : value])
+            scheduals.removeLast()
+            self?.refreshSchedual()
         })
         alert.addAction(delete)
         present(alert, animated: true, completion: nil)
@@ -136,6 +202,16 @@ class TuneSettingsViewController: BaseViewController {
         }
     }
     
+    @IBAction func addNewSchedual(_ sender: Any) {
+        if scheduals.count >= 5 {
+            Toast(text: "schedual数量最多可添加5个").show()
+            return
+        }
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AddSchedualViewController") as? AddSchedualViewController
+        vc?.device = device
+        navigationController?.pushViewController(vc!, animated: true)
+    }
+    
     @objc public func handleScent(_ notification: Notification) {
         let obj = notification.object as? Int ?? 0
         let scent = obj + 100
@@ -165,51 +241,25 @@ class TuneSettingsViewController: BaseViewController {
             intensityValueLabel.text = "2"
         }
         let value2 = intensityValueLabel.text ?? "1"
-        guard let device = device else { return }
-        
-        guard let schemas = device.deviceModel.schemaArray else { return }
-        for schema in schemas {
-            if schema.name == "雾量" {
-                guard let dpID = schema.dpId
-                else { return }
-                publishMessage(with: [dpID : value2])
-                break
-            }
-        }
+        publishMessage(with: ["101" : value2])
     }
     
     private func refreshIntensity() {
         guard let device = device else { return }
-        
-        guard let schemas = device.deviceModel.schemaArray else { return }
         let dps = device.deviceModel.dps
-        for schema in schemas {
-            if schema.name == "雾量" {
-                guard let dpID = schema.dpId,
-                      let dps = dps,
-                      let option = dps[dpID] as? String
-                else { return }
-                intensityValueLabel.text = option
-                break
-            }
-        }
+        intensityValueLabel.text = dps?["101"] as? String
     }
     
     private func refreshScent() {
         guard let dev = device else {
             return
         }
+        let dps = dev.deviceModel.dps
         var value = 0
         let cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: Int] ?? [:]
         value = cache[dev.deviceModel.devId] ?? 0
         if value == 0 {
-            for schema in dev.deviceModel.schemaArray {
-                if schema.name == "亮度值" {
-                    let dps = dev.deviceModel.dps
-                    value = dps?[schema.dpId] as? Int ?? 0
-                    break
-                }
-            }
+            value = dps?["7"] as? Int ?? 0
         }
         let scent = ((value >> 2) & 0b00011111) + 100
         scentNameLabel.text = scentName["\(scent)"]
@@ -221,7 +271,9 @@ class TuneSettingsViewController: BaseViewController {
 
         device?.publishDps(dps, success: {
             [weak self] in
-            self?.perform(#selector(TuneSettingsViewController.handle8CMD), with: nil, afterDelay: 2)
+            if let _ = dps["8"] {
+                self?.perform(#selector(TuneSettingsViewController.handle8CMD), with: nil, afterDelay: 2)
+            }
         }, failure: { (error) in
             let errorMessage = error?.localizedDescription ?? ""
             SVProgressHUD.showError(withStatus: errorMessage)

@@ -9,7 +9,6 @@
 #import "ShuKeTimerPickerView.h"
 
 #define ToobarHeight 44
-#define RED_COLOR [UIColor colorWithRed:196/255.0f green:0 blue:14/255.0f alpha:1]
 
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -90,7 +89,7 @@
     _toolbar = [self setToolbarStyle];
     [self setToolbarWithPickViewFrame];
     
-    _toolbar.barTintColor = RED_COLOR;
+    _toolbar.barTintColor = [UIColor colorWithRed:50 / 255.0 green:214 / 255.0 blue:47 / 255.0 alpha:1];
     _toolbar.tintColor = [UIColor whiteColor];
     
     [self addSubview:_toolbar];
