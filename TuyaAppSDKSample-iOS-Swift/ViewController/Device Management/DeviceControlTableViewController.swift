@@ -16,7 +16,7 @@ class DeviceControlTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.title = device?.deviceModel.name
         device?.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(deviceHasRemoved(_:)), name: .SVProgressHUDDidDisappear, object: nil)

@@ -5,12 +5,18 @@
 //  Copyright (c) 2014-2021 Tuya Inc. (https://developer.tuya.com/)
 
 import UIKit
+import TuyaSmartBaseKit
 
 class SettingsTableViewController: UITableViewController {
-
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var versionLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 150)
+        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 130)
+        usernameLabel.text = TuyaSmartUser.sharedInstance().userName
+        emailLabel.text = TuyaSmartUser.sharedInstance().email
     }
 
     // MARK: - Table view data source

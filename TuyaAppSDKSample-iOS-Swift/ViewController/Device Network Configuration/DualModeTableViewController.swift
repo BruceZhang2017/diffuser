@@ -6,6 +6,9 @@
 
 import UIKit
 import TuyaSmartBLEKit
+import Toaster
+
+let locations = ["Downstairs / Main Living", "Business", "Suite", "Custom"]
 
 class DualModeViewController: UIViewController {
     
@@ -13,13 +16,24 @@ class DualModeViewController: UIViewController {
     @IBOutlet weak var ssidTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var ssidView: UIView!
+    @IBOutlet weak var configView: UIView!
+    @IBOutlet weak var finishView: UIView!
     @IBOutlet weak var searchImageView: UIImageView!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var timeZoneLabel: UILabel!
+    
+    var homeID: Int64 = 0
+    var deviceInfo: TYBLEAdvModel?
+    var deviceModel: TuyaSmartDeviceModel?
     
     // MARK: - Property
     private var isSuccess = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ssidTextField.text = UserDefaults.standard.string(forKey: "ssid")
+        passwordTextField.text = UserDefaults.standard.string(forKey: "pwd")
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -40,13 +54,11 @@ class DualModeViewController: UIViewController {
         searchImageView.layer.add(anim, forKey: nil)
     }
 
-    @objc func searchTapped(_ sender: UIBarButtonItem) {
+    func searchTapped() {
         TuyaSmartBLEManager.sharedInstance().delegate = self
         
         // Start finding un-paired BLE devices, it's the same process as single BLE mode.
         TuyaSmartBLEManager.sharedInstance().startListening(true)
-        
-        SVProgressHUD.show(withStatus: NSLocalizedString("Searching", comment: ""))
         
     }
     
@@ -61,6 +73,102 @@ class DualModeViewController: UIViewController {
         
         TuyaSmartBLEWifiActivator.sharedInstance().bleWifiDelegate = nil
         TuyaSmartBLEWifiActivator.sharedInstance().stopDiscover()
+    }
+    
+    @IBAction func getConnecting(_ sender: Any) {
+        searchView.isHidden = false
+        startSearch()
+        searchTapped()
+    }
+    
+    @IBAction func connectWithSSIDAndPwd(_ sender: Any) {
+        guard let ssid = ssidTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), ssid.count > 0 else {
+            Toast(text: "请输入SSID").show()
+            return
+        }
+        guard let pwd = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), pwd.count > 0 else {
+            Toast(text: "请输入密码").show()
+            return
+        }
+        UserDefaults.standard.setValue(ssid, forKey: "ssid")
+        UserDefaults.standard.setValue(pwd, forKey: "pwd")
+        UserDefaults.standard.synchronize()
+        connectDevice()
+    }
+    @IBAction func continueWithConfi(_ sender: Any) {
+        finishView.isHidden = false
+    }
+    
+    @IBAction func finished(_ sender: Any) {
+        NotificationCenter.default.post(name: Notification.Name("AddDevice"), object: nil)
+        let vcs = navigationController?.viewControllers ?? []
+        for vc in vcs {
+            if vc is DeviceMainViewController {
+                navigationController?.popToViewController(vc, animated: true)
+                break
+            }
+        }
+    }
+    
+    @IBAction func changeLocation(_ sender: Any) {
+        Alert.showBasicAction(on: self,
+                              with: "Diffuser Location",
+                              message: "",
+                              actions: [
+                                UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                                    
+                                }),
+                                UIAlertAction(title: locations[0], style: .default, handler: { [weak self] action in
+                                    self?.timeZoneLabel.text = locations[0]
+                                    UserDefaults.standard.setValue([self?.deviceModel?.devId ?? "": 0], forKey: "location")
+                                }),
+                                UIAlertAction(title: locations[1], style: .default, handler: { [weak self] action in
+                                    self?.timeZoneLabel.text = locations[1]
+                                    UserDefaults.standard.setValue([self?.deviceModel?.devId ?? "": 1], forKey: "location")
+                                }),
+                                UIAlertAction(title: locations[2], style: .default, handler: { [weak self] action in
+                                    self?.timeZoneLabel.text = locations[2]
+                                    UserDefaults.standard.setValue([self?.deviceModel?.devId ?? "": 2], forKey: "location")
+                                }),
+                                UIAlertAction(title: locations[3], style: .default, handler: { [weak self] action in
+                                    self?.timeZoneLabel.text = locations[3]
+                                    UserDefaults.standard.setValue([self?.deviceModel?.devId ?? "": 3], forKey: "location")
+                                })]
+        )
+    }
+    
+    @IBAction func changeTimezone(_ sender: Any) {
+        Alert.showBasicAction(on: self,
+                              with: "Time Zone",
+                              message: "",
+                              actions: [
+                                UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+                                    
+                                }),
+                                UIAlertAction(title: "Mountain Standard Time", style: .default, handler: { [weak self] action in
+                                    self?.timeZoneLabel.text = "Mountain Standard Time"
+                                }),
+                                UIAlertAction(title: "Pacific Standard Time", style: .default, handler: { [weak self] action in
+                                    self?.timeZoneLabel.text = "Pacific Standard Time"
+                                }),
+                                UIAlertAction(title: "Eastern Standard Time", style: .default, handler: { [weak self] action in
+                                    self?.timeZoneLabel.text = "Eastern Standard Time"
+                                })]
+        )
+    }
+    
+    private func connectDevice() {
+        // Found a BLE device, then try to config that using TuyaSmartBLEWifiActivator.
+        guard let deviceInfo = deviceInfo else {
+            return
+        }
+        TuyaSmartBLEWifiActivator.sharedInstance().bleWifiDelegate = self
+        
+        TuyaSmartBLEWifiActivator.sharedInstance().startConfigBLEWifiDevice(withUUID: deviceInfo.uuid, homeId: homeID, productId: deviceInfo.productId, ssid: ssidTextField.text ?? "", password: passwordTextField.text ?? "", timeout: 100) {
+            SVProgressHUD.show(withStatus: NSLocalizedString("Configuring", comment: ""))
+        } failure: {
+            SVProgressHUD.showError(withStatus: NSLocalizedString("Failed to Send Data to the Device", comment: ""))
+        }
     }
 }
 
@@ -83,18 +191,9 @@ extension DualModeViewController: TuyaSmartBLEManagerDelegate {
             return
         }
         
-        SVProgressHUD.show(withStatus: NSLocalizedString("Sending Data to the Device", comment: "Sending Data to the BLE Device"))
-        
-        // Found a BLE device, then try to config that using TuyaSmartBLEWifiActivator.
-        
-        TuyaSmartBLEWifiActivator.sharedInstance().bleWifiDelegate = self
-        
-        TuyaSmartBLEWifiActivator.sharedInstance().startConfigBLEWifiDevice(withUUID: deviceInfo.uuid, homeId: homeID, productId: deviceInfo.productId, ssid: ssidTextField.text ?? "", password: passwordTextField.text ?? "", timeout: 100) {
-            SVProgressHUD.show(withStatus: NSLocalizedString("Configuring", comment: ""))
-        } failure: {
-            SVProgressHUD.showError(withStatus: NSLocalizedString("Failed to Send Data to the Device", comment: ""))
-        }
-
+        ssidView.isHidden = false
+        self.homeID = homeID
+        self.deviceInfo = deviceInfo
     }
 }
 
@@ -111,6 +210,20 @@ extension DualModeViewController: TuyaSmartBLEWifiActivatorDelegate {
             
             SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Successfully Added \(name)", comment: "Successfully added one device."))
             isSuccess = true
-            self.navigationController?.popViewController(animated: true)
+        self.deviceModel = deviceModel
+        
+        let vc = LoadingViewController(nibName: "LoadingViewController", bundle: nil)
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.delegate = self
+        present(vc, animated: true) {
+            
+        }
+    }
+}
+
+extension DualModeViewController: LoadingViewDelegate {
+    func callbackContinue() {
+        configView.isHidden = false
     }
 }

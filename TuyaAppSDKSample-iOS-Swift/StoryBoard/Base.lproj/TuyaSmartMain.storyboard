@@ -443,17 +443,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Akk-Nj-nOm">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="146"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="126"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY DIFFUSERS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cz9-cQ-i5G">
-                                    <rect key="frame" x="144.5" y="20" width="255.5" height="43"/>
+                                    <rect key="frame" x="144.5" y="0.0" width="255.5" height="43"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                     <color key="textColor" red="0.73333333329999995" green="0.60784313729999995" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pry-oG-6WP">
-                                    <rect key="frame" x="235" y="73" width="160" height="1"/>
+                                    <rect key="frame" x="235" y="53" width="160" height="1"/>
                                     <color key="backgroundColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="0TK-7O-vo8"/>
@@ -461,19 +461,19 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bQ-oS-jTf">
-                                    <rect key="frame" x="319" y="76" width="77" height="16"/>
+                                    <rect key="frame" x="319" y="56" width="77" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.76862745098039209" green="0.76862745098039209" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dude Man" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ab4-ZR-hux">
-                                    <rect key="frame" x="22" y="86" width="120" height="32.5"/>
+                                    <rect key="frame" x="22" y="66" width="120" height="32.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dudeman@dudeman.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4oB-9H-x9a">
-                                    <rect key="frame" x="22" y="120.5" width="154.5" height="16"/>
+                                    <rect key="frame" x="22" y="100.5" width="154.5" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.62745098039215685" green="0.68235294117647061" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -483,7 +483,7 @@
                             <constraints>
                                 <constraint firstItem="4oB-9H-x9a" firstAttribute="leading" secondItem="Akk-Nj-nOm" secondAttribute="leading" constant="22" id="Hby-Me-Dmo"/>
                                 <constraint firstAttribute="trailing" secondItem="cz9-cQ-i5G" secondAttribute="trailing" constant="14" id="Ipw-Mr-Qcw"/>
-                                <constraint firstItem="cz9-cQ-i5G" firstAttribute="top" secondItem="Akk-Nj-nOm" secondAttribute="top" constant="20" id="OJh-7q-ar4"/>
+                                <constraint firstItem="cz9-cQ-i5G" firstAttribute="top" secondItem="Akk-Nj-nOm" secondAttribute="top" id="OJh-7q-ar4"/>
                                 <constraint firstAttribute="trailing" secondItem="9bQ-oS-jTf" secondAttribute="trailing" constant="18" id="Q5G-Rh-zLC"/>
                                 <constraint firstItem="Ab4-ZR-hux" firstAttribute="leading" secondItem="Akk-Nj-nOm" secondAttribute="leading" constant="22" id="WJ1-rz-qRG"/>
                                 <constraint firstItem="4oB-9H-x9a" firstAttribute="top" secondItem="Ab4-ZR-hux" secondAttribute="bottom" constant="2" id="e9A-Y7-823"/>
@@ -495,7 +495,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="NzN-lI-28Z">
-                                <rect key="frame" x="0.0" y="170.5" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="150.5" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NzN-lI-28Z" id="z0y-x3-HHt">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -539,6 +539,11 @@
                             <outlet property="delegate" destination="E2g-pp-Dp8" id="jhu-wR-cKY"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="emailLabel" destination="4oB-9H-x9a" id="ENQ-nR-RaF"/>
+                        <outlet property="usernameLabel" destination="Ab4-ZR-hux" id="eFp-yh-oi4"/>
+                        <outlet property="versionLabel" destination="9bQ-oS-jTf" id="pBY-EF-VAG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a97-HI-oJK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

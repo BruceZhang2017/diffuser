@@ -11,7 +11,7 @@ import Foundation
 import AVFoundation
 
 public protocol LBXScanViewControllerDelegate: NSObjectProtocol {
-     func scanFinished(scanResult: LBXScanResult, error: String?)
+    func scanFinished(scanResult: LBXScanResult, error: String?, type: Int)
 }
 
 public protocol QRRectDelegate {
@@ -20,6 +20,11 @@ public protocol QRRectDelegate {
 
 open class ScanQRCodeViewController: UIViewController {
     @IBOutlet weak var qrView: UIView!
+    @IBOutlet weak var scanLabel: UILabel!
+    @IBOutlet weak var lineImageView: UIImageView!
+    @IBOutlet weak var enterButton: UIButton!
+    @IBOutlet weak var descLabel: UILabel!
+    var type = 0 // 0-scan qr, 1-scan pin
     // 返回扫码结果，也可以通过继承本控制器，改写该handleCodeResult方法即可
     open weak var scanResultDelegate: LBXScanViewControllerDelegate?
 
@@ -60,6 +65,16 @@ open class ScanQRCodeViewController: UIViewController {
     open func setOpenInterestRect(isOpen: Bool) {
         isOpenInterestRect = isOpen
     }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if type == 1 {
+            enterButton.setTitle("Enter my pin manually", for: .normal)
+            scanLabel.text = "ADD MY SCENT"
+            lineImageView.isHidden = true
+            descLabel.text = "Scan QR code on fragrance bottle or enter 3 digit code"
+        }
+    }
 
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -73,6 +88,13 @@ open class ScanQRCodeViewController: UIViewController {
             $0.width.height.equalTo(85)
             $0.center.equalToSuperview()
         }
+    }
+    
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = segue.destination as? SNViewController else {
+            return
+        }
+        vc.type = type
     }
 
     @objc open func startScan() {
@@ -117,10 +139,10 @@ open class ScanQRCodeViewController: UIViewController {
         }
         
         if let result = arrayResult.first {
-            delegate.scanFinished(scanResult: result, error: nil)
+            delegate.scanFinished(scanResult: result, error: nil, type: type)
         } else {
             let result = LBXScanResult(str: nil, img: nil, barCodeType: nil, corner: nil)
-            delegate.scanFinished(scanResult: result, error: "no scan result")
+            delegate.scanFinished(scanResult: result, error: "no scan result", type: type)
         }
     }
     

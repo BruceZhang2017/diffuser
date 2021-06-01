@@ -29,8 +29,10 @@
 		9A4CF018265FE5C00098071F /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A4CF016265FE5BF0098071F /* LoadingViewController.xib */; };
 		9A4CF01A265FF3090098071F /* TuneSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF019265FF3090098071F /* TuneSettingsViewController.swift */; };
 		9A4CF01C2660788E0098071F /* AddSchedualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4CF01B2660788E0098071F /* AddSchedualViewController.swift */; };
+		9A94F2C926629B0600376B2B /* AddScentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94F2C826629B0600376B2B /* AddScentViewController.swift */; };
 		9AB5DFC3265A3FDF00E61BF4 /* t_s.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */; };
 		9AD3DAD22661174200430376 /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD3DAD12661174200430376 /* DeviceTableViewCell.swift */; };
+		9AF61E342665C47500D0FCDA /* ShuKeTimerPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF61E332665C47500D0FCDA /* ShuKeTimerPickerView.m */; };
 		AF00605D25EC968A001462B8 /* TimeZoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */; };
 		AF00606125ECBF3A001462B8 /* TemperatureUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */; };
 		AF00606725EE638D001462B8 /* BLEModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606625EE638D001462B8 /* BLEModeViewController.swift */; };
@@ -114,8 +116,11 @@
 		9A4CF016265FE5BF0098071F /* LoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
 		9A4CF019265FF3090098071F /* TuneSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneSettingsViewController.swift; sourceTree = "<group>"; };
 		9A4CF01B2660788E0098071F /* AddSchedualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSchedualViewController.swift; sourceTree = "<group>"; };
+		9A94F2C826629B0600376B2B /* AddScentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScentViewController.swift; sourceTree = "<group>"; };
 		9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = t_s.bmp; sourceTree = "<group>"; };
 		9AD3DAD12661174200430376 /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
+		9AF61E322665C47400D0FCDA /* ShuKeTimerPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuKeTimerPickerView.h; sourceTree = "<group>"; };
+		9AF61E332665C47500D0FCDA /* ShuKeTimerPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuKeTimerPickerView.m; sourceTree = "<group>"; };
 		AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneTableViewController.swift; sourceTree = "<group>"; };
 		AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnitTableViewController.swift; sourceTree = "<group>"; };
 		AF00606625EE638D001462B8 /* BLEModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEModeViewController.swift; sourceTree = "<group>"; };
@@ -363,6 +368,8 @@
 		AF5E2F5025A5D5FB00DAF14E /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				9AF61E322665C47400D0FCDA /* ShuKeTimerPickerView.h */,
+				9AF61E332665C47500D0FCDA /* ShuKeTimerPickerView.m */,
 				AF5E2F5125A5D60B00DAF14E /* Alert.swift */,
 				AF3A25A325A8426D003EB9FF /* UIButtonExtension.swift */,
 				AF3A25B125A99E02003EB9FF /* UIViewControllerExtension.swift */,
@@ -385,6 +392,7 @@
 				AF05ECC525CB968500C84AF6 /* DeviceDetailTableViewController.swift */,
 				9A2556F3265D1A61008B6946 /* DeviceMainViewController.swift */,
 				9A4CF004265E971A0098071F /* SNViewController.swift */,
+				9A94F2C826629B0600376B2B /* AddScentViewController.swift */,
 			);
 			path = "Device Management";
 			sourceTree = "<group>";
@@ -604,6 +612,7 @@
 				9A2556F4265D1A61008B6946 /* DeviceMainViewController.swift in Sources */,
 				AF3A25B525A9ADD6003EB9FF /* AccountType.swift in Sources */,
 				AF37DBB425AEE842000EB0FD /* EditHomeTableViewController.swift in Sources */,
+				9AF61E342665C47500D0FCDA /* ShuKeTimerPickerView.m in Sources */,
 				9A4CEFFD265E47A00098071F /* FAQViewController.swift in Sources */,
 				AF5531E025A5992500E13562 /* AppDelegate.swift in Sources */,
 				AF55320D25A59BE800E13562 /* AppKey.swift in Sources */,
@@ -620,6 +629,7 @@
 				9A2556EA265C82BE008B6946 /* RegisterViewController.swift in Sources */,
 				AF96133C25B7085D000971CC /* StringTableViewCell.swift in Sources */,
 				9A4CF014265F0C8C0098071F /* LBXScanWrapper.swift in Sources */,
+				9A94F2C926629B0600376B2B /* AddScentViewController.swift in Sources */,
 				AF3A25C925AE9F9A003EB9FF /* HomeListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -922,7 +932,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RPZ68269DB;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 67F77N5Y4K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -948,7 +959,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qc.muji;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qc.muji.diffuser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TuyaAppSDKSample-iOS-Swift/TuyaAppSDKSample-iOS-Swift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -964,7 +976,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7AF5BA9M96;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 67F77N5Y4K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -990,7 +1003,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qc.muji;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qc.muji.diffuser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TuyaAppSDKSample-iOS-Swift/TuyaAppSDKSample-iOS-Swift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

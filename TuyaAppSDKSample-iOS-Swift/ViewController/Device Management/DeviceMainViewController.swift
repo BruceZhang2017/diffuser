@@ -8,6 +8,8 @@ import UIKit
 import SnapKit
 import AVFoundation
 import AVKit
+import CoreLocation
+import TuyaSmartDeviceKit
 
 class DeviceMainViewController: BaseViewController {
     @IBOutlet weak var tabView: UIView!
@@ -17,9 +19,16 @@ class DeviceMainViewController: BaseViewController {
     @IBOutlet weak var nullView: UIView!
     var deviceList:  DeviceListTableViewController! // 设备列表
     var settingsVC: SettingsTableViewController! // 设置页面
+    private let homeManager = TuyaSmartHomeManager()
+    let locationManager = CLLocationManager()
+    
+    var latitude: CLLocationDegrees = 0
+    var longitude: CLLocationDegrees = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleScent(_:)), name: Notification.Name("DeviceMain"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAddDevice(_:)), name: Notification.Name("AddDevice"), object: nil)
         tabHeight.constant = UIDevice.isSameToIphoneX() ? 83 : 50
         let storyboard = UIStoryboard(name: "DeviceList", bundle: nil)
         deviceList = storyboard.instantiateViewController(withIdentifier: "DeviceListTableViewController") as? DeviceListTableViewController
@@ -39,16 +48,53 @@ class DeviceMainViewController: BaseViewController {
         settingsVC.view.isHidden = true
         
         view.bringSubviewToFront(tabView)
+        
+        if Home.current == nil {
+            locationManager.requestWhenInUseAuthorization()
+            
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                locationManager.startUpdatingLocation()
+            } else {
+                Alert.showBasicAlert(on: self, with: NSLocalizedString("Cannot Access Location", comment: ""), message: NSLocalizedString("Please make sure if the location access is enabled for the app.", comment: ""))
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    public func showRightNavigationButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self, action: #selector(addDevice))
+    }
+    
+    public func hideRightNavigationButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    @objc private func addDevice() {
+        let storyboard = UIStoryboard(name: "DeviceList", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as? ScanQRCodeViewController
+        vc?.scanResultDelegate = self
+        navigationController?.pushViewController(vc!, animated: true)
     }
     
     @IBAction private func handleShowDeviceList(_ sender: Any) {
+        let count = deviceList?.home?.deviceList.count ?? 0
         settingsVC.view.isHidden = true
-        deviceList.view.isHidden = false
+        deviceList.view.isHidden = count == 0
+        if count > 0 {
+            showRightNavigationButton()
+        }
+        
     }
     
     @IBAction private func handleShowSettings(_ sender: Any) {
         settingsVC.view.isHidden = false
         deviceList.view.isHidden = true
+        hideRightNavigationButton()
     }
     
     @IBAction private func handleConnectMyDevice(_ sender: Any) {
@@ -56,6 +102,19 @@ class DeviceMainViewController: BaseViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as? ScanQRCodeViewController
         vc?.scanResultDelegate = self
         navigationController?.pushViewController(vc!, animated: true)
+        
+        if Home.current == nil {
+            homeManager.addHome(withName: "MyRoom", geoName: "Shenzhen", rooms: [""], latitude: latitude, longitude: longitude) { [weak self] _ in
+                self?.homeManager.getHomeList { (homeModels) in
+                    if homeModels?.count ?? 0 > 0  {
+                        Home.current = homeModels?.first
+                    }
+                } failure: { (error) in
+                
+                }
+            } failure: { (error) in
+            }
+        }
     }
 
     @IBAction private func watchtutorail(_ sender: Any) {
@@ -63,6 +122,51 @@ class DeviceMainViewController: BaseViewController {
         let vc = AVPlayerViewController()
         vc.player = player
         present(vc, animated: true, completion: nil)
+    }
+    
+    @objc public func handleScent(_ notification: Notification) {
+        let obj = notification.object as? Int ?? 0
+        let row = deviceList?.currentDeviceRow ?? 0
+        guard let deviceModel = deviceList?.home?.deviceList[row] else { return }
+        var cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: Int] ?? [:]
+        var scent = cache[deviceModel.devId] ?? 0
+        let value = 128 + (scent & 3) + (obj << 2)
+        print("气味值：\(value)")
+        cache[deviceModel.devId] = value
+        UserDefaults.standard.setValue(cache, forKey: "Scent")
+        UserDefaults.standard.synchronize()
+        if deviceModel.isOnline {
+            guard let deviceID = deviceModel.devId else { return }
+            guard let device = TuyaSmartDevice(deviceId: deviceID) else { return }
+            for schema in deviceModel.schemaArray {
+                if schema.name == "亮度值" {
+                    guard let pid = schema.dpId else { return }
+                    publishMessage(with: [pid: value], device: device)
+                    break
+                }
+            }
+        }
+        deviceList?.tableView.reloadData()
+    }
+    
+    @objc public func handleAddDevice(_ notification: Notification) {
+        guard let dic = UserDefaults.standard.dictionary(forKey: "location") as? [String: Int] else {
+            return
+        }
+        for (devId, value) in dic {
+            var cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: Int] ?? [:]
+            cache[devId] = value
+            UserDefaults.standard.setValue(cache, forKey: "Scent")
+            UserDefaults.standard.synchronize()
+        }
+        deviceList?.loadData()
+    }
+    
+    private func publishMessage(with dps: NSDictionary, device: TuyaSmartDevice) {
+        guard let dps = dps as? [AnyHashable : Any] else { return }
+        device.publishDps(dps, success: {
+        }, failure: { (error) in
+        })
     }
 }
 
@@ -81,14 +185,33 @@ public extension UIDevice {
 }
 
 extension DeviceMainViewController: LBXScanViewControllerDelegate {
-    func scanFinished(scanResult: LBXScanResult, error: String?) {
+    func scanFinished(scanResult: LBXScanResult, error: String?, type: Int) {
         NSLog("scanResult:\(scanResult)")
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
             [weak self] in
+            if type == 1 {
+                let value = Int(scanResult.strScanned ?? "0") ?? 0
+                if value < 100 || value > 120 {
+                    return
+                }
+                let sb = UIStoryboard(name: "DeviceList", bundle: nil)
+                let vc = sb.instantiateViewController(withIdentifier: "AddScentViewController") as? AddScentViewController
+                vc?.scent = scanResult.strScanned ?? "0"
+                self?.navigationController?.pushViewController(vc!, animated: true)
+                return
+            }
             let sb = UIStoryboard(name: "DualMode", bundle: nil)
             let vc = sb.instantiateViewController(withIdentifier: "DualModeTableViewController")
             self?.navigationController?.pushViewController(vc, animated: true)
         }
         
+    }
+}
+
+extension DeviceMainViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = manager.location?.coordinate else { return }
+        longitude = location.longitude
+        latitude = location.latitude
     }
 }

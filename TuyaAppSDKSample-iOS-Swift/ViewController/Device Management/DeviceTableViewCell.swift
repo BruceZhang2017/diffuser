@@ -11,6 +11,9 @@ class DeviceTableViewCell: UITableViewCell {
     @IBOutlet weak var scentLabel: UILabel!
     @IBOutlet weak var controlButton: UIButton!
     @IBOutlet weak var scentImageView: UIImageView!
+    @IBOutlet weak var addScentButton: UIButton!
+    @IBOutlet weak var stateLabel: UILabel!
+    weak var delegate: DeviceTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,8 +27,21 @@ class DeviceTableViewCell: UITableViewCell {
     }
 
     @IBAction func more(_ sender: Any) {
+        delegate?.handleMore(tag: tag)
     }
     
     @IBAction func handleStartOrStop(_ sender: Any) {
+        let button = sender as! UIButton
+        delegate?.handleFunction(button: button, tag: tag)
     }
+    
+    @IBAction func addScent(_ sender: Any) {
+        delegate?.addScent(tag: tag)
+    }
+}
+
+protocol DeviceTableViewCellDelegate: NSObjectProtocol {
+    func handleMore(tag: Int)
+    func handleFunction(button: UIButton, tag: Int)
+    func addScent(tag: Int)
 }

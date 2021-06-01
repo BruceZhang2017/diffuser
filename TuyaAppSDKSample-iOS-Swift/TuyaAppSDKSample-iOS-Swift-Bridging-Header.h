@@ -10,3 +10,5 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 
 #endif /* TuyaAppSDKSample_iOS_Swift_Bridging_Header_h */
+
+#import "ShuKeTimerPickerView.h"
