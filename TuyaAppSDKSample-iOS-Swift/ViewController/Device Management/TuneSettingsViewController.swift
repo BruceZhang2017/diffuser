@@ -7,15 +7,21 @@
 import UIKit
 import TuyaSmartDeviceCoreKit
 
+var days = [0, 0, 0, 0, 0, 0, 0]
+var scheduals: [String] = []
+
 class TuneSettingsViewController: BaseViewController {
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var schedualView: UIView!
     @IBOutlet weak var refreshView: UIView!
     @IBOutlet var buttons: [UIButton]!
+    @IBOutlet var dayButtons: [UIButton]!
     @IBOutlet weak var scentImageView: UIImageView!
     @IBOutlet weak var scentNameLabel: UILabel!
     @IBOutlet weak var intensityValueLabel: UILabel!
     @IBOutlet weak var deviceNameLabel: UILabel!
+    @IBOutlet weak var startLabel: UILabel!
+    @IBOutlet weak var endLabel: UILabel!
     var device: TuyaSmartDevice?
     var schedualIndex = 1 // 当前标志的位置
     
@@ -26,10 +32,53 @@ class TuneSettingsViewController: BaseViewController {
         refreshScent()
         deviceNameLabel.text = device?.deviceModel.name
         refreshIntensity()
+        for button in dayButtons {
+            button.setTitleColor(UIColor.hex(color: "32D62F"), for: .selected)
+        }
+        publishMessage(with: ["8" : "8A"])
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let d = segue.destination
+        guard let vc = d as? AddSchedualViewController else {
+            return
+        }
+        vc.device = device
+    }
+    
+    private func refreshButtons() {
+        for (i, value) in days.enumerated() {
+            dayButtons[i].isSelected = value > 0
+        }
+    }
+    
+    private func refreshSchedual() {
+        if scheduals.count > 0 {
+            let item = scheduals[0]
+            let array = item.split(separator: "-").map({String($0)})
+            if array.count != 2 {
+                return
+            }
+            var value = array[0].split(separator: ":")
+            var hour = Int(value[0]) ?? 0
+            if hour > 12 {
+                startLabel.text = "\(String(format: "%2d", hour - 12)):\(value[1]) PM"
+            } else {
+                startLabel.text = "\(array[0]) AM"
+            }
+            
+            value = array[1].split(separator: ":")
+            hour = Int(value[0]) ?? 0
+            if hour > 12 {
+                endLabel.text = "\(String(format: "%2d", hour - 12)):\(value[1]) PM"
+            } else {
+                endLabel.text = "\(array[1]) AM"
+            }
+        }
     }
     
     @IBAction private func deleteSchedual(_ sender: Any) {
@@ -171,10 +220,50 @@ class TuneSettingsViewController: BaseViewController {
         guard let dps = dps as? [AnyHashable : Any] else { return }
 
         device?.publishDps(dps, success: {
-
+            [weak self] in
+            self?.perform(#selector(TuneSettingsViewController.handle8CMD), with: nil, afterDelay: 2)
         }, failure: { (error) in
             let errorMessage = error?.localizedDescription ?? ""
             SVProgressHUD.showError(withStatus: errorMessage)
         })
+    }
+    
+    /// 8M 7f 0c 06 06 24 00002359 00000000 00000000 00000000 00000000
+    @objc private func handle8CMD() {
+        guard let dps = device?.deviceModel.dps else {
+            return
+        }
+        guard let value = dps["8"] as? String else {
+            return
+        }
+        if value.count != 52 {
+            return
+        }
+        if !value.hasPrefix("8M") {
+            return
+        }
+        let start = value.index(value.startIndex, offsetBy: 2)
+        let end = value.index(value.startIndex, offsetBy: 3)
+        let hexi:UInt = UInt(String(value[start...end]), radix: 16) ?? 0
+        for i in 0..<7 {
+            let v = hexi >> i
+            let v2 = v & 1
+            days[i] = Int(v2)
+        }
+        refreshButtons()
+        scheduals.removeAll()
+        for i in 0..<5 {
+            let start = value.index(value.startIndex, offsetBy: 12 + 8 * i)
+            let end = value.index(value.startIndex, offsetBy: 20 + 8 * i)
+            var v = String(value[start..<end])
+            if v == "00000000" {
+                continue
+            }
+            v.insert(":", at: v.index(v.startIndex, offsetBy: 2))
+            v.insert(":", at: v.index(v.endIndex, offsetBy: -2))
+            v.insert("-", at: v.index(v.startIndex, offsetBy: 5))
+            scheduals.append(v)
+        }
+        refreshSchedual()
     }
 }

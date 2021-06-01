@@ -23,8 +23,8 @@ class LoadingViewController: UIViewController {
     }
 
     @IBAction func handleTap(_ sender: Any) {
-        delegate?.callbackContinue()
         dismiss(animated: true, completion: nil)
+        delegate?.callbackContinue()
     }
 
 }

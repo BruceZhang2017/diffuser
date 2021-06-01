@@ -144,79 +144,72 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tcj-yx-oB4">
                                                 <rect key="frame" x="23" y="3" width="338" height="30"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6e-Iu-lXV">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6e-Iu-lXV">
                                                         <rect key="frame" x="0.0" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="TQF-xx-uFu"/>
                                                             <constraint firstAttribute="height" constant="30" id="cDc-Eh-gUx"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="S">
                                                             <color key="titleColor" red="0.62745098039215685" green="0.68235294117647061" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LPc-GS-Ud5">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LPc-GS-Ud5">
                                                         <rect key="frame" x="49" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="LIh-5d-2Hw"/>
                                                             <constraint firstAttribute="width" constant="44" id="eoT-zm-ZzX"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="M">
                                                             <color key="titleColor" red="0.62745098039215685" green="0.68235294117647061" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUl-Qk-JoV">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUl-Qk-JoV">
                                                         <rect key="frame" x="98" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="JZe-FK-roU"/>
                                                             <constraint firstAttribute="width" constant="44" id="kNK-Ov-2xm"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="T">
                                                             <color key="titleColor" red="0.62745098039215685" green="0.68235294117647061" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHH-ub-v8r">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHH-ub-v8r">
                                                         <rect key="frame" x="147" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="DJB-Eg-Jwa"/>
                                                             <constraint firstAttribute="width" constant="44" id="cIy-Mm-bJf"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="W">
                                                             <color key="titleColor" red="0.62745098039215685" green="0.68235294117647061" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FG4-Sg-tzV">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FG4-Sg-tzV">
                                                         <rect key="frame" x="196" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="Yp0-Yc-MXf"/>
                                                             <constraint firstAttribute="height" constant="30" id="rhx-za-tJQ"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="T">
                                                             <color key="titleColor" red="0.62745098039215685" green="0.68235294117647061" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sg-B8-sBB">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sg-B8-sBB">
                                                         <rect key="frame" x="245" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="1DB-D7-W8u"/>
                                                             <constraint firstAttribute="height" constant="30" id="URn-dZ-2Hg"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="F">
                                                             <color key="titleColor" red="0.62745098039215685" green="0.68235294117647061" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35U-Gc-oEP">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35U-Gc-oEP">
                                                         <rect key="frame" x="294" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="48W-Rc-TtS"/>
                                                             <constraint firstAttribute="width" constant="44" id="gPW-5h-fK0"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="S">
                                                             <color key="titleColor" red="0.62745098039215685" green="0.68235294117647061" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
@@ -493,15 +486,24 @@
                     </view>
                     <connections>
                         <outlet property="deviceNameLabel" destination="Gzg-Jz-mpl" id="iff-YO-sRL"/>
+                        <outlet property="endLabel" destination="58g-9n-Nz7" id="Ar8-wO-Qev"/>
                         <outlet property="intensityValueLabel" destination="fGO-pU-2cr" id="Zye-La-JGA"/>
                         <outlet property="refreshView" destination="9Ov-Dp-ThR" id="yB3-VJ-f5w"/>
                         <outlet property="scentImageView" destination="Za7-vz-qwo" id="Awk-Sl-jG1"/>
                         <outlet property="scentNameLabel" destination="Akc-K1-u3b" id="UC6-0c-24Q"/>
                         <outlet property="schedualView" destination="2EF-td-Mn2" id="fj0-gm-206"/>
                         <outlet property="settingsView" destination="h5A-IG-SiN" id="XfG-5I-RW7"/>
+                        <outlet property="startLabel" destination="Aub-hN-za9" id="ITi-Kc-8z6"/>
                         <outletCollection property="buttons" destination="6dj-Jj-obf" collectionClass="NSMutableArray" id="oLS-1w-MTq"/>
                         <outletCollection property="buttons" destination="l7G-dp-Cnt" collectionClass="NSMutableArray" id="bBi-wE-egM"/>
                         <outletCollection property="buttons" destination="9ad-3r-CJY" collectionClass="NSMutableArray" id="m2m-UB-pYw"/>
+                        <outletCollection property="dayButtons" destination="Q6e-Iu-lXV" collectionClass="NSMutableArray" id="YWx-FS-0ia"/>
+                        <outletCollection property="dayButtons" destination="LPc-GS-Ud5" collectionClass="NSMutableArray" id="UVe-6d-ist"/>
+                        <outletCollection property="dayButtons" destination="rUl-Qk-JoV" collectionClass="NSMutableArray" id="EYV-mM-ej1"/>
+                        <outletCollection property="dayButtons" destination="BHH-ub-v8r" collectionClass="NSMutableArray" id="Lb4-6h-dgh"/>
+                        <outletCollection property="dayButtons" destination="FG4-Sg-tzV" collectionClass="NSMutableArray" id="iEo-KL-5NG"/>
+                        <outletCollection property="dayButtons" destination="8Sg-B8-sBB" collectionClass="NSMutableArray" id="IX0-Vb-KKp"/>
+                        <outletCollection property="dayButtons" destination="35U-Gc-oEP" collectionClass="NSMutableArray" id="yv2-6P-DC6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hTm-Cj-n4S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -546,13 +548,12 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cVl-Xa-yZo">
                                                 <rect key="frame" x="23" y="3" width="338" height="30"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tao-It-DQ9">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tao-It-DQ9">
                                                         <rect key="frame" x="0.0" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="1id-3a-o75"/>
                                                             <constraint firstAttribute="height" constant="30" id="6zj-NS-bQa"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="S">
                                                             <color key="titleColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
@@ -563,13 +564,12 @@
                                                             <action selector="selectDay:" destination="fYY-39-kSa" eventType="touchUpInside" id="Did-J7-9NP"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0XP-fT-aQg">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0XP-fT-aQg">
                                                         <rect key="frame" x="49" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="Xrz-Ef-qyF"/>
                                                             <constraint firstAttribute="height" constant="30" id="wUc-CC-MOv"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="M">
                                                             <color key="titleColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
@@ -580,13 +580,12 @@
                                                             <action selector="selectDay:" destination="fYY-39-kSa" eventType="touchUpInside" id="RLU-hy-cdc"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xS4-2P-9Vv">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xS4-2P-9Vv">
                                                         <rect key="frame" x="98" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="sQz-Lg-qF9"/>
                                                             <constraint firstAttribute="height" constant="30" id="v78-6j-63c"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="T">
                                                             <color key="titleColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
@@ -597,13 +596,12 @@
                                                             <action selector="selectDay:" destination="fYY-39-kSa" eventType="touchUpInside" id="cga-Cc-qVP"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkz-5R-F9S">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkz-5R-F9S">
                                                         <rect key="frame" x="147" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="9oI-CP-reW"/>
                                                             <constraint firstAttribute="height" constant="30" id="GyT-JO-H6O"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="W">
                                                             <color key="titleColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
@@ -614,13 +612,12 @@
                                                             <action selector="selectDay:" destination="fYY-39-kSa" eventType="touchUpInside" id="H1N-vy-gNj"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6q1-XG-Fle">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6q1-XG-Fle">
                                                         <rect key="frame" x="196" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="9Fk-kl-BEH"/>
                                                             <constraint firstAttribute="width" constant="44" id="eny-58-jBU"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="T">
                                                             <color key="titleColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
@@ -631,13 +628,12 @@
                                                             <action selector="selectDay:" destination="fYY-39-kSa" eventType="touchUpInside" id="Ua8-kQ-ZBU"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAS-2A-FnO">
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAS-2A-FnO">
                                                         <rect key="frame" x="245" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="0ZN-pl-zPM"/>
                                                             <constraint firstAttribute="width" constant="44" id="z3A-qF-qkP"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="F">
                                                             <color key="titleColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
@@ -648,13 +644,12 @@
                                                             <action selector="selectDay:" destination="fYY-39-kSa" eventType="touchUpInside" id="N1m-Ao-psp"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="304-zR-aE1">
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="304-zR-aE1">
                                                         <rect key="frame" x="294" y="0.0" width="44" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="0Q9-15-mka"/>
                                                             <constraint firstAttribute="height" constant="30" id="nds-Xa-8K1"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                         <state key="normal" title="S">
                                                             <color key="titleColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>

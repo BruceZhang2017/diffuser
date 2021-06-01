@@ -5,6 +5,7 @@
 //  Copyright (c) 2014-2021 Tuya Inc. (https://developer.tuya.com/)
 
 import UIKit
+import TuyaSmartDeviceCoreKit
 
 class AddSchedualViewController: BaseViewController {
     @IBOutlet weak var confirmButton: UIButton!
@@ -14,6 +15,7 @@ class AddSchedualViewController: BaseViewController {
     var startTime = ""
     var endTime = ""
     var picker: ShuKeTimerPickerView?
+    var device: TuyaSmartDevice?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,21 +30,53 @@ class AddSchedualViewController: BaseViewController {
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func selectDay(_ sender: Any) {
+        let button = sender as! UIButton
+        button.isSelected = !button.isSelected
     }
     
     @IBAction func confirm(_ sender: Any) {
-        
+        var value = "8A"
+        var d = 0
+        for (i, day) in days.enumerated() {
+            d += day << i
+        }
+        let st = NSString(format:"%2X", d) as String
+        value += st
+        value += "0c060624"
+        for schedual in scheduals {
+            value += schedual
+        }
+        if scheduals.count < 5 {
+            let count = 5 - scheduals.count
+            for _ in 0..<count {
+                value += "00000000"
+            }
+        }
+        publishMessage(with: ["8" : value])
+    }
+    
+    private func showAlert() {
+        let vc = LoadingViewController(nibName: "LoadingViewController", bundle: nil)
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.delegate = self
+        vc.type = 2
+        present(vc, animated: true) {
+            
+        }
+    }
+    
+    private func publishMessage(with dps: NSDictionary) {
+        guard let dps = dps as? [AnyHashable : Any] else { return }
+
+        device?.publishDps(dps, success: {
+            [weak self] in
+            self?.showAlert()
+        }, failure: { (error) in
+            let errorMessage = error?.localizedDescription ?? ""
+            SVProgressHUD.showError(withStatus: errorMessage)
+        })
     }
     
     @objc private func handleStart() {
@@ -103,5 +137,11 @@ extension AddSchedualViewController: ShuKeTimerPickerViewDelegate {
                 }
             }
         }
+    }
+}
+
+extension AddSchedualViewController: LoadingViewDelegate {
+    func callbackContinue() {
+        navigationController?.popViewController(animated: true)
     }
 }
