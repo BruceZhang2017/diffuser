@@ -66,11 +66,11 @@ class DeviceListTableViewController: UITableViewController {
         var work = 0
         let cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: Int] ?? [:]
         value = cache[deviceModel.devId] ?? 0
+        let dps = deviceModel.dps
         if value == 0 {
-            let dps = deviceModel.dps
-            value = dps?["7"] as? Int ?? 0
-            work = dps?["2"] as? Int ?? 0
+            value = Int(dps?["7"] as? String ?? "") ?? 0
         }
+        work = Int(dps?["2"] as? String ?? "") ?? 0
         if value >= 128 {
             cell.scentLabel.isHidden = false
             cell.scentImageView.isHidden = false
@@ -92,7 +92,6 @@ class DeviceListTableViewController: UITableViewController {
         
         let location = value & 0b00000011
         cell.locationLabel.text = locations[min(3, location)]
-        
         if work == 2 {
             cell.controlButton.isSelected = true
             cell.controlButton.backgroundColor = UIColor.hex(color: "F94C4C")

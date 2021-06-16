@@ -10,11 +10,11 @@ import Toaster
 
 let locations = ["Downstairs / Main Living", "Business", "Suite", "Custom"]
 
-class DualModeViewController: UIViewController {
+class DualModeViewController: BaseViewController {
     
     // MARK: - IBOutlet
-    @IBOutlet weak var ssidTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var ssidTextField: MTextField!
+    @IBOutlet weak var passwordTextField: MTextField!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var ssidView: UIView!
     @IBOutlet weak var configView: UIView!
@@ -22,10 +22,13 @@ class DualModeViewController: UIViewController {
     @IBOutlet weak var searchImageView: UIImageView!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var timeZoneLabel: UILabel!
+    @IBOutlet weak var locationValueLabel: UILabel!
+    @IBOutlet weak var timeZoneValueLabel: UILabel!
     
     var homeID: Int64 = 0
     var deviceInfo: TYBLEAdvModel?
     var deviceModel: TuyaSmartDeviceModel?
+    var showSearching = false
     
     // MARK: - Property
     private var isSuccess = false
@@ -34,6 +37,13 @@ class DualModeViewController: UIViewController {
         super.viewDidLoad()
         ssidTextField.text = UserDefaults.standard.string(forKey: "ssid")
         passwordTextField.text = UserDefaults.standard.string(forKey: "pwd")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if showSearching {
+            getConnecting(UIButton())
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -119,19 +129,19 @@ class DualModeViewController: UIViewController {
                                     
                                 }),
                                 UIAlertAction(title: locations[0], style: .default, handler: { [weak self] action in
-                                    self?.timeZoneLabel.text = locations[0]
+                                    self?.locationValueLabel.text = locations[0]
                                     UserDefaults.standard.setValue([self?.deviceModel?.devId ?? "": 0], forKey: "location")
                                 }),
                                 UIAlertAction(title: locations[1], style: .default, handler: { [weak self] action in
-                                    self?.timeZoneLabel.text = locations[1]
+                                    self?.locationValueLabel.text = locations[1]
                                     UserDefaults.standard.setValue([self?.deviceModel?.devId ?? "": 1], forKey: "location")
                                 }),
                                 UIAlertAction(title: locations[2], style: .default, handler: { [weak self] action in
-                                    self?.timeZoneLabel.text = locations[2]
+                                    self?.locationValueLabel.text = locations[2]
                                     UserDefaults.standard.setValue([self?.deviceModel?.devId ?? "": 2], forKey: "location")
                                 }),
                                 UIAlertAction(title: locations[3], style: .default, handler: { [weak self] action in
-                                    self?.timeZoneLabel.text = locations[3]
+                                    self?.locationValueLabel.text = locations[3]
                                     UserDefaults.standard.setValue([self?.deviceModel?.devId ?? "": 3], forKey: "location")
                                 })]
         )
@@ -146,13 +156,13 @@ class DualModeViewController: UIViewController {
                                     
                                 }),
                                 UIAlertAction(title: "Mountain Standard Time", style: .default, handler: { [weak self] action in
-                                    self?.timeZoneLabel.text = "Mountain Standard Time"
+                                    self?.timeZoneValueLabel.text = "Mountain Standard Time"
                                 }),
                                 UIAlertAction(title: "Pacific Standard Time", style: .default, handler: { [weak self] action in
-                                    self?.timeZoneLabel.text = "Pacific Standard Time"
+                                    self?.timeZoneValueLabel.text = "Pacific Standard Time"
                                 }),
                                 UIAlertAction(title: "Eastern Standard Time", style: .default, handler: { [weak self] action in
-                                    self?.timeZoneLabel.text = "Eastern Standard Time"
+                                    self?.timeZoneValueLabel.text = "Eastern Standard Time"
                                 })]
         )
     }
@@ -206,9 +216,6 @@ extension DualModeViewController: TuyaSmartBLEWifiActivatorDelegate {
                 return
             }
             
-            let name = deviceModel.name ?? NSLocalizedString("Unknown Name", comment: "Unknown name device.")
-            
-            SVProgressHUD.showSuccess(withStatus: NSLocalizedString("Successfully Added \(name)", comment: "Successfully added one device."))
             isSuccess = true
         self.deviceModel = deviceModel
         

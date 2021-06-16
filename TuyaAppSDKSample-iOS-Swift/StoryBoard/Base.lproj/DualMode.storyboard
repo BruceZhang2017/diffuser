@@ -20,14 +20,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="iYv-Pj-s7d">
-                                <rect key="frame" x="190.5" y="44" width="33" height="48"/>
+                                <rect key="frame" x="190.5" y="14" width="33" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="33" id="BLl-bo-7AO"/>
                                     <constraint firstAttribute="height" constant="48" id="V5P-lK-wag"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ta-Xz-Rpy">
-                                <rect key="frame" x="0.0" y="112" width="414" height="750"/>
+                                <rect key="frame" x="0.0" y="82" width="414" height="780"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now it’s time to get you connected..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXk-0N-DTs">
                                         <rect key="frame" x="25" y="20" width="364" height="161.5"/>
@@ -36,20 +36,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YIW-2O-E7o">
-                                        <rect key="frame" x="25" y="689.5" width="364" height="1"/>
+                                        <rect key="frame" x="25" y="719.5" width="364" height="1"/>
                                         <color key="backgroundColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Fb3-9l-PH3"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember to stay plugged in while connecting" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPZ-Zp-sY1">
-                                        <rect key="frame" x="20" y="710.5" width="374" height="19.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember to stay plugged in while connecting" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPZ-Zp-sY1">
+                                        <rect key="frame" x="20" y="740.5" width="374" height="19.5"/>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
                                         <color key="textColor" red="0.1764705882" green="0.2156862745" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why am I connecting?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIa-Nh-5NB">
-                                        <rect key="frame" x="136" y="662.5" width="142.5" height="17"/>
+                                        <rect key="frame" x="136" y="692.5" width="142.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.73333333333333328" green="0.60784313725490191" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -115,7 +115,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QeY-GZ-eCE">
-                                <rect key="frame" x="0.0" y="112" width="414" height="750"/>
+                                <rect key="frame" x="0.0" y="82" width="414" height="780"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECT TO MY DIFFUSER" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3V-H5-cmm">
                                         <rect key="frame" x="25" y="20" width="364" height="107.5"/>
@@ -124,34 +124,34 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Look for the blue light to know your diffuser is in pairing mode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCE-Rd-dCT">
-                                        <rect key="frame" x="20" y="592.5" width="294" height="33.5"/>
+                                        <rect key="frame" x="20" y="622.5" width="294" height="33.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.1764705882352941" green="0.21568627450980393" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Loader" translatesAutoresizingMaskIntoConstraints="NO" id="nHd-dh-BQF">
-                                        <rect key="frame" x="177.5" y="345.5" width="59" height="59"/>
+                                        <rect key="frame" x="177.5" y="360.5" width="59" height="59"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="59" id="rbb-SJ-DNh"/>
                                             <constraint firstAttribute="height" constant="59" id="weR-Vt-gLh"/>
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="light_mode" translatesAutoresizingMaskIntoConstraints="NO" id="Ylw-Cn-Sd2">
-                                        <rect key="frame" x="325" y="581" width="57" height="57"/>
+                                        <rect key="frame" x="325" y="611" width="57" height="57"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="57" id="B0E-HI-75g"/>
                                             <constraint firstAttribute="height" constant="57" id="dA8-Py-1H4"/>
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bt0-6j-HuA">
-                                        <rect key="frame" x="25" y="676" width="364" height="1"/>
+                                        <rect key="frame" x="25" y="706" width="364" height="1"/>
                                         <color key="backgroundColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="P9H-fd-cwf"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xCo-u1-vEc">
-                                        <rect key="frame" x="122" y="697" width="170" height="33"/>
+                                        <rect key="frame" x="122" y="727" width="170" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Connecting?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCp-lu-0KT">
                                                 <rect key="frame" x="0.0" y="7" width="122" height="19.5"/>
@@ -189,9 +189,9 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qps-HQ-8Wu">
-                                <rect key="frame" x="0.0" y="112" width="414" height="750"/>
+                                <rect key="frame" x="0.0" y="82" width="414" height="780"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Wi-Fi SSID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="He1-6r-m2q">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Wi-Fi SSID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="He1-6r-m2q" customClass="MTextField" customModule="TuyaAppSDKSample_iOS_Swift" customModuleProvider="target">
                                         <rect key="frame" x="40" y="200" width="334" height="44"/>
                                         <color key="backgroundColor" red="0.92941176470588238" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -205,7 +205,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Wi-Fi Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cct-J0-Uf2">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Wi-Fi Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cct-J0-Uf2" customClass="MTextField" customModule="TuyaAppSDKSample_iOS_Swift" customModuleProvider="target">
                                         <rect key="frame" x="40" y="274" width="334" height="44"/>
                                         <color key="backgroundColor" red="0.92941176470588238" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -243,14 +243,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ugj-XU-fMt">
-                                        <rect key="frame" x="25" y="676" width="364" height="1"/>
+                                        <rect key="frame" x="25" y="706" width="364" height="1"/>
                                         <color key="backgroundColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="94H-Cv-dZx"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dDp-WZ-0Lg">
-                                        <rect key="frame" x="63" y="697" width="288" height="33"/>
+                                        <rect key="frame" x="63" y="727" width="288" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why didn’t my network show up?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tj7-g6-5uF">
                                                 <rect key="frame" x="0.0" y="7" width="240" height="19.5"/>
@@ -290,7 +290,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xv2-Gg-y0R">
-                                <rect key="frame" x="0.0" y="112" width="414" height="730"/>
+                                <rect key="frame" x="0.0" y="82" width="414" height="760"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALMOST THERE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TnZ-js-BGG">
                                         <rect key="frame" x="25" y="20" width="364" height="54"/>
@@ -299,14 +299,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7oG-xr-rJ7">
-                                        <rect key="frame" x="25" y="656" width="364" height="1"/>
+                                        <rect key="frame" x="25" y="686" width="364" height="1"/>
                                         <color key="backgroundColor" red="0.62745098040000002" green="0.68235294120000001" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="bXQ-cR-fS6"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cin-p6-Qfh">
-                                        <rect key="frame" x="78.5" y="677" width="257" height="33"/>
+                                        <rect key="frame" x="78.5" y="707" width="257" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What should my location be?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iiC-ix-0r9">
                                                 <rect key="frame" x="0.0" y="7" width="209" height="19.5"/>
@@ -480,7 +480,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9o5-WS-zLf">
-                                <rect key="frame" x="0.0" y="112" width="414" height="750"/>
+                                <rect key="frame" x="0.0" y="82" width="414" height="780"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DONE!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ND6-ns-9di">
                                         <rect key="frame" x="25" y="20" width="364" height="60"/>
@@ -558,19 +558,21 @@
                             <constraint firstAttribute="trailing" secondItem="Qps-HQ-8Wu" secondAttribute="trailing" id="cR0-DR-LWw"/>
                             <constraint firstItem="fgK-tr-bJD" firstAttribute="top" secondItem="Qps-HQ-8Wu" secondAttribute="bottom" id="oX6-rK-r8y"/>
                             <constraint firstItem="xv2-Gg-y0R" firstAttribute="top" secondItem="iYv-Pj-s7d" secondAttribute="bottom" constant="20" id="sTQ-A5-vBe"/>
-                            <constraint firstItem="iYv-Pj-s7d" firstAttribute="top" secondItem="ehO-99-n9h" secondAttribute="bottom" id="uR8-ip-rcv"/>
+                            <constraint firstItem="iYv-Pj-s7d" firstAttribute="top" secondItem="ehO-99-n9h" secondAttribute="bottom" constant="-30" id="uR8-ip-rcv"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="configView" destination="xv2-Gg-y0R" id="uCB-u8-ogG"/>
                         <outlet property="finishView" destination="9o5-WS-zLf" id="kHC-pu-4GK"/>
                         <outlet property="locationLabel" destination="wEf-jR-8tR" id="jeC-2h-vzX"/>
+                        <outlet property="locationValueLabel" destination="v3f-pX-8u7" id="aaz-FF-1B4"/>
                         <outlet property="passwordTextField" destination="cct-J0-Uf2" id="7QO-8Q-34A"/>
                         <outlet property="searchImageView" destination="nHd-dh-BQF" id="e4D-ov-ppz"/>
                         <outlet property="searchView" destination="QeY-GZ-eCE" id="IlA-TU-ORV"/>
                         <outlet property="ssidTextField" destination="He1-6r-m2q" id="9PA-R1-JNh"/>
                         <outlet property="ssidView" destination="Qps-HQ-8Wu" id="aDc-jt-AuL"/>
                         <outlet property="timeZoneLabel" destination="yvc-Pw-kgM" id="Vuz-pK-f4d"/>
+                        <outlet property="timeZoneValueLabel" destination="LxJ-h7-apf" id="gDe-WU-U8v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SSP-nO-zhk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

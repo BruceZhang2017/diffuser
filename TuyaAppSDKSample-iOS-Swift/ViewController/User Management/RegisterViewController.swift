@@ -24,7 +24,22 @@ class RegisterViewController: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @IBAction func signIn(_ sender: Any) {
+        guard let vcs = navigationController?.viewControllers else {
+            return
+        }
+        for vc in vcs {
+            if vc is LoginTableViewController {
+                navigationController?.popToViewController(vc, animated: true)
+                return
+            }
+        }
+        let sb = UIStoryboard(name: "Login", bundle: nil)
+        let loginVC = sb.instantiateViewController(withIdentifier: "LoginTableViewController")
+        navigationController?.pushViewController(loginVC, animated: true)
+    }
+    
 }
 
 extension CALayer {

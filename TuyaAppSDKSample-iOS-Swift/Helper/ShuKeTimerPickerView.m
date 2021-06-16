@@ -89,7 +89,7 @@
     _toolbar = [self setToolbarStyle];
     [self setToolbarWithPickViewFrame];
     
-    _toolbar.barTintColor = [UIColor colorWithRed:50 / 255.0 green:214 / 255.0 blue:47 / 255.0 alpha:1];
+    _toolbar.barTintColor = [UIColor colorWithRed:187 / 255.0 green:155 / 255.0 blue:197 / 255.0 alpha:1];
     _toolbar.tintColor = [UIColor whiteColor];
     
     [self addSubview:_toolbar];
@@ -100,8 +100,12 @@
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     
     UIBarButtonItem *lefttem = [[UIBarButtonItem alloc] initWithTitle:@"  取消" style:UIBarButtonItemStylePlain target:self action:@selector(remove)];
+    NSMutableDictionary *textattri=[NSMutableDictionary dictionary];
+    textattri[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    [lefttem setTitleTextAttributes:textattri forState:UIControlStateNormal];
     UIBarButtonItem *centerSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *right=[[UIBarButtonItem alloc] initWithTitle:@"确定  " style:UIBarButtonItemStylePlain target:self action:@selector(doneClick)];
+    [right setTitleTextAttributes:textattri forState:UIControlStateNormal];
     toolbar.items = @[lefttem, centerSpace, right];
     return toolbar;
 }

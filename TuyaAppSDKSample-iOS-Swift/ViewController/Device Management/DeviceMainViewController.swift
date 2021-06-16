@@ -29,6 +29,7 @@ class DeviceMainViewController: BaseViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(handleScent(_:)), name: Notification.Name("DeviceMain"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleAddDevice(_:)), name: Notification.Name("AddDevice"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotifi(_:)), name: Notification.Name("Main"), object: nil)
         tabHeight.constant = UIDevice.isSameToIphoneX() ? 83 : 50
         let storyboard = UIStoryboard(name: "DeviceList", bundle: nil)
         deviceList = storyboard.instantiateViewController(withIdentifier: "DeviceListTableViewController") as? DeviceListTableViewController
@@ -87,6 +88,8 @@ class DeviceMainViewController: BaseViewController {
         deviceList.view.isHidden = count == 0
         if count > 0 {
             showRightNavigationButton()
+        } else {
+            hideRightNavigationButton()
         }
         
     }
@@ -95,6 +98,15 @@ class DeviceMainViewController: BaseViewController {
         settingsVC.view.isHidden = false
         deviceList.view.isHidden = true
         hideRightNavigationButton()
+    }
+    
+    @objc private func handleNotifi(_ notification: Notification) {
+        let obj = notification.object as? Int ?? 0
+        if obj == 0 {
+            handleShowDeviceList(deviceButton!)
+        } else {
+            handleShowSettings(settingsButton!)
+        }
     }
     
     @IBAction private func handleConnectMyDevice(_ sender: Any) {

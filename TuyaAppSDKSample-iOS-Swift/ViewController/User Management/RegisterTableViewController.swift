@@ -11,6 +11,7 @@ class RegisterTableViewController: BaseTableViewController {
     
     // MARK: - IBOutlet
     @IBOutlet weak var countryCodeTextField: MTextField!
+    @IBOutlet weak var lastNameTextField: MTextField!
     @IBOutlet weak var accountTextField: MTextField!
     @IBOutlet weak var passwordTextField: MTextField!
     @IBOutlet weak var verificationCodeTextField: MTextField!
@@ -46,7 +47,7 @@ class RegisterTableViewController: BaseTableViewController {
     
     // MARK: - Private Method
     private func sendVerificationCode(by type: AccountType) {
-        let countryCode = countryCodeTextField.text ?? ""
+        let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String ?? ""
         let account = accountTextField.text ?? ""
         
         switch type {
@@ -75,11 +76,11 @@ class RegisterTableViewController: BaseTableViewController {
     }
     
     private func registerAccount(by type: AccountType) {
-        let countryCode = countryCodeTextField.text ?? ""
+        let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String ?? ""
         let account = accountTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         let verificationCode = verificationCodeTextField.text ?? ""
-        
+        let name = (lastNameTextField.text ?? "") + " " + (countryCodeTextField.text ?? "")
         switch type {
         case .email:
             TuyaSmartUser.sharedInstance().register(byEmail: countryCode, email: account, password: password, code: verificationCode) { [weak self] in
@@ -88,7 +89,8 @@ class RegisterTableViewController: BaseTableViewController {
                 let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
                     self.navigationController?.popViewController(animated: true)
                 }
-                
+                UserDefaults.standard.setValue(name, forKey: "UserName")
+                UserDefaults.standard.synchronize()
                 Alert.showBasicAlert(on: self, with: NSLocalizedString("Registered Successfully", comment: ""), message: NSLocalizedString("Please navigate back to login your account.", comment: ""), actions: [action])
             } failure: { [weak self] (error) in
                 guard let self = self else { return }

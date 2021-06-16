@@ -12,7 +12,6 @@ let screenHeight = UIScreen.main.bounds.size.height
 
 class LoginTableViewController: BaseTableViewController {
     // MARK: - IBOutlet
-    @IBOutlet weak var countryCodeTextField: MTextField!
     @IBOutlet weak var accountTextField: MTextField!
     @IBOutlet weak var passwordTextField: MTextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -22,6 +21,20 @@ class LoginTableViewController: BaseTableViewController {
         super.viewDidLoad()
         tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 150)
         tableView.tableFooterView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 250)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let username = UserDefaults.standard.string(forKey: "UserName")
+        if username?.count ?? 0 > 0 {
+            TuyaSmartUser.sharedInstance().updateNickname(username!) {
+                
+            } failure: { error in
+                
+            }
+
+        }
     }
     
     @IBAction func loginTapped(_ sender: UIButton) {
@@ -37,7 +50,7 @@ class LoginTableViewController: BaseTableViewController {
     
     // MARK: - Private Method
     private func login(by type: AccountType) {
-        let countryCode = countryCodeTextField.text ?? ""
+        let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String ?? ""
         let account = accountTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         

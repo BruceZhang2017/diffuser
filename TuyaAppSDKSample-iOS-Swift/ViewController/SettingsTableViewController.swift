@@ -15,7 +15,11 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 130)
-        usernameLabel.text = TuyaSmartUser.sharedInstance().userName
+        usernameLabel.text = TuyaSmartUser.sharedInstance().nickname
+        let username = UserDefaults.standard.string(forKey: "UserName") ?? ""
+        if username.count > 0 {
+            usernameLabel.text = username
+        }
         emailLabel.text = TuyaSmartUser.sharedInstance().email
     }
 
@@ -59,6 +63,11 @@ class SettingsTableViewController: UITableViewController {
             let storyboard = UIStoryboard(name: "TuyaSmartMain", bundle: nil)
             let contactUSVC = storyboard.instantiateViewController(withIdentifier: "ContactUSViewController")
             navigationController?.pushViewController(contactUSVC, animated: true)
+        case 5:
+            let storyboard = UIStoryboard(name: "DualMode", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "DualModeViewController") as! DualModeViewController
+            vc.showSearching = true 
+            navigationController?.pushViewController(vc, animated: true)
         default:
             print("未实现")
         }
@@ -68,7 +77,7 @@ class SettingsTableViewController: UITableViewController {
 
 extension SettingsTableViewController {
     var titles: [String] {
-        return ["Account", "Tutorials and Videos", "FAQs", "Contact Us", "Terms of Service", "Connectivity"]
+        return ["Account", "Tutorials", "FAQs", "Contact Us", "Terms of Service", "Connectivity"]
     }
     var icons: [String] {
         return ["user", "video", "question", "chat", "terms", "signal"]

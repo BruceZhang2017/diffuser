@@ -7,7 +7,7 @@
 import UIKit
 import Toaster
 
-class SNViewController: UIViewController {
+class SNViewController: BaseViewController {
     @IBOutlet weak var snLabel: UILabel!
     @IBOutlet weak var snTextfield: MTextField!
     @IBOutlet weak var descLabel: UILabel!
@@ -23,7 +23,7 @@ class SNViewController: UIViewController {
         if type == 1 {
             snLabel.text = "ENTER PIN NUMBER MANUALLY"
             snTextfield.placeholder = "PIN Number"
-            descLabel.text = "The PIN Number can be found on the bottle label"
+            descLabel.text = "The PIN Number can be found on the bottle of the device"
         }
     }
     
@@ -46,4 +46,19 @@ class SNViewController: UIViewController {
         }
     }
 
+}
+
+extension SNViewController: UITextFieldDelegate {
+    func textField(_ textField:UITextField, shouldChangeCharactersIn range:NSRange, replacementString string: String) -> Bool {
+        let length = string.lengthOfBytes(using: String.Encoding.utf8)
+        for loopIndex in 0..<length {
+            let char = (string as NSString).character(at: loopIndex)
+            if char < 48 {return false }
+            if char > 57 {return false }
+        }
+        //限制长度
+        let proposeLength = (textField.text?.lengthOfBytes(using: String.Encoding.utf8) ?? 0) - range.length + string.lengthOfBytes(using: String.Encoding.utf8)
+        if proposeLength > 3 { return false }
+        return true
+    }
 }

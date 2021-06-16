@@ -18,7 +18,7 @@ public protocol QRRectDelegate {
     func drawwed()
 }
 
-open class ScanQRCodeViewController: UIViewController {
+class ScanQRCodeViewController: BaseViewController {
     @IBOutlet weak var qrView: UIView!
     @IBOutlet weak var scanLabel: UILabel!
     @IBOutlet weak var lineImageView: UIImageView!
@@ -49,12 +49,6 @@ open class ScanQRCodeViewController: UIViewController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(handleBack))
-    }
-    
-    @objc private func handleBack() {
-        navigationController?.popViewController(animated: true)
     }
 
     open func setNeedCodeImage(needCodeImg: Bool) {
