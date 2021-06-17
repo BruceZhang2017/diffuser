@@ -348,8 +348,8 @@ class TuneSettingsViewController: BaseViewController {
             days[i] = Int(v2)
         }
         refreshButtons()
-        var s = value.index(value.startIndex, offsetBy: 12 + 8)
-        var e = value.index(value.startIndex, offsetBy: 20 + 8)
+        var s = value.index(value.startIndex, offsetBy: 12)
+        var e = value.index(value.startIndex, offsetBy: 20)
         var v = String(value[s..<e])
         if v == "00000000" {
             startTime = "00:00"
@@ -364,8 +364,8 @@ class TuneSettingsViewController: BaseViewController {
             e1 = v.index(v.startIndex, offsetBy: 8)
             endTime = String(v[s..<e]) + ":" + String(v[e..<e1])
         }
-        s = value.index(value.startIndex, offsetBy: 12 + 16)
-        e = value.index(value.startIndex, offsetBy: 20 + 16)
+        s = value.index(value.startIndex, offsetBy: 12 + 8)
+        e = value.index(value.startIndex, offsetBy: 20 + 8)
         v = String(value[s..<e])
         if v == "00000000" {
             start2Time = "00:00"
@@ -380,6 +380,7 @@ class TuneSettingsViewController: BaseViewController {
             e1 = v.index(v.startIndex, offsetBy: 8)
             end2Time = String(v[s..<e]) + ":" + String(v[e..<e1])
         }
+        print("解析后的时间分别为：\(startTime) \(endTime) \(start2Time) \(end2Time)")
         refreshSchedual()
     }
     

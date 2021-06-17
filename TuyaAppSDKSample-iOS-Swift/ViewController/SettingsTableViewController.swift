@@ -6,6 +6,7 @@
 
 import UIKit
 import TuyaSmartBaseKit
+import SafariServices
 
 class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var usernameLabel: UILabel!
@@ -63,6 +64,9 @@ class SettingsTableViewController: UITableViewController {
             let storyboard = UIStoryboard(name: "TuyaSmartMain", bundle: nil)
             let contactUSVC = storyboard.instantiateViewController(withIdentifier: "ContactUSViewController")
             navigationController?.pushViewController(contactUSVC, animated: true)
+        case 4:
+            let vc = SFSafariViewController(url: URL(string: "https://wholehomescenting.com/terms/")!)
+            present(vc, animated: true, completion: nil)
         case 5:
             let storyboard = UIStoryboard(name: "DualMode", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "DualModeViewController") as! DualModeViewController
