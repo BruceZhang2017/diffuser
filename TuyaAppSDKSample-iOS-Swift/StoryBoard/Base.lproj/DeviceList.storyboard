@@ -331,7 +331,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLe-X1-xjd" userLabel="button2">
-                                        <rect key="frame" x="147.5" y="99.5" width="44" height="44"/>
+                                        <rect key="frame" x="166" y="99.5" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="2G8-g4-1It"/>
                                             <constraint firstAttribute="height" constant="44" id="6p0-VI-9Bp"/>
@@ -341,12 +341,13 @@
                                             <action selector="changeIntensity:" destination="ihg-fC-72F" eventType="touchUpInside" id="B4x-3F-ei1"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGO-pU-2cr">
-                                        <rect key="frame" x="191.5" y="94.5" width="168.5" height="54"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGO-pU-2cr">
+                                        <rect key="frame" x="210" y="94.5" width="150" height="54"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="kbc-bk-sfm"/>
                                             <constraint firstAttribute="height" constant="54" id="v4A-lf-f4Y"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                         <color key="textColor" red="0.73333333333333328" green="0.60784313725490191" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
