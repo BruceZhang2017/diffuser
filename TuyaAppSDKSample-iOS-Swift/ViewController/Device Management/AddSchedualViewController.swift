@@ -93,7 +93,7 @@ class AddSchedualViewController: BaseViewController {
     
     @IBAction func confirm(_ sender: Any) {
         if startTime.count == 0 || endTime.count == 0 || startTime == endTime {
-            Toast(text: "请选择时间").show()
+            //Toast(text: "请Select Time").show()
             return
         }
 //        if startTime.compare(endTime) != .orderedAscending {
@@ -108,7 +108,7 @@ class AddSchedualViewController: BaseViewController {
             }
         }
         if !selected {
-            Toast(text: "星期几必须需要").show()
+            Toast(text: "Please select day of week").show()
             return
         }
         
@@ -172,7 +172,7 @@ class AddSchedualViewController: BaseViewController {
         } else {
             date = Date()
         }
-        picker = ShuKeTimerPickerView(datePickWith: date, datePickerMode: .time, isHaveNavControler: false, toolbarTitle: "选择时间")
+        picker = ShuKeTimerPickerView(datePickWith: date, datePickerMode: .time, isHaveNavControler: false, toolbarTitle: "Select Option")
         picker?.setDatePickerDateFormat("HH:mm")
         picker?.delegate = self
         picker?.show()
@@ -188,7 +188,7 @@ class AddSchedualViewController: BaseViewController {
         } else {
             date = Date()
         }
-        picker = ShuKeTimerPickerView(datePickWith: date, datePickerMode: .time, isHaveNavControler: false, toolbarTitle: "选择时间")
+        picker = ShuKeTimerPickerView(datePickWith: date, datePickerMode: .time, isHaveNavControler: false, toolbarTitle: "Select Option")
         picker?.setDatePickerDateFormat("HH:mm")
         picker?.delegate = self
         picker?.show()
@@ -204,7 +204,7 @@ class AddSchedualViewController: BaseViewController {
         } else {
             date = Date()
         }
-        picker = ShuKeTimerPickerView(datePickWith: date, datePickerMode: .time, isHaveNavControler: false, toolbarTitle: "选择时间")
+        picker = ShuKeTimerPickerView(datePickWith: date, datePickerMode: .time, isHaveNavControler: false, toolbarTitle: "Select Option")
         picker?.setDatePickerDateFormat("HH:mm")
         picker?.delegate = self
         picker?.show()
@@ -220,7 +220,7 @@ class AddSchedualViewController: BaseViewController {
         } else {
             date = Date()
         }
-        picker = ShuKeTimerPickerView(datePickWith: date, datePickerMode: .time, isHaveNavControler: false, toolbarTitle: "选择时间")
+        picker = ShuKeTimerPickerView(datePickWith: date, datePickerMode: .time, isHaveNavControler: false, toolbarTitle: "Select Option")
         picker?.setDatePickerDateFormat("HH:mm")
         picker?.delegate = self
         picker?.show()

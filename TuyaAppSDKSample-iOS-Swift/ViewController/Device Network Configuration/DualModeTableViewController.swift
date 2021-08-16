@@ -37,6 +37,7 @@ class DualModeViewController: BaseViewController {
         super.viewDidLoad()
         ssidTextField.text = UserDefaults.standard.string(forKey: "ssid")
         passwordTextField.text = UserDefaults.standard.string(forKey: "pwd")
+        log.info("[配网] 开始配网")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -66,7 +67,7 @@ class DualModeViewController: BaseViewController {
 
     func searchTapped() {
         TuyaSmartBLEManager.sharedInstance().delegate = self
-        
+        log.info("[配网] 开始搜索")
         // Start finding un-paired BLE devices, it's the same process as single BLE mode.
         TuyaSmartBLEManager.sharedInstance().startListening(true)
         
@@ -89,6 +90,7 @@ class DualModeViewController: BaseViewController {
         searchView.isHidden = false
         startSearch()
         searchTapped()
+        log.info("[配网] 开始连接")
     }
     
     @IBAction func connectWithSSIDAndPwd(_ sender: Any) {
@@ -104,6 +106,7 @@ class DualModeViewController: BaseViewController {
         UserDefaults.standard.setValue(pwd, forKey: "pwd")
         UserDefaults.standard.synchronize()
         connectDevice()
+        log.info("[配网] 开始指定ssid: \(ssid)")
     }
     @IBAction func continueWithConfi(_ sender: Any) {
         finishView.isHidden = false
@@ -118,6 +121,7 @@ class DualModeViewController: BaseViewController {
                 break
             }
         }
+        log.info("[配网] 完成配网")
     }
     
     @IBAction func changeLocation(_ sender: Any) {
@@ -145,6 +149,7 @@ class DualModeViewController: BaseViewController {
                                     UserDefaults.standard.setValue([self?.deviceModel?.devId ?? "": 3], forKey: "location")
                                 })]
         )
+        log.info("[配网] 修改location")
     }
     
     @IBAction func changeTimezone(_ sender: Any) {
@@ -165,6 +170,7 @@ class DualModeViewController: BaseViewController {
                                     self?.timeZoneValueLabel.text = "Eastern Standard Time"
                                 })]
         )
+        log.info("[配网] 修改time zone")
     }
     
     private func connectDevice() {
@@ -173,11 +179,12 @@ class DualModeViewController: BaseViewController {
             return
         }
         TuyaSmartBLEWifiActivator.sharedInstance().bleWifiDelegate = self
-        
+        SVProgressHUD.show(withStatus: NSLocalizedString("Configuring", comment: ""))
         TuyaSmartBLEWifiActivator.sharedInstance().startConfigBLEWifiDevice(withUUID: deviceInfo.uuid, homeId: homeID, productId: deviceInfo.productId, ssid: ssidTextField.text ?? "", password: passwordTextField.text ?? "", timeout: 100) {
-            SVProgressHUD.show(withStatus: NSLocalizedString("Configuring", comment: ""))
+            log.info("[配网] Configuring")
         } failure: {
             SVProgressHUD.showError(withStatus: NSLocalizedString("Failed to Send Data to the Device", comment: ""))
+            log.info("[配网] Failed to Send Data to the Device")
         }
     }
 }
@@ -186,8 +193,10 @@ extension DualModeViewController: TuyaSmartBLEManagerDelegate {
     
     // When the BLE detector finds one un-paired BLE device, this delegate method will be called.
     func didDiscoveryDevice(withDeviceInfo deviceInfo: TYBLEAdvModel) {
+        log.info("[配网] 发现设备：\(deviceInfo)")
         guard let homeID = Home.current?.homeId else {
             SVProgressHUD.showError(withStatus: NSLocalizedString("No Home Selected", comment: ""))
+            log.info("[配网] No Home Selected")
             return
         }
         
@@ -205,20 +214,37 @@ extension DualModeViewController: TuyaSmartBLEManagerDelegate {
         self.homeID = homeID
         self.deviceInfo = deviceInfo
     }
+    
+    func bluetoothDidUpdateState(_ isPoweredOn: Bool) {
+        log.info("[配网] bluetoothDidUpdateState：\(isPoweredOn)")
+    }
+    
+    func onCentralDidDisconnect(fromDevice devId: String, error: Error) {
+        log.info("[配网] onCentralDidDisconnect：\(devId) \(error)")
+    }
+    
+    func bleManager(_ manager: TuyaSmartBLEManager, didFinishActivateDevice deviceModel: TuyaSmartDeviceModel, error: Error) {
+        log.info("[配网] bleManager didFinishActivateDevice：\(deviceModel) \(error)")
+    }
+    
+    func bleReceiveTransparentData(_ data: Data, devId: String) {
+        log.info("[配网] bleReceiveTransparentData：\(data) \(devId)")
+    }
 }
 
 extension DualModeViewController: TuyaSmartBLEWifiActivatorDelegate {
     
     // When the device connected to the router and activate itself successfully to the cloud, this delegate method will be called.
     func bleWifiActivator(_ activator: TuyaSmartBLEWifiActivator, didReceiveBLEWifiConfigDevice deviceModel: TuyaSmartDeviceModel?, error: Error?) {
-            guard error == nil,
-                  let deviceModel = deviceModel else {
-                return
-            }
-            
-            isSuccess = true
+        guard error == nil,
+            let deviceModel = deviceModel else {
+            log.info("[配网] ble和wifi配网报错：\(error)")
+            return
+        }
+        log.info("[配网] ble和wifi配网成功")
+        isSuccess = true
         self.deviceModel = deviceModel
-        
+        SVProgressHUD.dismiss()
         let vc = LoadingViewController(nibName: "LoadingViewController", bundle: nil)
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overCurrentContext

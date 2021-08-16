@@ -23,19 +23,18 @@ class SNViewController: BaseViewController {
         if type == 1 {
             snLabel.text = "ENTER PIN NUMBER MANUALLY"
             snTextfield.placeholder = "PIN Number"
-            descLabel.text = "The PIN Number can be found on the bottle of the device"
+            descLabel.text = "The PIN Number can be found on the bottle"
         }
     }
     
     @IBAction private func continueNext(_ sender: Any) {
         guard let sn = snTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines), sn.count > 0 else {
-            Toast(text: "请输入").show()
             return
         }
         if type == 1 {
             let value = Int(sn) ?? 0
             if value < 100 || value > 120 {
-                Toast(text: "请输入100-120之间的数字").show()
+                Toast(text: "Invalid PIN Number").show()
                 return
             }
             let vc = storyboard?.instantiateViewController(withIdentifier: "AddScentViewController") as? AddScentViewController

@@ -80,7 +80,7 @@ class RegisterTableViewController: BaseTableViewController {
         let account = accountTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         let verificationCode = verificationCodeTextField.text ?? ""
-        let name = (lastNameTextField.text ?? "") + " " + (countryCodeTextField.text ?? "")
+        let name = (countryCodeTextField.text ?? "") + " " + (lastNameTextField.text ?? "")
         switch type {
         case .email:
             TuyaSmartUser.sharedInstance().register(byEmail: countryCode, email: account, password: password, code: verificationCode) { [weak self] in

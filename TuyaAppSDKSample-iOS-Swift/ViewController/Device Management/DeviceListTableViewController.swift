@@ -115,7 +115,7 @@ class DeviceListTableViewController: UITableViewController {
         }, failure: { [weak self] (error) in
             guard let self = self else { return }
             let errorMessage = error?.localizedDescription ?? ""
-            Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Fetch Home", comment: ""), message: errorMessage)
+            Alert.showBasicAlert(on: self, with: " ", message: errorMessage)
         })
     }
 
@@ -147,7 +147,7 @@ extension DeviceListTableViewController: DeviceTableViewCellDelegate {
     func handleMore(tag: Int) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: tag, section: 0)) as? DeviceTableViewCell else { return }
         if cell.scentLabel.isHidden {
-            Alert.showBasicAlert(on: self, with: NSLocalizedString("please add my scent!", comment: ""), message: "", actions: [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { [weak self] action in
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("First, Add your Scent!", comment: ""), message: "", actions: [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { [weak self] action in
                 let vc = self?.storyboard?.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as? ScanQRCodeViewController
                 vc?.type = 1
                 self?.navigationController?.pushViewController(vc!, animated: true)

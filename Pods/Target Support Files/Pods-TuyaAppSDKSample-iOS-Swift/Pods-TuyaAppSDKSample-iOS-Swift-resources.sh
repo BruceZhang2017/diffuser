@@ -97,13 +97,11 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "${PODS_ROOT}/TuyaSmartBaseKit/ios/TuyaSmartBaseKit.framework/Versions/A/Resources/cerficate_v2"
   install_resource "${PODS_ROOT}/TuyaSmartDefaultPanelKit/ios/TuyaSmartDefaultPanelKit.framework/Versions/A/Resources/TuyaSmartDefaultPanel.bundle"
   install_resource "${PODS_ROOT}/TuyaSmartUtil/Carthage/Build/iOS/TuyaSmartUtil.framework/TuyaSmartUtil.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "${PODS_ROOT}/TuyaSmartBaseKit/ios/TuyaSmartBaseKit.framework/Versions/A/Resources/cerficate_v2"
   install_resource "${PODS_ROOT}/TuyaSmartDefaultPanelKit/ios/TuyaSmartDefaultPanelKit.framework/Versions/A/Resources/TuyaSmartDefaultPanel.bundle"
   install_resource "${PODS_ROOT}/TuyaSmartUtil/Carthage/Build/iOS/TuyaSmartUtil.framework/TuyaSmartUtil.bundle"

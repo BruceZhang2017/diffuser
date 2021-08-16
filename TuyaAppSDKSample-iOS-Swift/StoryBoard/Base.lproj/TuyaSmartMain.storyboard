@@ -541,6 +541,7 @@
                     </tableView>
                     <connections>
                         <outlet property="emailLabel" destination="4oB-9H-x9a" id="ENQ-nR-RaF"/>
+                        <outlet property="settingsLabel" destination="cz9-cQ-i5G" id="5D6-Wi-kf1"/>
                         <outlet property="usernameLabel" destination="Ab4-ZR-hux" id="eFp-yh-oi4"/>
                         <outlet property="versionLabel" destination="9bQ-oS-jTf" id="pBY-EF-VAG"/>
                     </connections>
@@ -782,13 +783,13 @@ If you have feedback, questions, or ideas, we want to hear from you! Have securi
                                 <color key="textColor" red="0.73333333329999995" green="0.60784313729999995" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please go to wholehomescenting.com to manage your account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgF-Hn-Bsu">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please go to wholehomescenting.com to manage your account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgF-Hn-Bsu">
                                 <rect key="frame" x="30" y="123" width="354" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="or2" translatesAutoresizingMaskIntoConstraints="NO" id="fMj-kG-iVA">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="or2" translatesAutoresizingMaskIntoConstraints="NO" id="fMj-kG-iVA">
                                 <rect key="frame" x="107.5" y="188" width="199" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="199" id="21g-T5-EqU"/>

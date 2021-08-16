@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = vc
             window?.makeKeyAndVisible()
         }
-        
+        LogManager.sharedInstance.setupLog() // 设置Log
         return true
     }
     

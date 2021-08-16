@@ -12,3 +12,4 @@
 #endif /* TuyaAppSDKSample_iOS_Swift_Bridging_Header_h */
 
 #import "ShuKeTimerPickerView.h"
+#import "ShareManager.h"

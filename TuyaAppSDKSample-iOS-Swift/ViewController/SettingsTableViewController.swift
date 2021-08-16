@@ -12,6 +12,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var versionLabel: UILabel!
+    @IBOutlet weak var settingsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,17 @@ class SettingsTableViewController: UITableViewController {
             usernameLabel.text = username
         }
         emailLabel.text = TuyaSmartUser.sharedInstance().email
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tap.numberOfTapsRequired = 3
+        settingsLabel.addGestureRecognizer(tap)
+        settingsLabel.isUserInteractionEnabled = true
+    }
+    
+    @objc private func handleTap() {
+        ShareManager.shareFileHandler { type, result, value, error in
+            
+        }
     }
 
     // MARK: - Table view data source

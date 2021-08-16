@@ -330,19 +330,8 @@
                                             <constraint firstAttribute="height" constant="1" id="7aS-cZ-iBT"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLe-X1-xjd" userLabel="button2">
-                                        <rect key="frame" x="166" y="99.5" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="2G8-g4-1It"/>
-                                            <constraint firstAttribute="height" constant="44" id="6p0-VI-9Bp"/>
-                                        </constraints>
-                                        <state key="normal" image="vector5"/>
-                                        <connections>
-                                            <action selector="changeIntensity:" destination="ihg-fC-72F" eventType="touchUpInside" id="B4x-3F-ei1"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGO-pU-2cr">
-                                        <rect key="frame" x="210" y="94.5" width="150" height="54"/>
+                                        <rect key="frame" x="200" y="95.5" width="150" height="54"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="kbc-bk-sfm"/>
                                             <constraint firstAttribute="height" constant="54" id="v4A-lf-f4Y"/>
@@ -351,8 +340,19 @@
                                         <color key="textColor" red="0.73333333333333328" green="0.60784313725490191" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLe-X1-xjd" userLabel="button2">
+                                        <rect key="frame" x="146" y="80.5" width="64" height="84"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="64" id="2G8-g4-1It"/>
+                                            <constraint firstAttribute="height" constant="84" id="6p0-VI-9Bp"/>
+                                        </constraints>
+                                        <state key="normal" image="vector5"/>
+                                        <connections>
+                                            <action selector="changeIntensity:" destination="ihg-fC-72F" eventType="touchUpInside" id="B4x-3F-ei1"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="trD-aQ-Efq">
-                                        <rect key="frame" x="20" y="173.5" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="174.5" width="374" height="40"/>
                                         <color key="backgroundColor" red="0.73333333329999995" green="0.60784313729999995" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="X3K-uH-jiR"/>
@@ -369,10 +369,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Pa-fe-RWQ" userLabel="button1">
-                                        <rect key="frame" x="360" y="99.5" width="44" height="44"/>
+                                        <rect key="frame" x="340" y="80.5" width="64" height="84"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="KWv-fG-k8L"/>
-                                            <constraint firstAttribute="width" constant="44" id="sv0-DL-cZ9"/>
+                                            <constraint firstAttribute="height" constant="84" id="KWv-fG-k8L"/>
+                                            <constraint firstAttribute="width" constant="64" id="sv0-DL-cZ9"/>
                                         </constraints>
                                         <state key="normal" image="vector4"/>
                                         <connections>
@@ -387,10 +387,10 @@
                                     <constraint firstItem="fGO-pU-2cr" firstAttribute="centerY" secondItem="2Pa-fe-RWQ" secondAttribute="centerY" id="DXA-kC-vBI"/>
                                     <constraint firstItem="Lgk-He-c52" firstAttribute="leading" secondItem="h5A-IG-SiN" secondAttribute="leading" constant="18" id="Dz1-fM-ZSG"/>
                                     <constraint firstItem="1dO-Gv-QNV" firstAttribute="top" secondItem="h5A-IG-SiN" secondAttribute="top" constant="18" id="F9L-Eh-LL8"/>
-                                    <constraint firstItem="2Pa-fe-RWQ" firstAttribute="leading" secondItem="fGO-pU-2cr" secondAttribute="trailing" id="FAm-yW-h4b"/>
-                                    <constraint firstItem="fGO-pU-2cr" firstAttribute="leading" secondItem="NLe-X1-xjd" secondAttribute="trailing" id="Ij2-55-bK0"/>
+                                    <constraint firstItem="2Pa-fe-RWQ" firstAttribute="leading" secondItem="fGO-pU-2cr" secondAttribute="trailing" constant="-10" id="FAm-yW-h4b"/>
+                                    <constraint firstItem="fGO-pU-2cr" firstAttribute="leading" secondItem="NLe-X1-xjd" secondAttribute="trailing" constant="-10" id="Ij2-55-bK0"/>
                                     <constraint firstAttribute="trailing" secondItem="2Pa-fe-RWQ" secondAttribute="trailing" constant="10" id="MAd-e7-YLV"/>
-                                    <constraint firstItem="2Pa-fe-RWQ" firstAttribute="top" secondItem="gXW-xt-RZB" secondAttribute="bottom" constant="19" id="MUF-Rl-ff7"/>
+                                    <constraint firstItem="2Pa-fe-RWQ" firstAttribute="top" secondItem="gXW-xt-RZB" secondAttribute="bottom" id="MUF-Rl-ff7"/>
                                     <constraint firstItem="trD-aQ-Efq" firstAttribute="top" secondItem="fGO-pU-2cr" secondAttribute="bottom" constant="25" id="TLQ-AQ-fuN"/>
                                     <constraint firstItem="Gzg-Jz-mpl" firstAttribute="leading" secondItem="h5A-IG-SiN" secondAttribute="leading" constant="75" id="VJ0-2q-1b0"/>
                                     <constraint firstItem="NLe-X1-xjd" firstAttribute="centerY" secondItem="2Pa-fe-RWQ" secondAttribute="centerY" id="b1v-Ul-LFp"/>
@@ -1116,7 +1116,7 @@
                                     <constraint firstAttribute="height" constant="1" id="5bx-cI-Nb0"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My label is damaged/unreadable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EfB-bP-iSs">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My label is damaged/unreadable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EfB-bP-iSs">
                                 <rect key="frame" x="84" y="821" width="246" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.96078431372549022" green="0.396078431372549" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
@@ -1704,7 +1704,7 @@
                                     <constraint firstAttribute="height" constant="1" id="tba-Ec-y3r"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My label is damaged/unreadable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJr-AO-0ea">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My label is damaged/unreadable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJr-AO-0ea">
                                 <rect key="frame" x="84" y="821" width="246" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.96078431369999995" green="0.39607843139999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>

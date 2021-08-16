@@ -60,6 +60,9 @@
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="signUpWithApple:" destination="Bhx-18-oNk" eventType="touchUpInside" id="vzA-ch-uv6"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBq-Be-0jZ">
                                 <rect key="frame" x="25" y="228" width="364" height="40"/>
@@ -81,6 +84,9 @@
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="signUpWithGoogle:" destination="Bhx-18-oNk" eventType="touchUpInside" id="NwH-4g-Xbd"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jut-Pt-smn">
                                 <rect key="frame" x="25" y="308" width="364" height="40"/>
@@ -343,7 +349,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Verify Code" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OT3-Mz-tHV" customClass="MTextField" customModule="TuyaAppSDKSample_iOS_Swift" customModuleProvider="target">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Verification Code" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OT3-Mz-tHV" customClass="MTextField" customModule="TuyaAppSDKSample_iOS_Swift" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="10" width="374" height="40"/>
                                                     <color key="backgroundColor" red="0.92941176470588238" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -378,7 +384,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="Hyd-Yx-J6q"/>
                                                     </constraints>
-                                                    <state key="normal" title="Send Verify Code"/>
+                                                    <state key="normal" title="Send Verification Code"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="4"/>

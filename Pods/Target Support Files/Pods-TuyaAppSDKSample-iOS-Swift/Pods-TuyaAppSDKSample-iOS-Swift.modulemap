@@ -1,4 +1,4 @@
-module Pods_TuyaAppSDKSample_iOS_Swift {
+framework module Pods_TuyaAppSDKSample_iOS_Swift {
   umbrella header "Pods-TuyaAppSDKSample-iOS-Swift-umbrella.h"
 
   export *

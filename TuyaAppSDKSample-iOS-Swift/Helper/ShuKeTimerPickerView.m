@@ -99,12 +99,12 @@
 {
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     
-    UIBarButtonItem *lefttem = [[UIBarButtonItem alloc] initWithTitle:@"  取消" style:UIBarButtonItemStylePlain target:self action:@selector(remove)];
+    UIBarButtonItem *lefttem = [[UIBarButtonItem alloc] initWithTitle:@"  Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(remove)];
     NSMutableDictionary *textattri=[NSMutableDictionary dictionary];
     textattri[NSForegroundColorAttributeName] = [UIColor whiteColor];
     [lefttem setTitleTextAttributes:textattri forState:UIControlStateNormal];
     UIBarButtonItem *centerSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIBarButtonItem *right=[[UIBarButtonItem alloc] initWithTitle:@"确定  " style:UIBarButtonItemStylePlain target:self action:@selector(doneClick)];
+    UIBarButtonItem *right=[[UIBarButtonItem alloc] initWithTitle:@"OK  " style:UIBarButtonItemStylePlain target:self action:@selector(doneClick)];
     [right setTitleTextAttributes:textattri forState:UIControlStateNormal];
     toolbar.items = @[lefttem, centerSpace, right];
     return toolbar;

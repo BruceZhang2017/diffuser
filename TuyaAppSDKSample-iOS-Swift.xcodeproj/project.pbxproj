@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10F4AAB953F4FBCFFBD0F199 /* libPods-TuyaAppSDKSample-iOS-Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A631D49E2E0E816D32C2CC /* libPods-TuyaAppSDKSample-iOS-Swift.a */; };
+		88A767F030B13E14B516C8F6 /* Pods_TuyaAppSDKSample_iOS_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B2BC3B5E36B8B3B09DCB90 /* Pods_TuyaAppSDKSample_iOS_Swift.framework */; };
 		9A2556E6265BCFCC008B6946 /* screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2556E5265BCFCC008B6946 /* screen.png */; };
 		9A2556E8265BD036008B6946 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2556E7265BD036008B6946 /* logo.png */; };
 		9A2556EA265C82BE008B6946 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2556E9265C82BE008B6946 /* RegisterViewController.swift */; };
@@ -32,6 +32,9 @@
 		9A94F2C926629B0600376B2B /* AddScentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94F2C826629B0600376B2B /* AddScentViewController.swift */; };
 		9AB5DFC3265A3FDF00E61BF4 /* t_s.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */; };
 		9AD3DAD22661174200430376 /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD3DAD12661174200430376 /* DeviceTableViewCell.swift */; };
+		9AF3C2D3268C203400DBC162 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF3C2D1268C203200DBC162 /* Log.swift */; };
+		9AF3C2D4268C203400DBC162 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF3C2D2268C203400DBC162 /* LogManager.swift */; };
+		9AF3C2D7268C27F600DBC162 /* ShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF3C2D6268C27F600DBC162 /* ShareManager.m */; };
 		9AF61E342665C47500D0FCDA /* ShuKeTimerPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF61E332665C47500D0FCDA /* ShuKeTimerPickerView.m */; };
 		AF00605D25EC968A001462B8 /* TimeZoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */; };
 		AF00606125ECBF3A001462B8 /* TemperatureUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */; };
@@ -94,7 +97,6 @@
 
 /* Begin PBXFileReference section */
 		207E8BAF216CF8ED00C5937A /* Pods-TuyaAppSDKSample-iOS-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyaAppSDKSample-iOS-Swift.release.xcconfig"; path = "Target Support Files/Pods-TuyaAppSDKSample-iOS-Swift/Pods-TuyaAppSDKSample-iOS-Swift.release.xcconfig"; sourceTree = "<group>"; };
-		98A631D49E2E0E816D32C2CC /* libPods-TuyaAppSDKSample-iOS-Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TuyaAppSDKSample-iOS-Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A2556E5265BCFCC008B6946 /* screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screen.png; sourceTree = "<group>"; };
 		9A2556E7265BD036008B6946 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		9A2556E9265C82BE008B6946 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -116,9 +118,14 @@
 		9A4CF016265FE5BF0098071F /* LoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
 		9A4CF019265FF3090098071F /* TuneSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneSettingsViewController.swift; sourceTree = "<group>"; };
 		9A4CF01B2660788E0098071F /* AddSchedualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSchedualViewController.swift; sourceTree = "<group>"; };
+		9A7F713826A70F4C00C3F95C /* TuyaAppSDKSample-iOS-Swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TuyaAppSDKSample-iOS-Swift.entitlements"; sourceTree = "<group>"; };
 		9A94F2C826629B0600376B2B /* AddScentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScentViewController.swift; sourceTree = "<group>"; };
 		9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = t_s.bmp; sourceTree = "<group>"; };
 		9AD3DAD12661174200430376 /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
+		9AF3C2D1268C203200DBC162 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		9AF3C2D2268C203400DBC162 /* LogManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
+		9AF3C2D5268C27F600DBC162 /* ShareManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareManager.h; sourceTree = "<group>"; };
+		9AF3C2D6268C27F600DBC162 /* ShareManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareManager.m; sourceTree = "<group>"; };
 		9AF61E322665C47400D0FCDA /* ShuKeTimerPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuKeTimerPickerView.h; sourceTree = "<group>"; };
 		9AF61E332665C47500D0FCDA /* ShuKeTimerPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuKeTimerPickerView.m; sourceTree = "<group>"; };
 		AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneTableViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +205,7 @@
 		AFBB5BBE25B95BBA006BDDD7 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		AFBB5BC125B95F3C006BDDD7 /* DeviceStatusBehaveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStatusBehaveCell.swift; sourceTree = "<group>"; };
 		B2A4751A3340941A1C42F4D9 /* Pods-TuyaAppSDKSample-iOS-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TuyaAppSDKSample-iOS-Swift.debug.xcconfig"; path = "Target Support Files/Pods-TuyaAppSDKSample-iOS-Swift/Pods-TuyaAppSDKSample-iOS-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		D5B2BC3B5E36B8B3B09DCB90 /* Pods_TuyaAppSDKSample_iOS_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TuyaAppSDKSample_iOS_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10F4AAB953F4FBCFFBD0F199 /* libPods-TuyaAppSDKSample-iOS-Swift.a in Frameworks */,
+				88A767F030B13E14B516C8F6 /* Pods_TuyaAppSDKSample_iOS_Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +223,7 @@
 		87E8F60384D829671393D688 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				98A631D49E2E0E816D32C2CC /* libPods-TuyaAppSDKSample-iOS-Swift.a */,
+				D5B2BC3B5E36B8B3B09DCB90 /* Pods_TuyaAppSDKSample_iOS_Swift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -287,9 +295,12 @@
 		AF5531DE25A5992500E13562 /* TuyaAppSDKSample-iOS-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				9A7F713826A70F4C00C3F95C /* TuyaAppSDKSample-iOS-Swift.entitlements */,
 				9AB5DFC2265A3FDF00E61BF4 /* t_s.bmp */,
 				AF55320C25A59BE800E13562 /* AppKey.swift */,
 				AF5531DF25A5992500E13562 /* AppDelegate.swift */,
+				9AF3C2D1268C203200DBC162 /* Log.swift */,
+				9AF3C2D2268C203400DBC162 /* LogManager.swift */,
 				9A2556E4265BCF6C008B6946 /* Resource */,
 				AF5E2F3325A5A08600DAF14E /* StoryBoard */,
 				AF5E2F4625A5A4F300DAF14E /* ViewController */,
@@ -374,6 +385,8 @@
 				AF3A25A325A8426D003EB9FF /* UIButtonExtension.swift */,
 				AF3A25B125A99E02003EB9FF /* UIViewControllerExtension.swift */,
 				AFBB5BBE25B95BBA006BDDD7 /* NotificationName.swift */,
+				9AF3C2D5268C27F600DBC162 /* ShareManager.h */,
+				9AF3C2D6268C27F600DBC162 /* ShareManager.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -574,6 +587,7 @@
 			files = (
 				AF3A25C525AE930E003EB9FF /* SwitchHomeTableViewController.swift in Sources */,
 				AF96129925B58CE1000971CC /* DeviceControlTableViewController.swift in Sources */,
+				9AF3C2D3268C203400DBC162 /* Log.swift in Sources */,
 				AF00606B25EE6A41001462B8 /* DualModeTableViewController.swift in Sources */,
 				AFBB5BC225B95F3C006BDDD7 /* DeviceStatusBehaveCell.swift in Sources */,
 				AFBB5BBF25B95BBA006BDDD7 /* NotificationName.swift in Sources */,
@@ -630,6 +644,8 @@
 				AF96133C25B7085D000971CC /* StringTableViewCell.swift in Sources */,
 				9A4CF014265F0C8C0098071F /* LBXScanWrapper.swift in Sources */,
 				9A94F2C926629B0600376B2B /* AddScentViewController.swift in Sources */,
+				9AF3C2D7268C27F600DBC162 /* ShareManager.m in Sources */,
+				9AF3C2D4268C203400DBC162 /* LogManager.swift in Sources */,
 				AF3A25C925AE9F9A003EB9FF /* HomeListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -930,10 +946,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = "TuyaAppSDKSample-iOS-Swift/TuyaAppSDKSample-iOS-Swift.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 67F77N5Y4K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -976,10 +992,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = "TuyaAppSDKSample-iOS-Swift/TuyaAppSDKSample-iOS-Swift.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 67F77N5Y4K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
