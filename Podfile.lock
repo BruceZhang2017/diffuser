@@ -1,6 +1,7 @@
 PODS:
   - CocoaAsyncSocket (7.6.5)
   - IQKeyboardManagerSwift (6.5.6)
+  - McPicker (3.0.0)
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
@@ -77,6 +78,7 @@ PODS:
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift
+  - McPicker
   - SnapKit
   - SVProgressHUD
   - Then
@@ -88,6 +90,7 @@ SPEC REPOS:
   trunk:
     - CocoaAsyncSocket
     - IQKeyboardManagerSwift
+    - McPicker
     - ObjcExceptionBridging
     - SnapKit
     - SVProgressHUD
@@ -117,6 +120,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  McPicker: ba38be56a8194faa5249eca4226c364eed628044
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
@@ -143,6 +147,6 @@ SPEC CHECKSUMS:
   XCGLogger: 1943831ef907df55108b0b18657953f868de973b
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: daddf60e05e51b26d205c53bbf10c752fd59c49d
+PODFILE CHECKSUM: 47d71c95682f533c2bff247d0db50e4a8fbb0f57
 
 COCOAPODS: 1.10.1

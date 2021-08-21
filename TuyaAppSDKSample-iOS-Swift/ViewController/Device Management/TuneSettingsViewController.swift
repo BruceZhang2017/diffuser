@@ -7,12 +7,10 @@
 import UIKit
 import TuyaSmartDeviceCoreKit
 import Toaster
+import McPicker
+import SVProgressHUD
 
-var days = [0, 0, 0, 0, 0, 0, 0]
-var startTime = ""
-var endTime = ""
-var start2Time = ""
-var end2Time = ""
+var weekdays = [["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"]]
 
 class TuneSettingsViewController: BaseViewController {
     @IBOutlet weak var settingsView: UIView!
@@ -36,9 +34,19 @@ class TuneSettingsViewController: BaseViewController {
     @IBOutlet weak var deviceButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var tabHeight: NSLayoutConstraint!
+    @IBOutlet weak var SprayView: UIView!
+    @IBOutlet weak var sprayLabel: UILabel!
+    @IBOutlet weak var sprayValueLabel: UILabel!
+    @IBOutlet weak var stopView: UIView!
+    @IBOutlet weak var stopLabel: UILabel!
+    @IBOutlet weak var stopValueLabel: UILabel!
     var device: TuyaSmartDevice?
     var schedualIndex = 1 // 当前标志的位置
     var v = -1
+    var spray = 0
+    var stop = 0
+    var current = 0 // 当前星期几的位置
+    var i = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,10 +62,10 @@ class TuneSettingsViewController: BaseViewController {
 //        tap.numberOfTapsRequired = 1
 //        deviceNameLabel.addGestureRecognizer(tap)
         
-        refreshIntensity()
         for button in dayButtons {
-            button.setTitleColor(UIColor.hex(color: "32D62F"), for: .selected)
+            button.setTitleColor(UIColor.hex(color: "BB9BC5"), for: .selected)
         }
+        SVProgressHUD.show()
         publishMessage(with: ["8" : "8A"])
         width1LC.constant = (screenWidth - 24) / 2
         width2LC.constant = (screenWidth - 24) / 2
@@ -100,12 +108,17 @@ class TuneSettingsViewController: BaseViewController {
 //    }
     
     private func refreshButtons() {
-        for (i, value) in days.enumerated() {
-            dayButtons[i].isSelected = value > 0
+        for i in 0..<7 {
+            dayButtons[i].isSelected = i == current
         }
     }
     
     private func refreshSchedual() {
+        let day = weekdays[current]
+        let startTime = day[0].split(separator: "-")[0]
+        let endTime = day[0].split(separator: "-")[1]
+        let start2Time = day[1].split(separator: "-")[0]
+        let end2Time = day[1].split(separator: "-")[1]
         if startTime.count > 0 && endTime.count > 0 {
             var value = startTime.split(separator: ":")
             var hour = Int(value[0]) ?? 0
@@ -155,6 +168,7 @@ class TuneSettingsViewController: BaseViewController {
 //            return
 //        }
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddSchedualViewController") as? AddSchedualViewController
+        vc?.currenday = current
         vc?.device = device
         navigationController?.pushViewController(vc!, animated: true)
         
@@ -287,11 +301,7 @@ class TuneSettingsViewController: BaseViewController {
     }
     
     private func refreshIntensity() {
-        guard let device = device else { return }
-        let dps = device.deviceModel.dps
         let titles = ["Low", "Medium", "High"]
-        let v1 = dps?["101"] as? String ?? "0"
-        v = Int(v1) ?? 0
         intensityValueLabel.text = titles[v]
     }
     
@@ -317,7 +327,9 @@ class TuneSettingsViewController: BaseViewController {
         device?.publishDps(dps, success: {
             [weak self] in
             if let _ = dps["8"] {
-                self?.perform(#selector(TuneSettingsViewController.handle8CMD), with: nil, afterDelay: 2)
+                self?.i += 1
+                let d = (self?.i ?? 0) > 2 ? 0.9 : 2
+                self?.perform(#selector(TuneSettingsViewController.handle8CMD), with: nil, afterDelay: d)
             }
         }, failure: { (error) in
             let errorMessage = error?.localizedDescription ?? ""
@@ -325,67 +337,204 @@ class TuneSettingsViewController: BaseViewController {
         })
     }
     
+    private func refreshSpray() {
+        if spray > 0 {
+            sprayValueLabel.text = "\(spray * 5)秒"
+        }
+    }
+    
+    private func refreshStop() {
+        if stop > 0 {
+            stopValueLabel.text = "\(stop * 5)秒"
+        }
+    }
+    
     /// 8M 7f 0c 06 06 24 00002359 00000000 00000000 00000000 00000000
     @objc private func handle8CMD() {
         guard let dps = device?.deviceModel.dps else {
+            print("数据为空")
             return
         }
         guard let value = dps["8"] as? String else {
+            print("数据为空不是8")
             return
         }
-        if value.count != 52 {
-            return
+        if value.hasPrefix("9M") && value.count > 3 {
+            let start = value.index(value.startIndex, offsetBy: 2)
+            let end = value.index(value.startIndex, offsetBy: 3)
+            let hexi:UInt = UInt(String(value[start...end]), radix: 16) ?? 0
+            v = Int(hexi)
+            refreshIntensity()
+            if i > 2 {
+                return
+            }
+            publishMessage(with: ["8" : "6A00"])
         }
-        if !value.hasPrefix("8M") {
-            return
+        if value.hasPrefix("8M") && value.count > 12 {
+            var start = value.index(value.startIndex, offsetBy: 2)
+            var end = value.index(value.startIndex, offsetBy: 3)
+            var hexi:UInt = UInt(String(value[start...end]), radix: 16) ?? 0
+            
+            start = value.index(value.startIndex, offsetBy: 4)
+            end = value.index(value.startIndex, offsetBy: 5)
+            hexi = UInt(String(value[start...end]), radix: 16) ?? 0
+            spray = Int(hexi)
+            refreshSpray()
+            
+            start = value.index(value.startIndex, offsetBy: 10)
+            end = value.index(value.startIndex, offsetBy: 11)
+            hexi = UInt(String(value[start...end]), radix: 16) ?? 0
+            stop = Int(hexi)
+            refreshStop()
+            publishMessage(with: ["8" : "9A"])
         }
-        let start = value.index(value.startIndex, offsetBy: 2)
-        let end = value.index(value.startIndex, offsetBy: 3)
-        let hexi:UInt = UInt(String(value[start...end]), radix: 16) ?? 0
-        for i in 0..<7 {
-            let v = hexi >> i
-            let v2 = v & 1
-            days[i] = Int(v2)
+        if value.hasPrefix("6M") && value.count >= 14 {
+            if value.hasPrefix("6M00") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[0][0] = hexi
+                publishMessage(with: ["8" : "6A01"])
+            }
+            if value.hasPrefix("6M01") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[0][1] = hexi
+                publishMessage(with: ["8" : "6A02"])
+            }
+            if value.hasPrefix("6M02") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[1][0] = hexi
+                publishMessage(with: ["8" : "6A03"])
+            }
+            if value.hasPrefix("6M03") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[1][1] = hexi
+                publishMessage(with: ["8" : "6A04"])
+            }
+            if value.hasPrefix("6M04") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[2][0] = hexi
+                publishMessage(with: ["8" : "6A05"])
+            }
+            if value.hasPrefix("6M05") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[2][1] = hexi
+                publishMessage(with: ["8" : "6A06"])
+            }
+            if value.hasPrefix("6M06") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[3][0] = hexi
+                publishMessage(with: ["8" : "6A07"])
+            }
+            if value.hasPrefix("6M07") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[3][1] = hexi
+                publishMessage(with: ["8" : "6A08"])
+            }
+            if value.hasPrefix("6M08") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[4][0] = hexi
+                publishMessage(with: ["8" : "6A09"])
+            }
+            if value.hasPrefix("6M09") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[4][1] = hexi
+                publishMessage(with: ["8" : "6A0a"])
+            }
+            if value.hasPrefix("6M0a") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[5][0] = hexi
+                publishMessage(with: ["8" : "6A0b"])
+            }
+            if value.hasPrefix("6M0b") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[5][1] = hexi
+                publishMessage(with: ["8" : "6A0c"])
+            }
+            if value.hasPrefix("6M0c") {
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[6][0] = hexi
+                publishMessage(with: ["8" : "6A0d"])
+            }
+            if value.hasPrefix("6M0d") {
+                SVProgressHUD.dismiss()
+                let start = value.index(value.startIndex, offsetBy: 6)
+                let end = value.endIndex
+                var hexi = String(value[start..<end])
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 6))
+                hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
+                hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
+                weekdays[6][1] = hexi
+                refreshSchedual()
+            }
         }
-        refreshButtons()
-        var s = value.index(value.startIndex, offsetBy: 12)
-        var e = value.index(value.startIndex, offsetBy: 20)
-        var v = String(value[s..<e])
-        if v == "00000000" {
-            startTime = "00:00"
-            endTime = "00:00"
-        } else {
-            var s = v.startIndex
-            var e = v.index(v.startIndex, offsetBy: 2)
-            var e1 = v.index(v.startIndex, offsetBy: 4)
-            startTime = String(v[s..<e]) + ":" + String(v[e..<e1])
-            s = v.index(v.startIndex, offsetBy: 4)
-            e = v.index(v.startIndex, offsetBy: 6)
-            e1 = v.index(v.startIndex, offsetBy: 8)
-            endTime = String(v[s..<e]) + ":" + String(v[e..<e1])
-        }
-        s = value.index(value.startIndex, offsetBy: 12 + 8)
-        e = value.index(value.startIndex, offsetBy: 20 + 8)
-        v = String(value[s..<e])
-        if v == "00000000" {
-            start2Time = "00:00"
-            end2Time = "00:00"
-        } else {
-            var s = v.startIndex
-            var e = v.index(v.startIndex, offsetBy: 2)
-            var e1 = v.index(v.startIndex, offsetBy: 4)
-            start2Time = String(v[s..<e]) + ":" + String(v[e..<e1])
-            s = v.index(v.startIndex, offsetBy: 4)
-            e = v.index(v.startIndex, offsetBy: 6)
-            e1 = v.index(v.startIndex, offsetBy: 8)
-            end2Time = String(v[s..<e]) + ":" + String(v[e..<e1])
-        }
-        print("解析后的时间分别为：\(startTime) \(endTime) \(start2Time) \(end2Time)")
-        refreshSchedual()
     }
     
     @IBAction func confirm(_ sender: Any) {
-        publishMessage(with: ["101" : "\(v)"])
+        publishMessage(with: ["8" : "9A0\(v)"])
     }
     
     @IBAction private func handleShowDeviceList(_ sender: Any) {
@@ -412,5 +561,40 @@ class TuneSettingsViewController: BaseViewController {
                 break
             }
         }
+    }
+    
+    @IBAction func setSprayValue(_ sender: Any) {
+        McPicker.show(data: initializeTimeArray()) {  [weak self] (selections: [Int : String]) -> Void in
+            if let value = selections[0] {
+                self?.publishMessage(with: ["7" : (Int(value) ?? 0) / 5])
+            }
+        }
+
+    }
+    
+    @IBAction func setStopValue(_ sender: Any) {
+        McPicker.show(data: initializeTimeArray()) {  [weak self] (selections: [Int : String]) -> Void in
+            if let value = selections[0] {
+                self?.publishMessage(with: ["102" : (Int(value) ?? 0) / 5])
+            }
+        }
+    }
+    
+    @IBAction func tapWeekDay(_ sender: Any) {
+        let button = sender as! UIButton
+        current = button.tag
+        refreshButtons()
+        refreshSchedual()
+    }
+    
+}
+
+extension TuneSettingsViewController {
+    func initializeTimeArray() -> [[String]] {
+        var array: [String] = []
+        for i in 0..<60 {
+            array.append("\((i + 1) * 50)")
+        }
+        return [array]
     }
 }

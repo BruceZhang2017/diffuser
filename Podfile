@@ -12,6 +12,7 @@ target 'TuyaAppSDKSample-iOS-Swift' do
   pod 'Toaster'
   pod 'IQKeyboardManagerSwift'
   pod 'XCGLogger'
+  pod "McPicker"
 end
 
 post_install do |installer|

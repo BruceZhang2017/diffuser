@@ -1,6 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-TuyaAppSDKSample-iOS-Swift/Pods-TuyaAppSDKSample-iOS-Swift-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework
 ${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework
+${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework
 ${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework
 ${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework

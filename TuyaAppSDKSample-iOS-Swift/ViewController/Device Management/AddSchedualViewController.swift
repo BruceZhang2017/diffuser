@@ -7,6 +7,7 @@
 import UIKit
 import TuyaSmartDeviceCoreKit
 import Toaster
+import SVProgressHUD
 
 class AddSchedualViewController: BaseViewController {
     @IBOutlet weak var confirmButton: UIButton!
@@ -17,9 +18,17 @@ class AddSchedualViewController: BaseViewController {
     @IBOutlet weak var end2Label: UILabel!
     var picker: ShuKeTimerPickerView?
     var device: TuyaSmartDevice?
+    var currenday = 0
+    var startTime: String = ""
+    var endTime: String = ""
+    var start2Time: String = ""
+    var end2Time: String = ""
+    var wDays: [[String]] = []
+    var i = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        wDays = weekdays
         startLabel.isUserInteractionEnabled = true
         let tap1 = UITapGestureRecognizer(target: self, action: #selector(handleStart))
         tap1.numberOfTapsRequired = 1
@@ -37,6 +46,18 @@ class AddSchedualViewController: BaseViewController {
         tap4.numberOfTapsRequired = 1
         end2Label.addGestureRecognizer(tap4)
         
+        for button in buttons {
+            button.setTitleColor(UIColor.hex(color: "BB9BC5"), for: .selected)
+        }
+        
+        refreshUI()
+    }
+    
+    private func refreshUI() {
+        startTime = String(wDays[currenday][0].split(separator: "-")[0])
+        endTime = String(wDays[currenday][0].split(separator: "-")[1])
+        start2Time = String(wDays[currenday][1].split(separator: "-")[0])
+        end2Time = String(wDays[currenday][1].split(separator: "-")[1])
         if startTime.count > 0 {
             var value = startTime.split(separator: ":")
             if value.count == 2 {
@@ -81,66 +102,26 @@ class AddSchedualViewController: BaseViewController {
             }
         }
         
-        for (i, value) in days.enumerated() {
-            buttons[i].isSelected = value > 0
+        for i in 0..<7 {
+            buttons[i].isSelected = currenday == i
         }
     }
     
     @IBAction func selectDay(_ sender: Any) {
         let button = sender as! UIButton
-        button.isSelected = !button.isSelected
+        currenday = button.tag
+        refreshUI()
     }
     
     @IBAction func confirm(_ sender: Any) {
-        if startTime.count == 0 || endTime.count == 0 || startTime == endTime {
-            //Toast(text: "请Select Time").show()
-            return
-        }
-//        if startTime.compare(endTime) != .orderedAscending {
-//            Toast(text: "开始时间不能晚于结束时间").show()
-//            return
-//        }
-        var selected = false
-        for button in buttons {
-            if button.isSelected {
-                selected = true
-                break
-            }
-        }
-        if !selected {
-            Toast(text: "Please select day of week").show()
-            return
-        }
-        
-        var value = "8A"
-        var d = 0
-        for (i, day) in buttons.enumerated() {
-            d += ((day.isSelected ? 1 : 0) << i)
-        }
-        let st = NSString(format:"%2X", d) as String
-        print("天数：\(d) \(st)")
-        value += st
-        value += "0c060624"
-        let s = startTime.replacingOccurrences(of: ":", with: "")
-        let e = endTime.replacingOccurrences(of: ":", with: "")
-        value += "\(s)\(e)"
-        if start2Time.count > 0 && end2Time.count > 0 {
-            let s2 = start2Time.replacingOccurrences(of: ":", with: "")
-            let e2 = end2Time.replacingOccurrences(of: ":", with: "")
-            value += "\(s2)\(e2)"
-        } else {
-            value += "00000000"
-        }
-        value += "000000000000000000000000"
-        publishMessage(with: ["8" : value])
+        SVProgressHUD.show()
+        var s = wDays[0][0]
+        s = s.replacingOccurrences(of: ":", with: "")
+        s = s.replacingOccurrences(of: "-", with: "")
+        publishMessage(with: ["8" : "6A0000\(s)"])
     }
     
     private func showAlert() {
-        for i in 0..<7 {
-            let v = buttons[i].isSelected ? 1 : 0
-            days[i] = Int(v)
-        }
-        
         let vc = LoadingViewController(nibName: "LoadingViewController", bundle: nil)
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overCurrentContext
@@ -156,11 +137,99 @@ class AddSchedualViewController: BaseViewController {
 
         device?.publishDps(dps, success: {
             [weak self] in
-            self?.showAlert()
+            self?.i += 1
+            self?.handle8CMD()
         }, failure: { (error) in
             let errorMessage = error?.localizedDescription ?? ""
             SVProgressHUD.showError(withStatus: errorMessage)
         })
+    }
+    
+    @objc private func handle8CMD() {
+        if i == 1 {
+            var s = wDays[0][1]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0100\(s)"])
+        }
+        if i == 2 {
+            var s = wDays[1][0]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0202\(s)"])
+        }
+        if i == 3 {
+            var s = wDays[1][1]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0302\(s)"])
+        }
+        if i == 4 {
+            var s = wDays[2][0]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0404\(s)"])
+        }
+        if i == 5 {
+            var s = wDays[2][1]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0504\(s)"])
+        }
+        if i == 6 {
+            var s = wDays[3][0]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0608\(s)"])
+        }
+        if i == 7 {
+            var s = wDays[3][1]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0708\(s)"])
+        }
+        if i == 8 {
+            var s = wDays[4][0]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0810\(s)"])
+        }
+        if i == 9 {
+            var s = wDays[4][1]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0910\(s)"])
+        }
+        if i == 10 {
+            var s = wDays[5][0]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0a20\(s)"])
+        }
+        if i == 11 {
+            var s = wDays[5][1]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0b20\(s)"])
+        }
+        if i == 12 {
+            var s = wDays[6][0]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0c40\(s)"])
+        }
+        if i == 13 {
+            var s = wDays[6][1]
+            s = s.replacingOccurrences(of: ":", with: "")
+            s = s.replacingOccurrences(of: "-", with: "")
+            publishMessage(with: ["8" : "6A0d40\(s)"])
+        }
+        if i == 14 {
+            SVProgressHUD.dismiss()
+            weekdays = wDays
+            showAlert()
+            i = 0
+        }
     }
     
     @objc private func handleStart() {
@@ -241,6 +310,10 @@ extension AddSchedualViewController: ShuKeTimerPickerViewDelegate {
                     startLabel.text = "\(startTime) AM"
                 }
             }
+            let str = wDays[currenday][0]
+            var array = str.split(separator: "-").map{String($0)}
+            array[0] = startTime
+            wDays[currenday][0] = array.joined(separator: "-")
         } else if pickView.tag == 2 {
             endTime = resultString
             let value = endTime.split(separator: ":")
@@ -252,6 +325,10 @@ extension AddSchedualViewController: ShuKeTimerPickerViewDelegate {
                     endLabel.text = "\(endTime) AM"
                 }
             }
+            let str = wDays[currenday][0]
+            var array = str.split(separator: "-").map{String($0)}
+            array[1] = endTime
+            wDays[currenday][0] = array.joined(separator: "-")
         } else if pickView.tag == 3 {
             start2Time = resultString
             let value = start2Time.split(separator: ":")
@@ -263,6 +340,10 @@ extension AddSchedualViewController: ShuKeTimerPickerViewDelegate {
                     start2Label.text = "\(start2Time) AM"
                 }
             }
+            let str = wDays[currenday][1]
+            var array = str.split(separator: "-").map{String($0)}
+            array[0] = start2Time
+            wDays[currenday][1] = array.joined(separator: "-")
         } else if pickView.tag == 4 {
             end2Time = resultString
             let value = end2Time.split(separator: ":")
@@ -274,6 +355,10 @@ extension AddSchedualViewController: ShuKeTimerPickerViewDelegate {
                     end2Label.text = "\(end2Time) AM"
                 }
             }
+            let str = wDays[currenday][1]
+            var array = str.split(separator: "-").map{String($0)}
+            array[1] = end2Time
+            wDays[currenday][1] = array.joined(separator: "-")
         }
     }
 }

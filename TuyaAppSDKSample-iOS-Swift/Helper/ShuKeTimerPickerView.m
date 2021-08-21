@@ -71,7 +71,11 @@
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
     datePicker.datePickerMode = datePickerMode;
-    
+    if (@available(iOS 13.4, *)) {
+        [datePicker setPreferredDatePickerStyle: UIDatePickerStyleWheels];
+    } else {
+        // Fallback on earlier versions
+    }
     datePicker.backgroundColor = [UIColor whiteColor];
     if (_defaulDate) {
         [datePicker setDate:_defaulDate];

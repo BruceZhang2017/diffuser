@@ -220,11 +220,11 @@ extension DualModeViewController: TuyaSmartBLEManagerDelegate {
     }
     
     func onCentralDidDisconnect(fromDevice devId: String, error: Error) {
-        log.info("[配网] onCentralDidDisconnect：\(devId) \(error)")
+        log.info("[配网] onCentralDidDisconnect：\(devId)")
     }
     
     func bleManager(_ manager: TuyaSmartBLEManager, didFinishActivateDevice deviceModel: TuyaSmartDeviceModel, error: Error) {
-        log.info("[配网] bleManager didFinishActivateDevice：\(deviceModel) \(error)")
+        log.info("[配网] bleManager didFinishActivateDevice：\(deviceModel)")
     }
     
     func bleReceiveTransparentData(_ data: Data, devId: String) {
