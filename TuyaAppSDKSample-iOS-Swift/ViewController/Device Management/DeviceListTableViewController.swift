@@ -6,6 +6,7 @@
 
 import UIKit
 import TuyaSmartDeviceKit
+import SVProgressHUD
 
 class DeviceListTableViewController: UITableViewController {
     // MARK: - Property
@@ -40,6 +41,11 @@ class DeviceListTableViewController: UITableViewController {
             home?.delegate = self
             updateHomeDetail()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        SVProgressHUD.dismiss()
     }
 
     // MARK: - Table view data source

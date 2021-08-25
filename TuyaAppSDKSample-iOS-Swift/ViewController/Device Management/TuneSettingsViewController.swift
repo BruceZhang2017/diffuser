@@ -40,6 +40,11 @@ class TuneSettingsViewController: BaseViewController {
     @IBOutlet weak var stopView: UIView!
     @IBOutlet weak var stopLabel: UILabel!
     @IBOutlet weak var stopValueLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var cView: UIView!
+    @IBOutlet weak var wid1LC: NSLayoutConstraint!
+    @IBOutlet weak var wid2LC: NSLayoutConstraint!
+    @IBOutlet weak var wid3LC: NSLayoutConstraint!
     var device: TuyaSmartDevice?
     var schedualIndex = 1 // 当前标志的位置
     var v = -1
@@ -70,7 +75,22 @@ class TuneSettingsViewController: BaseViewController {
         width1LC.constant = (screenWidth - 24) / 2
         width2LC.constant = (screenWidth - 24) / 2
         width3LC.constant = (screenWidth - 24) / 2
+        wid1LC.constant = screenWidth
+        wid2LC.constant = screenWidth
+        wid3LC.constant = screenWidth
         tabHeight.constant = UIDevice.isSameToIphoneX() ? 83 : 50
+        
+        let images = ["baseline_date_range_white", "Stubiao", "Vector3"]
+        for (i, button) in buttons.enumerated() {
+            button.setImage(UIImage(named: images[i]), for: .normal)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        scrollView.delegate = self
+        scrollView.layoutIfNeeded()
+        scrollView.setContentOffset(CGPoint(x: screenWidth, y: 0), animated: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,6 +101,16 @@ class TuneSettingsViewController: BaseViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func refreshButtonBG() {
+        for (i, button) in buttons.enumerated() {
+            if schedualIndex == i {
+                button.backgroundColor = UIColor.hex(color: "BB9BC5")
+            } else {
+                button.backgroundColor = UIColor.hex(color: "E2E8F0")
+            }
+        }
     }
     
 //    @objc private func modifyName() {
@@ -210,49 +240,15 @@ class TuneSettingsViewController: BaseViewController {
 
     @IBAction private func handleShow(_ sender: Any) {
         let tag = (sender as! UIButton).tag
-        if tag == 2 {
-            return
-        }
+        schedualIndex = tag - 1
+        refreshButtonBG()
+        scrollView.setContentOffset(CGPoint(x: Int(screenWidth) * (tag - 1), y: 0), animated: true)
         if tag == 1 {
-            if schedualIndex == 1 {
-                schedualIndex = 2
-            } else if schedualIndex == 2 {
-                schedualIndex = 3
-            } else {
-                schedualIndex = 1
-            }
-        }
-        if tag == 3 {
-            if schedualIndex == 1 {
-                schedualIndex = 3
-            } else if schedualIndex == 2 {
-                schedualIndex = 1
-            } else {
-                schedualIndex = 2
-            }
-        }
-        var images: [String] = []
-        if schedualIndex == 1 {
-            images = ["baseline_date_range_white", "Vector3", "Stubiao"]
-            schedualView.isHidden = true
-            settingsView.isHidden = false
-            refreshView.isHidden = true
-            generalLabel.text = "GENERAL SETTINGS"
-        } else if schedualIndex == 2 {
-            images = ["Stubiao", "baseline_date_range_white", "Vector3"]
-            schedualView.isHidden = false
-            settingsView.isHidden = true
-            refreshView.isHidden = true
             generalLabel.text = "SCHEDULE"
-        } else {
-            images = ["Vector3", "Stubiao", "baseline_date_range_white"]
-            schedualView.isHidden = true
-            settingsView.isHidden = true
-            refreshView.isHidden = false
+        } else if tag == 2 {
             generalLabel.text = "CURRENT FRAGRANCE"
-        }
-        for (i, button) in buttons.enumerated() {
-            button.setImage(UIImage(named: images[i]), for: .normal)
+        } else {
+            generalLabel.text = "GENERAL SETTINGS"
         }
     }
     
@@ -593,8 +589,32 @@ extension TuneSettingsViewController {
     func initializeTimeArray() -> [[String]] {
         var array: [String] = []
         for i in 0..<60 {
-            array.append("\((i + 1) * 50)")
+            array.append("\((i + 1) * 5)")
         }
         return [array]
+    }
+}
+
+extension TuneSettingsViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.size.width
+        let currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1
+        schedualIndex = Int(currentPage)
+        refreshButtonBG()
+        if schedualIndex == 0 {
+            generalLabel.text = "SCHEDULE"
+        } else if schedualIndex == 1 {
+            generalLabel.text = "CURRENT FRAGRANCE"
+        } else {
+            generalLabel.text = "GENERAL SETTINGS"
+        }
     }
 }
