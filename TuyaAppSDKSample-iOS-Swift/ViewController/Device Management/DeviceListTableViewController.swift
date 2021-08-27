@@ -65,7 +65,7 @@ class DeviceListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "device-list-cell") as! DeviceTableViewCell
-        
+        cell.tag = indexPath.row
         guard let deviceModel = home?.deviceList[indexPath.row] else { return cell }
         cell.delegate = self
         var value = 0
@@ -112,6 +112,25 @@ class DeviceListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let deviceID = home?.deviceList[indexPath.row].devId else { return }
+        guard let device = TuyaSmartDevice(deviceId: deviceID) else { return }
+        device.remove {
+            
+        } failure: { error in
+            
+        }
+
     }
 
     // MARK: - Private method

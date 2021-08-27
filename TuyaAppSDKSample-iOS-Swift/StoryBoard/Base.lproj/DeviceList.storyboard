@@ -1316,7 +1316,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="eCK-n2-h3S" kind="modal" id="OPI-RX-0Td"/>
+                                    <segue destination="eCK-n2-h3S" kind="push" id="OPI-RX-0Td"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tKA-fT-D8Q">
@@ -1839,12 +1839,12 @@
                         <outlet property="descLabel" destination="QKZ-e1-2Mv" id="pJ3-v0-OVB"/>
                         <outlet property="snLabel" destination="e6f-dV-ucc" id="HvE-Q2-cc5"/>
                         <outlet property="snTextfield" destination="bqr-bs-AwI" id="zsg-Vb-6CT"/>
-                        <segue destination="O47-Rn-iws" kind="modal" identifier="DualMode" id="kui-90-Gm6"/>
+                        <segue destination="O47-Rn-iws" kind="push" identifier="DualMode" id="kui-90-Gm6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPR-6o-KsX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2363.9399999999996" y="2362.4533333333334"/>
+            <point key="canvasLocation" x="2536" y="2362"/>
         </scene>
         <!--DualMode-->
         <scene sceneID="lbp-ps-GpZ">
@@ -1854,7 +1854,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O5W-W9-ZD8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2842.1099999999997" y="2368.4266666666667"/>
+            <point key="canvasLocation" x="3149" y="2362"/>
         </scene>
         <!--Add Scent View Controller-->
         <scene sceneID="v4y-Q3-Vos">

@@ -72,9 +72,9 @@ class TuneSettingsViewController: BaseViewController {
         }
         SVProgressHUD.show()
         publishMessage(with: ["8" : "8A"])
-        width1LC.constant = (screenWidth - 24) / 2
-        width2LC.constant = (screenWidth - 24) / 2
-        width3LC.constant = (screenWidth - 24) / 2
+        width1LC.constant = (screenWidth - 48) / 3
+        width2LC.constant = (screenWidth - 48) / 3
+        width3LC.constant = (screenWidth - 48) / 3
         wid1LC.constant = screenWidth
         wid2LC.constant = screenWidth
         wid3LC.constant = screenWidth
