@@ -33,14 +33,15 @@ class AddScentViewController: UIViewController {
     @IBAction func finish(_ sender: Any) {
         NotificationCenter.default.post(name: Notification.Name("DeviceMain"), object: (Int(scent) ?? 100) - 100)
         NotificationCenter.default.post(name: Notification.Name("TuneSettings"), object: (Int(scent) ?? 100) - 100)
-        let vc = LoadingViewController(nibName: "LoadingViewController", bundle: nil)
-        vc.modalTransitionStyle = .crossDissolve
-        vc.modalPresentationStyle = .overCurrentContext
-        vc.delegate = self
-        vc.type = 1
-        present(vc, animated: true) {
-            
-        }
+//        let vc = LoadingViewController(nibName: "LoadingViewController", bundle: nil)
+//        vc.modalTransitionStyle = .crossDissolve
+//        vc.modalPresentationStyle = .overCurrentContext
+//        vc.delegate = self
+//        vc.type = 1
+//        present(vc, animated: true) {
+//
+//        }
+        callbackContinue()
     }
     
 }

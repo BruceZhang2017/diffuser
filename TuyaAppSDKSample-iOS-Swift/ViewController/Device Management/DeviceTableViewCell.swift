@@ -13,6 +13,7 @@ class DeviceTableViewCell: UITableViewCell {
     @IBOutlet weak var scentImageView: UIImageView!
     @IBOutlet weak var addScentButton: UIButton!
     @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var deviceImageView: UIImageView!
     weak var delegate: DeviceTableViewCellDelegate?
     
     override func awakeFromNib() {

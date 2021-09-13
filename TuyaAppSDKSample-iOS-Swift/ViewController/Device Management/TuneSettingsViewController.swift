@@ -11,6 +11,7 @@ import McPicker
 import SVProgressHUD
 
 var weekdays = [["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"]]
+var activates = [[false, false], [false, false], [false, false], [false, false], [false, false], [false, false], [false, false]]
 
 class TuneSettingsViewController: BaseViewController {
     @IBOutlet weak var settingsView: UIView!
@@ -26,10 +27,16 @@ class TuneSettingsViewController: BaseViewController {
     @IBOutlet weak var start2Label: UILabel!
     @IBOutlet weak var endLabel: UILabel!
     @IBOutlet weak var end2Label: UILabel!
-    @IBOutlet weak var generalLabel: UILabel!
+    @IBOutlet weak var s1Label: UILabel!
+    @IBOutlet weak var e1Label: UILabel!
+    @IBOutlet weak var s2Label: UILabel!
+    @IBOutlet weak var e2Label: UILabel!
+    @IBOutlet weak var sundayLabel: UILabel!
+    @IBOutlet weak var schedule2TopLC: NSLayoutConstraint!
     @IBOutlet weak var width1LC: NSLayoutConstraint!
     @IBOutlet weak var width2LC: NSLayoutConstraint!
     @IBOutlet weak var width3LC: NSLayoutConstraint!
+    @IBOutlet weak var ivLineLeadingLC: NSLayoutConstraint!
     @IBOutlet weak var tabView: UIView!
     @IBOutlet weak var deviceButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
@@ -45,6 +52,11 @@ class TuneSettingsViewController: BaseViewController {
     @IBOutlet weak var wid1LC: NSLayoutConstraint!
     @IBOutlet weak var wid2LC: NSLayoutConstraint!
     @IBOutlet weak var wid3LC: NSLayoutConstraint!
+    @IBOutlet weak var editBtnTopLC: NSLayoutConstraint!
+    @IBOutlet weak var schedule1Label: UILabel!
+    @IBOutlet weak var schedule2Label: UILabel!
+    @IBOutlet weak var scheduleView: UIView!
+    @IBOutlet weak var noScheduleLabel: UILabel!
     var device: TuyaSmartDevice?
     var schedualIndex = 1 // 当前标志的位置
     var v = -1
@@ -52,6 +64,7 @@ class TuneSettingsViewController: BaseViewController {
     var stop = 0
     var current = 0 // 当前星期几的位置
     var i = 0
+    private let weekTitles = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,10 +80,10 @@ class TuneSettingsViewController: BaseViewController {
 //        tap.numberOfTapsRequired = 1
 //        deviceNameLabel.addGestureRecognizer(tap)
         
-        for button in dayButtons {
+        for button in dayButtons { // A0AEC0
             button.setTitleColor(UIColor.hex(color: "BB9BC5"), for: .selected)
         }
-        SVProgressHUD.show()
+        SVProgressHUD.show(withStatus: "Syncing")
         publishMessage(with: ["8" : "8A"])
         width1LC.constant = (screenWidth - 48) / 3
         width2LC.constant = (screenWidth - 48) / 3
@@ -84,10 +97,19 @@ class TuneSettingsViewController: BaseViewController {
         for (i, button) in buttons.enumerated() {
             button.setImage(UIImage(named: images[i]), for: .normal)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
+        if screenHeight <= 667 {
+            editBtnTopLC.constant = 1
+        }
+        
+        let label = UILabel()
+        label.textColor = UIColor.hex(color: "BB9BC5")
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.text = "General Settings"
+        label.frame = CGRect(x: 0, y: 0, width: 100, height: 44)
+        label.textAlignment = .center
+        navigationItem.titleView = label
+        
         scrollView.delegate = self
         scrollView.layoutIfNeeded()
         scrollView.setContentOffset(CGPoint(x: screenWidth, y: 0), animated: false)
@@ -95,7 +117,6 @@ class TuneSettingsViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        refreshButtons()
         refreshSchedual()
     }
     
@@ -137,13 +158,17 @@ class TuneSettingsViewController: BaseViewController {
 //
 //    }
     
-    private func refreshButtons() {
-        for i in 0..<7 {
-            dayButtons[i].isSelected = i == current
-        }
-    }
-    
     private func refreshSchedual() {
+        for (i, item) in activates.enumerated() {
+            dayButtons[i].isSelected = item[0] || item[1]
+            if i == current {
+                dayButtons[i].titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
+            } else {
+                dayButtons[i].titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+            }
+        }
+        sundayLabel.text = weekTitles[current]
+        ivLineLeadingLC.constant = CGFloat(current * (44 + 5))
         let day = weekdays[current]
         let startTime = day[0].split(separator: "-")[0]
         let endTime = day[0].split(separator: "-")[1]
@@ -189,6 +214,34 @@ class TuneSettingsViewController: BaseViewController {
             start2Label.text = "00:00 AM"
             end2Label.text = "00:00 AM"
         }
+        
+        let activity = activates[current]
+        if activity[0] == false && activity[1] == false {
+            scheduleView.isHidden = true
+            noScheduleLabel.isHidden = false
+        } else {
+            scheduleView.isHidden = false
+            noScheduleLabel.isHidden = true
+            showSchedual1(value: activity[0])
+            showSchedual2(value: activity[1])
+            schedule2TopLC.constant = activity[0] ? 115 : 0
+        }
+    }
+    
+    private func showSchedual1(value: Bool) {
+        schedule1Label.isHidden = !value
+        startLabel.isHidden = !value
+        s1Label.isHidden = !value
+        endLabel.isHidden = !value
+        e1Label.isHidden = !value
+    }
+    
+    private func showSchedual2(value: Bool) {
+        schedule2Label.isHidden = !value
+        start2Label.isHidden = !value
+        s2Label.isHidden = !value
+        end2Label.isHidden = !value
+        e2Label.isHidden = !value
     }
     
     // 20210616 修改为Edit Schedual功能。
@@ -243,13 +296,6 @@ class TuneSettingsViewController: BaseViewController {
         schedualIndex = tag - 1
         refreshButtonBG()
         scrollView.setContentOffset(CGPoint(x: Int(screenWidth) * (tag - 1), y: 0), animated: true)
-        if tag == 1 {
-            generalLabel.text = "SCHEDULE"
-        } else if tag == 2 {
-            generalLabel.text = "CURRENT FRAGRANCE"
-        } else {
-            generalLabel.text = "GENERAL SETTINGS"
-        }
     }
     
 //    @IBAction func addNewSchedual(_ sender: Any) {
@@ -335,13 +381,13 @@ class TuneSettingsViewController: BaseViewController {
     
     private func refreshSpray() {
         if spray > 0 {
-            sprayValueLabel.text = "\(spray * 5)秒"
+            sprayValueLabel.text = "\(spray * 5)Seconds"
         }
     }
     
     private func refreshStop() {
         if stop > 0 {
-            stopValueLabel.text = "\(stop * 5)秒"
+            stopValueLabel.text = "\(stop * 5)Seconds"
         }
     }
     
@@ -393,6 +439,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[0][0] = hexi
+                let v = getActiviteValue(value)
+                activates[0][0] = v > 0
                 publishMessage(with: ["8" : "6A01"])
             }
             if value.hasPrefix("6M01") {
@@ -403,6 +451,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[0][1] = hexi
+                let v = getActiviteValue(value)
+                activates[0][1] = v > 0
                 publishMessage(with: ["8" : "6A02"])
             }
             if value.hasPrefix("6M02") {
@@ -413,6 +463,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[1][0] = hexi
+                let v = getActiviteValue(value)
+                activates[1][0] = ((v >> 1) & 1) > 0
                 publishMessage(with: ["8" : "6A03"])
             }
             if value.hasPrefix("6M03") {
@@ -423,6 +475,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[1][1] = hexi
+                let v = getActiviteValue(value)
+                activates[1][1] = ((v >> 1) & 0x01) > 0
                 publishMessage(with: ["8" : "6A04"])
             }
             if value.hasPrefix("6M04") {
@@ -433,6 +487,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[2][0] = hexi
+                let v = getActiviteValue(value)
+                activates[2][0] = ((v >> 2) & 0x01) > 0
                 publishMessage(with: ["8" : "6A05"])
             }
             if value.hasPrefix("6M05") {
@@ -443,6 +499,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[2][1] = hexi
+                let v = getActiviteValue(value)
+                activates[2][1] = ((v >> 2) & 0x01) > 0
                 publishMessage(with: ["8" : "6A06"])
             }
             if value.hasPrefix("6M06") {
@@ -453,6 +511,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[3][0] = hexi
+                let v = getActiviteValue(value)
+                activates[3][0] = ((v >> 3) & 0x01) > 0
                 publishMessage(with: ["8" : "6A07"])
             }
             if value.hasPrefix("6M07") {
@@ -463,6 +523,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[3][1] = hexi
+                let v = getActiviteValue(value)
+                activates[3][1] = ((v >> 3) & 0x01) > 0
                 publishMessage(with: ["8" : "6A08"])
             }
             if value.hasPrefix("6M08") {
@@ -473,6 +535,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[4][0] = hexi
+                let v = getActiviteValue(value)
+                activates[4][0] = ((v >> 4) & 0x01) > 0
                 publishMessage(with: ["8" : "6A09"])
             }
             if value.hasPrefix("6M09") {
@@ -483,6 +547,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[4][1] = hexi
+                let v = getActiviteValue(value)
+                activates[4][1] = ((v >> 4) & 0x01) > 0
                 publishMessage(with: ["8" : "6A0a"])
             }
             if value.hasPrefix("6M0a") {
@@ -493,6 +559,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[5][0] = hexi
+                let v = getActiviteValue(value)
+                activates[5][0] = ((v >> 5) & 0x01) > 0
                 publishMessage(with: ["8" : "6A0b"])
             }
             if value.hasPrefix("6M0b") {
@@ -503,6 +571,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[5][1] = hexi
+                let v = getActiviteValue(value)
+                activates[5][1] = ((v >> 5) & 0x01) > 0
                 publishMessage(with: ["8" : "6A0c"])
             }
             if value.hasPrefix("6M0c") {
@@ -513,6 +583,8 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[6][0] = hexi
+                let v = getActiviteValue(value)
+                activates[6][0] = ((v >> 6) & 0x01) > 0
                 publishMessage(with: ["8" : "6A0d"])
             }
             if value.hasPrefix("6M0d") {
@@ -524,9 +596,18 @@ class TuneSettingsViewController: BaseViewController {
                 hexi.insert("-", at: hexi.index(hexi.startIndex, offsetBy: 4))
                 hexi.insert(":", at: hexi.index(hexi.startIndex, offsetBy: 2))
                 weekdays[6][1] = hexi
+                let v = getActiviteValue(value)
+                activates[6][1] = ((v >> 6) & 0x01) > 0
                 refreshSchedual()
             }
         }
+    }
+    
+    private func getActiviteValue(_ value: String) -> Int {
+        let start = value.index(value.startIndex, offsetBy: 5)
+        let end = value.index(value.startIndex, offsetBy: 6)
+        let hexi:UInt = UInt(String(value[start...end]), radix: 16) ?? 0
+        return Int(hexi)
     }
     
     @IBAction func confirm(_ sender: Any) {
@@ -560,26 +641,34 @@ class TuneSettingsViewController: BaseViewController {
     }
     
     @IBAction func setSprayValue(_ sender: Any) {
-        McPicker.show(data: initializeTimeArray()) {  [weak self] (selections: [Int : String]) -> Void in
+        let p = McPicker(data: initializeTimeArray())
+        p.show {  [weak self] (selections: [Int : String]) -> Void in
             if let value = selections[0] {
                 self?.publishMessage(with: ["7" : (Int(value) ?? 0) / 5])
+                self?.sprayValueLabel.text = "\(value)Seconds"
             }
         }
-
+        var i = (Int(sprayValueLabel.text?.replacingOccurrences(of: "Seconds", with: "") ?? "0") ?? 0) / 5 - 1
+        i = max(0, i)
+        p.pickerSelectRowsForComponents = [0: [i: false]]
     }
     
     @IBAction func setStopValue(_ sender: Any) {
-        McPicker.show(data: initializeTimeArray()) {  [weak self] (selections: [Int : String]) -> Void in
+        let p = McPicker(data: initializeTimeArray())
+        p.show {  [weak self] (selections: [Int : String]) -> Void in
             if let value = selections[0] {
                 self?.publishMessage(with: ["102" : (Int(value) ?? 0) / 5])
+                self?.stopValueLabel.text = "\(value)Seconds"
             }
         }
+        var i = (Int(stopValueLabel.text?.replacingOccurrences(of: "Seconds", with: "") ?? "0") ?? 0) / 5 - 1
+        i = max(0, i)
+        p.pickerSelectRowsForComponents = [0: [i: false]]
     }
     
     @IBAction func tapWeekDay(_ sender: Any) {
         let button = sender as! UIButton
         current = button.tag
-        refreshButtons()
         refreshSchedual()
     }
     
@@ -591,7 +680,7 @@ extension TuneSettingsViewController {
         for i in 0..<60 {
             array.append("\((i + 1) * 5)")
         }
-        return [array]
+        return [array, ["Seconds"]]
     }
 }
 
@@ -609,12 +698,5 @@ extension TuneSettingsViewController: UIScrollViewDelegate {
         let currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1
         schedualIndex = Int(currentPage)
         refreshButtonBG()
-        if schedualIndex == 0 {
-            generalLabel.text = "SCHEDULE"
-        } else if schedualIndex == 1 {
-            generalLabel.text = "CURRENT FRAGRANCE"
-        } else {
-            generalLabel.text = "GENERAL SETTINGS"
-        }
     }
 }

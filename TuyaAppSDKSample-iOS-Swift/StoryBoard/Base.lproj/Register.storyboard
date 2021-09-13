@@ -64,7 +64,7 @@
                                     <action selector="signUpWithApple:" destination="Bhx-18-oNk" eventType="touchUpInside" id="vzA-ch-uv6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBq-Be-0jZ">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBq-Be-0jZ">
                                 <rect key="frame" x="25" y="228" width="364" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="hJd-uz-JAy"/>

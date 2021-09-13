@@ -28,6 +28,8 @@ class SettingsTableViewController: UITableViewController {
         tap.numberOfTapsRequired = 3
         settingsLabel.addGestureRecognizer(tap)
         settingsLabel.isUserInteractionEnabled = true
+        
+        versionLabel.textColor = UIColor.red
     }
     
     @objc private func handleTap() {

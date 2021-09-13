@@ -21,9 +21,9 @@ class SNViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if type == 1 {
-            snLabel.text = "ENTER PIN NUMBER MANUALLY"
-            snTextfield.placeholder = "PIN Number"
-            descLabel.text = "The PIN Number can be found on the bottle"
+            snLabel.text = "Enter Fragrance Code Manually"
+            snTextfield.placeholder = "Fragrance Code"
+            descLabel.text = "The Fragrance Code can be found on the bottle"
         }
     }
     
@@ -34,7 +34,7 @@ class SNViewController: BaseViewController {
         if type == 1 {
             let value = Int(sn) ?? 0
             if value < 100 || value > 120 {
-                Toast(text: "Invalid PIN Number").show()
+                Toast(text: "Invalid Fragrance Code").show()
                 return
             }
             let vc = storyboard?.instantiateViewController(withIdentifier: "AddScentViewController") as? AddScentViewController
