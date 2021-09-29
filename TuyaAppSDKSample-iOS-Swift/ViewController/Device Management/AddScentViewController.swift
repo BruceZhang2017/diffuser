@@ -6,13 +6,20 @@
 
 import UIKit
 
-let scentName = ["100": "Amore","101": "Apple Crate", "102": "Beach Cave",
-                 "103": "Cactus Blossom", "104": "Cedar & Vine", "105": "Eclipse",
-                 "106": "Golden Hour", "107": "Lavender Vanilla", "108": "Lemongrass",
-                 "109": "Lighthouse", "110": "Linen & Lilies", "111": "Paradise Blue",
-                 "112": "Seaworthy", "113": "Simply Citrus", "114": "Sleigh Ride",
-                 "115": "Snowed Inn", "116": "Spiced Cider", "117": "Sweet Tobacco",
-                 "118": "Sweet magnolia", "119": "Under the Tree", "120": "Welcome Home"]
+let scentName = ["AMR": "Amore","APL": "Apple Crate", "BEA": "Beach Cave",
+                 "CAB": "Cactus Blossom", "CEV": "Cedar & Vine", "ECL": "Eclipse",
+                 "LAV": "Lavender Vanilla", "LMG": "Lemongrass",
+                 "LTH": "Lighthouse", "LIN": "Linen & Lilies", "PAR": "Paradise Blue",
+                 "SEA": "Seaworthy", "SIM": "Simply Citrus", "SLR": "Sleigh Ride",
+                 "SNO": "Snowed Inn", "SPC": "Spiced Cider", "SWT": "Sweet Tobacco",
+                 "SMG": "Sweet magnolia", "UND": "Under the Tree", "WEL": "Welcome Home"]
+let scentPNG = ["AMR": "amore-product-image-min","APL": "apple-crate-product-image-min", "BEA": "beach-cove-product-image-min",
+                 "CAB": "cactus-blossom-product-image-min", "CEV": "cedar-vine-product-image-min", "ECL": "eclipse-product-image-min",
+                 "LAV": "lavender-vanilla-product-image-min", "LMG": "lemongrass-product-image-min",
+                 "LTH": "lighthouse-product-image-min", "LIN": "linen-lilies-product-image-min", "PAR": "paradise-blue-product-image-min",
+                 "SEA": "seaworthy-product-image-min", "SIM": "simply-citrus-product-image-min", "SLR": "sleigh-ride-product-image-min",
+                 "SNO": "snowed-inn-product-image-min", "SPC": "spiced-cider-product-image-min", "SWT": "sweet-tobacco-product-image-min",
+                 "SMG": "sweet-magnolia-product-image-min", "UND": "under-the-tree-product-image-min", "WEL": "under-the-tree-product-image-min"]
 
 class AddScentViewController: UIViewController {
     
@@ -22,17 +29,13 @@ class AddScentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let value = Int(scent) ?? 0
-        if value < 100 || value > 120 {
-            scent = "100"
-        }
-        scentImageView.image = UIImage(named: "f\(scent)")
+        scentImageView.image = UIImage(named: scentPNG[scent] ?? "amore-product-image-min")
         scentLabel.text = scentName[scent]
     }
 
     @IBAction func finish(_ sender: Any) {
-        NotificationCenter.default.post(name: Notification.Name("DeviceMain"), object: (Int(scent) ?? 100) - 100)
-        NotificationCenter.default.post(name: Notification.Name("TuneSettings"), object: (Int(scent) ?? 100) - 100)
+        NotificationCenter.default.post(name: Notification.Name("DeviceMain"), object: scent)
+        NotificationCenter.default.post(name: Notification.Name("TuneSettings"), object: scent)
 //        let vc = LoadingViewController(nibName: "LoadingViewController", bundle: nil)
 //        vc.modalTransitionStyle = .crossDissolve
 //        vc.modalPresentationStyle = .overCurrentContext
@@ -41,13 +44,13 @@ class AddScentViewController: UIViewController {
 //        present(vc, animated: true) {
 //
 //        }
-        callbackContinue()
+        callbackContinue(tag: 0)
     }
     
 }
 
 extension AddScentViewController: LoadingViewDelegate {
-    func callbackContinue() {
+    func callbackContinue(tag: Int) {
         let vcs = navigationController?.viewControllers ?? []
         for vc in vcs {
             if vc is TuneSettingsViewController {

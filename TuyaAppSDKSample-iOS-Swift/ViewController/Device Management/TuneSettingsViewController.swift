@@ -10,7 +10,7 @@ import Toaster
 import McPicker
 import SVProgressHUD
 
-var weekdays = [["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"], ["00:00-00:00","00:00-00:00"]]
+var weekdays = [["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"]]
 var activates = [[false, false], [false, false], [false, false], [false, false], [false, false], [false, false], [false, false]]
 
 class TuneSettingsViewController: BaseViewController {
@@ -57,6 +57,7 @@ class TuneSettingsViewController: BaseViewController {
     @IBOutlet weak var schedule2Label: UILabel!
     @IBOutlet weak var scheduleView: UIView!
     @IBOutlet weak var noScheduleLabel: UILabel!
+    @IBOutlet weak var midViewTopLC: NSLayoutConstraint!
     var device: TuyaSmartDevice?
     var schedualIndex = 1 // 当前标志的位置
     var v = -1
@@ -74,6 +75,7 @@ class TuneSettingsViewController: BaseViewController {
         if let name = device?.deviceModel.name {
             let array = name.split(separator: "-")
             deviceNameLabel.text = String(array[0])
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: String(array[0]), style: .plain, target: nil, action: nil)
         }
         //deviceNameLabel.isUserInteractionEnabled = true
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(modifyName))
@@ -102,17 +104,11 @@ class TuneSettingsViewController: BaseViewController {
             editBtnTopLC.constant = 1
         }
         
-        let label = UILabel()
-        label.textColor = UIColor.hex(color: "BB9BC5")
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "General Settings"
-        label.frame = CGRect(x: 0, y: 0, width: 100, height: 44)
-        label.textAlignment = .center
-        navigationItem.titleView = label
-        
         scrollView.delegate = self
         scrollView.layoutIfNeeded()
         scrollView.setContentOffset(CGPoint(x: screenWidth, y: 0), animated: false)
+        
+        midViewTopLC.constant = screenHeight <= 667 ? 0 : 30
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -178,41 +174,73 @@ class TuneSettingsViewController: BaseViewController {
             var value = startTime.split(separator: ":")
             var hour = Int(value[0]) ?? 0
             if hour >= 12 {
-                startLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                var h = hour - 12
+                if h == 0 {
+                    h = 12
+                }
+                startLabel.text = "\(String(format: "%02d", h)):\(value[1]) PM"
             } else {
-                startLabel.text = "\(startTime) AM"
+                var h = hour
+                if h == 0 {
+                    h = 12
+                }
+                startLabel.text = "\(String(format: "%02d", h)):\(value[1]) AM"
             }
             
             value = endTime.split(separator: ":")
             hour = Int(value[0]) ?? 0
             if hour >= 12 {
-                endLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                var h = hour - 12
+                if h == 0 {
+                    h = 12
+                }
+                endLabel.text = "\(String(format: "%02d", h)):\(value[1]) PM"
             } else {
-                endLabel.text = "\(endTime) AM"
+                var h = hour
+                if h == 0 {
+                    h = 12
+                }
+                endLabel.text = "\(String(format: "%02d", h)):\(value[1]) AM"
             }
         } else {
-            startLabel.text = "00:00 AM"
-            endLabel.text = "00:00 AM"
+            startLabel.text = "12:00 AM"
+            endLabel.text = "12:00 AM"
         }
         if start2Time.count > 0 && end2Time.count > 0 {
             var value = start2Time.split(separator: ":")
             var hour = Int(value[0]) ?? 0
             if hour >= 12 {
-                start2Label.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                var h = hour - 12
+                if h == 0 {
+                    h = 12
+                }
+                start2Label.text = "\(String(format: "%02d", h)):\(value[1]) PM"
             } else {
-                start2Label.text = "\(start2Time) AM"
+                var h = hour
+                if h == 0 {
+                    h = 12
+                }
+                start2Label.text = "\(String(format: "%02d", h)):\(value[1]) AM"
             }
             
             value = end2Time.split(separator: ":")
             hour = Int(value[0]) ?? 0
             if hour >= 12 {
-                end2Label.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                var h = hour - 12
+                if h == 0 {
+                    h = 12
+                }
+                end2Label.text = "\(String(format: "%02d", h)):\(value[1]) PM"
             } else {
-                end2Label.text = "\(end2Time) AM"
+                var h = hour
+                if h == 0 {
+                    h = 12
+                }
+                end2Label.text = "\(String(format: "%02d", h)):\(value[1]) AM"
             }
         } else {
-            start2Label.text = "00:00 AM"
-            end2Label.text = "00:00 AM"
+            start2Label.text = "12:00 AM"
+            end2Label.text = "12:00 AM"
         }
         
         let activity = activates[current]
@@ -305,15 +333,15 @@ class TuneSettingsViewController: BaseViewController {
 //    }
     
     @objc public func handleScent(_ notification: Notification) {
-        let obj = notification.object as? Int ?? 0
-        let scent = obj + 100
-        scentNameLabel.text = scentName["\(scent)"]
-        scentImageView.image = UIImage(named: "f\(scent)")
+        let obj = notification.object as? String ?? ""
+        scentNameLabel.text = scentName[obj]
+        scentImageView.image = UIImage(named: scentPNG[obj] ?? "amore-product-image-min")
     }
     
     @IBAction func changeScent(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as? ScanQRCodeViewController
         vc?.type = 1
+        vc?.scanResultDelegate = self 
         navigationController?.pushViewController(vc!, animated: true)
     }
     
@@ -351,16 +379,10 @@ class TuneSettingsViewController: BaseViewController {
         guard let dev = device else {
             return
         }
-        let dps = dev.deviceModel.dps
-        var value = 0
-        let cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: Int] ?? [:]
-        value = cache[dev.deviceModel.devId] ?? 0
-        if value == 0 {
-            value = Int(dps?["7"] as? String ?? "") ?? 0
-        }
-        let scent = ((value >> 2) & 0b00011111) + 100
-        scentNameLabel.text = scentName["\(scent)"]
-        scentImageView.image = UIImage(named: "f\(scent)")
+        let cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: String] ?? [:]
+        let value = cache[dev.deviceModel.devId] ?? ""
+        scentNameLabel.text = scentName[value]
+        scentImageView.image = UIImage(named: scentPNG[value] ?? "amore-product-image-min")
     }
     
     private func publishMessage(with dps: NSDictionary) {
@@ -381,13 +403,13 @@ class TuneSettingsViewController: BaseViewController {
     
     private func refreshSpray() {
         if spray > 0 {
-            sprayValueLabel.text = "\(spray * 5)Seconds"
+            sprayValueLabel.text = "\(spray * 5) Seconds"
         }
     }
     
     private func refreshStop() {
         if stop > 0 {
-            stopValueLabel.text = "\(stop * 5)Seconds"
+            stopValueLabel.text = "\(stop * 5) Seconds"
         }
     }
     
@@ -645,7 +667,7 @@ class TuneSettingsViewController: BaseViewController {
         p.show {  [weak self] (selections: [Int : String]) -> Void in
             if let value = selections[0] {
                 self?.publishMessage(with: ["7" : (Int(value) ?? 0) / 5])
-                self?.sprayValueLabel.text = "\(value)Seconds"
+                self?.sprayValueLabel.text = "\(value) Seconds"
             }
         }
         var i = (Int(sprayValueLabel.text?.replacingOccurrences(of: "Seconds", with: "") ?? "0") ?? 0) / 5 - 1
@@ -658,7 +680,7 @@ class TuneSettingsViewController: BaseViewController {
         p.show {  [weak self] (selections: [Int : String]) -> Void in
             if let value = selections[0] {
                 self?.publishMessage(with: ["102" : (Int(value) ?? 0) / 5])
-                self?.stopValueLabel.text = "\(value)Seconds"
+                self?.stopValueLabel.text = "\(value) Seconds"
             }
         }
         var i = (Int(stopValueLabel.text?.replacingOccurrences(of: "Seconds", with: "") ?? "0") ?? 0) / 5 - 1
@@ -698,5 +720,32 @@ extension TuneSettingsViewController: UIScrollViewDelegate {
         let currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1
         schedualIndex = Int(currentPage)
         refreshButtonBG()
+    }
+}
+
+extension TuneSettingsViewController: LBXScanViewControllerDelegate {
+    func scanFinished(scanResult: LBXScanResult, error: String?, type: Int) {
+        NSLog("scanResult:\(scanResult)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+            [weak self] in
+            if type == 1 {
+                let sb = UIStoryboard(name: "DeviceList", bundle: nil)
+                let vc = sb.instantiateViewController(withIdentifier: "AddScentViewController") as? AddScentViewController
+                let value = scanResult.strScanned?.lowercased() ?? "0"
+                for (key, item) in scentPNG {
+                    let i = item.replacingOccurrences(of: "-product-image-min", with: "")
+                    if value.contains(i.lowercased()) {
+                        vc?.scent = key
+                        break
+                    }
+                }
+                self?.navigationController?.pushViewController(vc!, animated: true)
+                return
+            }
+            let sb = UIStoryboard(name: "DualMode", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "DualModeViewController")
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
 }

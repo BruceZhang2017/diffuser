@@ -36,7 +36,7 @@ class ScanQRCodeViewController: BaseViewController {
     open var isOpenInterestRect = false
     
     //连续扫码
-    open var isSupportContinuous = false;
+    open var isSupportContinuous = false
 
     // 识别码的类型
     public var arrayCodeType: [AVMetadataObject.ObjectType]?
@@ -63,10 +63,10 @@ class ScanQRCodeViewController: BaseViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if type == 1 {
-            enterButton.setTitle("Enter my pin manually", for: .normal)
+            enterButton.setTitle("Enter Fragrance Code manually", for: .normal)
             scanLabel.text = "ADD MY SCENT"
             lineImageView.isHidden = true
-            descLabel.text = "Scan QR code on fragrance bottle or enter 3 digit code"
+            descLabel.text = "Scan QR code on fragrance bottle"
         }
     }
 
@@ -124,7 +124,7 @@ class ScanQRCodeViewController: BaseViewController {
      */
     open func handleCodeResult(arrayResult: [LBXScanResult]) {
         guard let delegate = scanResultDelegate else {
-            fatalError("you must set scanResultDelegate or override this method without super keyword")
+            return
         }
         
         if !isSupportContinuous {

@@ -23,15 +23,19 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>In order to connect with your diffuser, please allow access to Bluetooth</string>
+	<string>In order to connect with your diffuser, please allow access to Bluetooth to search devices</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>In order to connect with your diffuser, please allow access to Bluetooth to search devices</string>
+	<key>NSBluetoothPeripheralUsageDescription </key>
+	<string>In order to connect with your diffuser, please allow access to Bluetooth to search devices</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Please click &quot;Allow&quot; to allow scanning of the QR code</string>
+	<string>Please click "Allow" to allow scanning of the QR code</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>In order to connect with your diffuser, please allow access to Bluetooth</string>
+	<string>In order to connect with your diffuser, please allow access to Location to get the country code.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>In order to connect with your diffuser, please allow access to Bluetooth</string>
+	<string>In order to connect with your diffuser, please allow access to Location to get the country code.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>In order to connect with your diffuser, please allow access to Bluetooth</string>
+	<string>In order to connect with your diffuser, please allow access to Location to get the country code.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

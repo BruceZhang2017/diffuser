@@ -28,8 +28,6 @@ class SettingsTableViewController: UITableViewController {
         tap.numberOfTapsRequired = 3
         settingsLabel.addGestureRecognizer(tap)
         settingsLabel.isUserInteractionEnabled = true
-        
-        versionLabel.textColor = UIColor.red
     }
     
     @objc private func handleTap() {
@@ -66,22 +64,22 @@ class SettingsTableViewController: UITableViewController {
             let storyboard = UIStoryboard(name: "TuyaSmartMain", bundle: nil)
             let myAccountVC = storyboard.instantiateViewController(withIdentifier: "MyAccountViewController")
             navigationController?.pushViewController(myAccountVC, animated: true)
+//        case 1:
+//            let storyboard = UIStoryboard(name: "TuyaSmartMain", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "TutorialViewController")
+//            navigationController?.pushViewController(vc, animated: true)
         case 1:
-            let storyboard = UIStoryboard(name: "TuyaSmartMain", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "TutorialViewController")
-            navigationController?.pushViewController(vc, animated: true)
-        case 2:
             let storyboard = UIStoryboard(name: "TuyaSmartMain", bundle: nil)
             let faqVC = storyboard.instantiateViewController(withIdentifier: "FAQViewController")
             navigationController?.pushViewController(faqVC, animated: true)
-        case 3:
+        case 2:
             let storyboard = UIStoryboard(name: "TuyaSmartMain", bundle: nil)
             let contactUSVC = storyboard.instantiateViewController(withIdentifier: "ContactUSViewController")
             navigationController?.pushViewController(contactUSVC, animated: true)
-        case 4:
+        case 3:
             let vc = SFSafariViewController(url: URL(string: "https://wholehomescenting.com/terms/")!)
             present(vc, animated: true, completion: nil)
-        case 5:
+        case 4:
             let storyboard = UIStoryboard(name: "DualMode", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "DualModeViewController") as! DualModeViewController
             vc.showSearching = true 
@@ -95,9 +93,9 @@ class SettingsTableViewController: UITableViewController {
 
 extension SettingsTableViewController {
     var titles: [String] {
-        return ["Account", "Tutorials", "FAQs", "Contact Us", "Terms of Service", "Connectivity"]
+        return ["Account", "FAQs", "Contact Us", "Terms of Service"]
     }
     var icons: [String] {
-        return ["user", "video", "question", "chat", "terms", "signal"]
+        return ["user", "question", "chat", "terms"]
     }
 }

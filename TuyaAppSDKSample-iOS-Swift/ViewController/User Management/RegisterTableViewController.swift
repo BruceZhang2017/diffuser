@@ -14,28 +14,27 @@ class RegisterTableViewController: BaseTableViewController {
     @IBOutlet weak var lastNameTextField: MTextField!
     @IBOutlet weak var accountTextField: MTextField!
     @IBOutlet weak var passwordTextField: MTextField!
-    @IBOutlet weak var verificationCodeTextField: MTextField!
+    @IBOutlet weak var regDescLabel: UILabel!
     @IBOutlet weak var sendVerificationCodeButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
+    private var bShowCode = false // 是否到显示验证码步骤
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: 375, height: 150)
+        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: 375, height: 200)
     }
 
     // MARK: - IBAction
     @IBAction func sendVerificationCode(_ sender: UIButton) {
-        let account = accountTextField.text ?? ""
-        
-        if account.contains("@") {
-            sendVerificationCode(by: .email)
-        } else {
-            sendVerificationCode(by: .phone)
+        if bShowCode {
+            registerTapped()
+            return
         }
+        let account = accountTextField.text ?? ""
+        sendVerificationCode(by: .email)
     }
     
-    @IBAction func registerTapped(_ sender: UIButton) {
+    func registerTapped() {
         let account = accountTextField.text ?? ""
 
         if account.contains("@") {
@@ -49,69 +48,61 @@ class RegisterTableViewController: BaseTableViewController {
     private func sendVerificationCode(by type: AccountType) {
         let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String ?? ""
         let account = accountTextField.text ?? ""
-        
-        switch type {
-        case .email:
-            TuyaSmartUser.sharedInstance().sendVerifyCode(byRegisterEmail: countryCode, email: account) {  [weak self] in
-                guard let self = self else { return }
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Verification Code Sent Successfully", comment: ""), message: NSLocalizedString("Please check your email for the code.", comment: ""))
+        if !validateEmail(email: account) {
+            let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
                 
-            } failure: { [weak self] (error) in
-                guard let self = self else { return }
-                let errorMessage = error?.localizedDescription ?? ""
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Sent Verification Code", comment: ""), message: errorMessage)
             }
-
-        case .phone:
-            TuyaSmartUser.sharedInstance().sendVerifyCode(withUserName: account, region: nil, countryCode: countryCode, type: 1) {
-                [weak self] in
-                guard let self = self else { return }
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Verification Code Sent Successfully", comment: ""), message: NSLocalizedString("Please check your message for the code.", comment: ""))
-            } failure: { [weak self] (error) in
-                guard let self = self else { return }
-                let errorMessage = error?.localizedDescription ?? ""
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Sent Verification Code", comment: ""), message: errorMessage)
-            }
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Register", comment: ""), message: NSLocalizedString("Please enter a valid email address", comment: ""), actions: [action])
+            return
         }
+        TuyaSmartUser.sharedInstance().sendVerifyCode(byRegisterEmail: countryCode, email: account) {  [weak self] in
+            guard let self = self else { return }
+            self.lastNameTextField.isHidden = true
+            self.accountTextField.isHidden = true
+            self.passwordTextField.isHidden = true
+            self.countryCodeTextField.text = nil
+            self.countryCodeTextField.placeholder = "Verification Code"
+            self.bShowCode = true
+            self.sendVerificationCodeButton.setTitle("Sign Up", for: .normal)
+        } failure: { [weak self] (error) in
+            guard let self = self else { return }
+            let errorMessage = error?.localizedDescription ?? ""
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Sent Verification Code", comment: ""), message: errorMessage)
+        }
+    }
+    
+    func validateEmail(email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let emailTest:NSPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailTest.evaluate(with: email)
     }
     
     private func registerAccount(by type: AccountType) {
         let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String ?? ""
         let account = accountTextField.text ?? ""
         let password = passwordTextField.text ?? ""
-        let verificationCode = verificationCodeTextField.text ?? ""
+        let verificationCode = countryCodeTextField.text ?? ""
         let name = (countryCodeTextField.text ?? "") + " " + (lastNameTextField.text ?? "")
-        switch type {
-        case .email:
-            TuyaSmartUser.sharedInstance().register(byEmail: countryCode, email: account, password: password, code: verificationCode) { [weak self] in
-                guard let self = self else { return }
+        if verificationCode.count != 6 {
+            let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
                 
-                let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
-                    self.navigationController?.popViewController(animated: true)
-                }
-                UserDefaults.standard.setValue(name, forKey: "UserName")
-                UserDefaults.standard.synchronize()
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Registered Successfully", comment: ""), message: NSLocalizedString("Please navigate back to login your account.", comment: ""), actions: [action])
-            } failure: { [weak self] (error) in
-                guard let self = self else { return }
-                let errorMessage = error?.localizedDescription ?? ""
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Register", comment: ""), message: errorMessage)
             }
-        case .phone:
-            TuyaSmartUser.sharedInstance().register(byPhone: countryCode, phoneNumber: account, password: password, code: verificationCode) { [weak self] in
-                guard let self = self else { return }
-                
-                let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
-                    self.navigationController?.popViewController(animated: true)
-                }
-                
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Registered Successfully", comment: ""), message: NSLocalizedString("Please navigate back to login your account.", comment: ""), actions: [action])
-                
-            } failure: { [weak self] (error) in
-                guard let self = self else { return }
-                let errorMessage = error?.localizedDescription ?? ""
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Register", comment: ""), message: errorMessage)
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Invalid Code", comment: ""), message: NSLocalizedString("Please enter the 6-digit code that was sent to **User entered email** ", comment: ""), actions: [action])
+            return
+        }
+        TuyaSmartUser.sharedInstance().register(byEmail: countryCode, email: account, password: password, code: verificationCode) { [weak self] in
+            guard let self = self else { return }
+            
+            let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
+                self.navigationController?.popViewController(animated: true)
             }
+            UserDefaults.standard.setValue(name, forKey: "UserName")
+            UserDefaults.standard.synchronize()
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Registration Successful", comment: ""), message: NSLocalizedString("An account has been created for “**EMAIL USER ENTERED**”", comment: ""), actions: [action])
+        } failure: { [weak self] (error) in
+            guard let self = self else { return }
+            let errorMessage = error?.localizedDescription ?? ""
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Register", comment: ""), message: errorMessage)
         }
         
     }
@@ -121,9 +112,8 @@ class RegisterTableViewController: BaseTableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0, indexPath.row == 4 {
             sendVerificationCodeButton.sendActions(for: .touchUpInside)
-        } else if indexPath.section == 1 {
-            registerButton.sendActions(for: .touchUpInside)
         }
+
     }
     
 }

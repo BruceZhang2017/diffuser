@@ -32,8 +32,7 @@ class SNViewController: BaseViewController {
             return
         }
         if type == 1 {
-            let value = Int(sn) ?? 0
-            if value < 100 || value > 120 {
+            if sn.count != 3 {
                 Toast(text: "Invalid Fragrance Code").show()
                 return
             }
@@ -41,23 +40,33 @@ class SNViewController: BaseViewController {
             vc?.scent = sn 
             navigationController?.pushViewController(vc!, animated: true)
         } else {
+            if checkSN(value: sn) == false {
+                Toast(text: "Invalid SN").show()
+                return
+            }
             performSegue(withIdentifier: "DualMode", sender: self)
         }
     }
 
+    private func checkSN(value: String) -> Bool {
+        let regex = "^\\d{5}[BW]\\d{5}$"
+        let RE = try? NSRegularExpression(pattern: regex, options: .caseInsensitive)
+        let matchs = RE?.matches(in: value, options: .reportProgress, range: NSRange(location: 0, length: value.count))
+        return (matchs?.count ?? 0) > 0
+    }
 }
 
 extension SNViewController: UITextFieldDelegate {
-    func textField(_ textField:UITextField, shouldChangeCharactersIn range:NSRange, replacementString string: String) -> Bool {
-        let length = string.lengthOfBytes(using: String.Encoding.utf8)
-        for loopIndex in 0..<length {
-            let char = (string as NSString).character(at: loopIndex)
-            if char < 48 {return false }
-            if char > 57 {return false }
-        }
-        //限制长度
-        let proposeLength = (textField.text?.lengthOfBytes(using: String.Encoding.utf8) ?? 0) - range.length + string.lengthOfBytes(using: String.Encoding.utf8)
-        if proposeLength > 3 { return false }
-        return true
-    }
+//    func textField(_ textField:UITextField, shouldChangeCharactersIn range:NSRange, replacementString string: String) -> Bool {
+//        let length = string.lengthOfBytes(using: String.Encoding.utf8)
+//        for loopIndex in 0..<length {
+//            let char = (string as NSString).character(at: loopIndex)
+//            if char < 48 {return false }
+//            if char > 57 {return false }
+//        }
+//        //限制长度
+//        let proposeLength = (textField.text?.lengthOfBytes(using: String.Encoding.utf8) ?? 0) - range.length + string.lengthOfBytes(using: String.Encoding.utf8)
+//        if proposeLength > 3 { return false }
+//        return true
+//    }
 }

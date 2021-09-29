@@ -1,14 +1,14 @@
 /* Privacy - Bluetooth Always Usage Description */
 "NSBluetoothAlwaysUsageDescription" = "In order to connect with your diffuser, please allow access to Bluetooth";
-
+"NSBluetoothPeripheralUsageDescription" = "In order to connect with your diffuser, please allow access to Bluetooth";
 /* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "In order to connect with your diffuser, please allow access to Bluetooth";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "For better use, it is recommended that you turn on the permission to use your location.";
 
 /* Privacy - Location Always Usage Description */
 "NSLocationAlwaysUsageDescription" = "For better use, it is recommended that you turn on the permission to use your location.";
 
 /* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "In order to connect with your diffuser, please allow access to Bluetooth";
+"NSLocationWhenInUseUsageDescription" = "For better use, it is recommended that you turn on the permission to use your location.";
 
 "CFBundleDisplayName" = "香薰机";
 

@@ -41,7 +41,7 @@
 		AF00605D25EC968A001462B8 /* TimeZoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */; };
 		AF00606125ECBF3A001462B8 /* TemperatureUnitTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */; };
 		AF00606725EE638D001462B8 /* BLEModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606625EE638D001462B8 /* BLEModeViewController.swift */; };
-		AF00606B25EE6A41001462B8 /* DualModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606A25EE6A41001462B8 /* DualModeTableViewController.swift */; };
+		AF00606B25EE6A41001462B8 /* DualModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606A25EE6A41001462B8 /* DualModeViewController.swift */; };
 		AF00606E25EE6B30001462B8 /* ZigbeeGatewayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00606D25EE6B30001462B8 /* ZigbeeGatewayViewController.swift */; };
 		AF00607225EE6C79001462B8 /* ZigbeeSubdeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00607125EE6C79001462B8 /* ZigbeeSubdeviceTableViewController.swift */; };
 		AF00607625EE6D33001462B8 /* ChooseGatewayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF00607525EE6D33001462B8 /* ChooseGatewayTableViewController.swift */; };
@@ -136,7 +136,7 @@
 		AF00605C25EC968A001462B8 /* TimeZoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneTableViewController.swift; sourceTree = "<group>"; };
 		AF00606025ECBF3A001462B8 /* TemperatureUnitTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureUnitTableViewController.swift; sourceTree = "<group>"; };
 		AF00606625EE638D001462B8 /* BLEModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEModeViewController.swift; sourceTree = "<group>"; };
-		AF00606A25EE6A41001462B8 /* DualModeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualModeTableViewController.swift; sourceTree = "<group>"; };
+		AF00606A25EE6A41001462B8 /* DualModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualModeViewController.swift; sourceTree = "<group>"; };
 		AF00606D25EE6B30001462B8 /* ZigbeeGatewayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZigbeeGatewayViewController.swift; sourceTree = "<group>"; };
 		AF00607125EE6C79001462B8 /* ZigbeeSubdeviceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZigbeeSubdeviceTableViewController.swift; sourceTree = "<group>"; };
 		AF00607525EE6D33001462B8 /* ChooseGatewayTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGatewayTableViewController.swift; sourceTree = "<group>"; };
@@ -258,7 +258,7 @@
 				AF21C20525B0400F00D52FBA /* EZModeTableViewController.swift */,
 				AF60B88B25BBC1F600E18F6F /* APModeTableViewController.swift */,
 				AF00606625EE638D001462B8 /* BLEModeViewController.swift */,
-				AF00606A25EE6A41001462B8 /* DualModeTableViewController.swift */,
+				AF00606A25EE6A41001462B8 /* DualModeViewController.swift */,
 				AF00606D25EE6B30001462B8 /* ZigbeeGatewayViewController.swift */,
 				AF00607125EE6C79001462B8 /* ZigbeeSubdeviceTableViewController.swift */,
 				AF00607525EE6D33001462B8 /* ChooseGatewayTableViewController.swift */,
@@ -597,7 +597,7 @@
 				AF3A25C525AE930E003EB9FF /* SwitchHomeTableViewController.swift in Sources */,
 				AF96129925B58CE1000971CC /* DeviceControlTableViewController.swift in Sources */,
 				9AF3C2D3268C203400DBC162 /* Log.swift in Sources */,
-				AF00606B25EE6A41001462B8 /* DualModeTableViewController.swift in Sources */,
+				AF00606B25EE6A41001462B8 /* DualModeViewController.swift in Sources */,
 				AFBB5BC225B95F3C006BDDD7 /* DeviceStatusBehaveCell.swift in Sources */,
 				AFBB5BBF25B95BBA006BDDD7 /* NotificationName.swift in Sources */,
 				9A4CF011265F0C8C0098071F /* ScanQRCodeViewController.swift in Sources */,
@@ -959,7 +959,7 @@
 				CODE_SIGN_ENTITLEMENTS = "TuyaAppSDKSample-iOS-Swift/TuyaAppSDKSample-iOS-SwiftDebug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 67F77N5Y4K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -986,13 +986,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qc.diffuser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TuyaAppSDKSample-iOS-Swift/TuyaAppSDKSample-iOS-Swift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1005,7 +1005,7 @@
 				CODE_SIGN_ENTITLEMENTS = "TuyaAppSDKSample-iOS-Swift/TuyaAppSDKSample-iOS-Swift.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 67F77N5Y4K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1032,13 +1032,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qc.diffuser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TuyaAppSDKSample-iOS-Swift/TuyaAppSDKSample-iOS-Swift-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -124,17 +124,14 @@ class DeviceListTableViewController: UITableViewController {
         addDeleteDevice(cell)
         guard let deviceModel = home?.deviceList[indexPath.row] else { return cell }
         cell.delegate = self
-        var value = 0
         var work = 0
-        let cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: Int] ?? [:]
+        let cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: String] ?? [:]
         let locatios = UserDefaults.standard.dictionary(forKey: "location") as? [String: Int] ?? [:]
-        value = cache[deviceModel.devId] ?? 0
+        let value = cache[deviceModel.devId] ?? ""
         let dps = deviceModel.dps
-        if value == 0 {
-            value = Int(dps?["7"] as? String ?? "") ?? 0
-        }
+        
         work = Int(dps?["2"] as? String ?? "") ?? 0
-        if value >= 128 {
+        if value.count == 3 {
             cell.scentLabel.isHidden = false
             cell.scentImageView.isHidden = false
             cell.addScentButton.isHidden = true
@@ -145,8 +142,7 @@ class DeviceListTableViewController: UITableViewController {
             cell.addScentButton.isHidden = false
             cell.controlButton.isHidden = true
         }
-        let scent = ((value >> 2) & 0b00011111) + 100
-        cell.scentLabel.text = scentName["\(scent)"]
+        cell.scentLabel.text = scentName[value]
         //cell.scentImageView.image = UIImage(named: "f\(scent)")
         //let name = deviceModel.name
         let state = deviceModel.isOnline ? NSLocalizedString("Online", comment: "") : NSLocalizedString("Offline", comment: "")
@@ -232,6 +228,7 @@ extension DeviceListTableViewController: DeviceTableViewCellDelegate {
             Alert.showBasicAlert(on: self, with: NSLocalizedString("First, Add your Scent!", comment: ""), message: "", actions: [UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { [weak self] action in
                 let vc = self?.storyboard?.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as? ScanQRCodeViewController
                 vc?.type = 1
+                vc?.scanResultDelegate = self
                 self?.navigationController?.pushViewController(vc!, animated: true)
             })])
             return
@@ -269,7 +266,37 @@ extension DeviceListTableViewController: DeviceTableViewCellDelegate {
     func addScent(tag: Int) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as? ScanQRCodeViewController
         vc?.type = 1
+        vc?.scanResultDelegate = self
         navigationController?.pushViewController(vc!, animated: true)
         currentDeviceRow = tag
     }
 }
+
+extension DeviceListTableViewController: LBXScanViewControllerDelegate {
+    func scanFinished(scanResult: LBXScanResult, error: String?, type: Int) {
+        NSLog("scanResult:\(scanResult)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+            [weak self] in
+            if type == 1 {
+                let sb = UIStoryboard(name: "DeviceList", bundle: nil)
+                let vc = sb.instantiateViewController(withIdentifier: "AddScentViewController") as? AddScentViewController
+                let value = scanResult.strScanned?.lowercased() ?? "0"
+                for (key, item) in scentPNG {
+                    let i = item.replacingOccurrences(of: "-product-image-min", with: "")
+                    if value.contains(i.lowercased()) {
+                        vc?.scent = key
+                        break
+                    }
+                }
+                self?.navigationController?.pushViewController(vc!, animated: true)
+                return
+            }
+            let sb = UIStoryboard(name: "DualMode", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "DualModeViewController")
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+    }
+}
+
+

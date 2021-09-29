@@ -7,81 +7,83 @@
 import UIKit
 import TuyaSmartBaseKit
 
-class ResetPasswordTableViewController: UITableViewController {
+class ResetPasswordTableViewController: BaseTableViewController {
     
     // MARK: - IBOutlet
     @IBOutlet weak var countryCodeTextField: UITextField!
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var verificationCodeTextField: UITextField!
-    @IBOutlet weak var sendVerificationCodeButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
-    
+    private var bSendCode = true // 发送验证码
+    private var email = ""
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        accountTextField.isHidden = true
+        passwordTextField.isHidden = true
+        countryCodeTextField.placeholder = "Email Address"
+        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 180)
+        tableView.tableFooterView?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 150)
     }
 
     // MARK: - IBAction
-    @IBAction func sendVerificationCode(_ sender: UIButton) {
-        let countryCode = countryCodeTextField.text ?? ""
-        let account = accountTextField.text ?? ""
+    func sendVerificationCode() {
+        let countryCode = "01"
+        let account = countryCodeTextField.text ?? ""
         
-        if account.contains("@") {
-            TuyaSmartUser.sharedInstance().sendVerifyCode(byEmail: countryCode, email: account) { [weak self] in
-                guard let self = self else { return }
-                Alert.showBasicAlert(on: self, with: NSLocalizedString(NSLocalizedString("Failed to Login", comment: ""), comment: ""), message: NSLocalizedString("Please check your email for the code.", comment: ""))
+        TuyaSmartUser.sharedInstance().sendVerifyCode(byEmail: countryCode, email: account) { [weak self] in
+            guard let self = self else { return }
+            self.refreshUI()
+            self.email = account
+        } failure: { [weak self] (error) in
+            guard let self = self else { return }
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Invalid Email", comment: ""), message: NSLocalizedString("The email address entered does not exist or is not associated with an account.", comment: ""), actions: [UIAlertAction(title: "OK", style: .cancel, handler: { action in
                 
-            } failure: { [weak self] (error) in
+            }), UIAlertAction(title: "Sign Up", style: .default, handler: { [weak self] action in
                 guard let self = self else { return }
-                let errorMessage = error?.localizedDescription ?? ""
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Sent Verification Code", comment: ""), message: errorMessage)
-            }
-
-        } else {
-            TuyaSmartUser.sharedInstance().sendVerifyCode(withUserName: account, region: nil, countryCode: countryCode, type: 2) {
-                [weak self] in
-                guard let self = self else { return }
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Verification Code Sent Successfully", comment: ""), message: NSLocalizedString("Please check your message for the code.", comment: ""))
-            } failure: {
-                [weak self] (error) in
-                guard let self = self else { return }
-                let errorMessage = error?.localizedDescription ?? ""
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Sent Verification Code", comment: ""), message: errorMessage)
-            }
-
+                self.pushToReg()
+            })])
         }
     }
     
+    func pushToReg() {
+        let sb = UIStoryboard(name: "Register", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "RegisterViewController")
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func refreshUI() {
+        bSendCode = false
+        countryCodeTextField.text = nil
+        accountTextField.isHidden = false
+        passwordTextField.isHidden = false
+        countryCodeTextField.placeholder = "Verification Code"
+        resetButton.setTitle("Sign In", for: .normal)
+    }
+    
     @IBAction func resetPassword(_ sender: UIButton) {
-        let countryCode = countryCodeTextField.text ?? ""
-        let account = accountTextField.text ?? ""
+        if bSendCode {
+            sendVerificationCode()
+            return
+        }
+        let countryCode = "01"
         let password = passwordTextField.text ?? ""
-        let verificationCode = verificationCodeTextField.text ?? ""
-        
-        if account.contains("@") {
-            TuyaSmartUser.sharedInstance().resetPassword(byEmail: countryCode, email: account, newPassword: password, code: verificationCode) { [weak self] in
-                guard let self = self else { return }
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Password Reset Successfully", comment: ""), message: NSLocalizedString("Please navigate back.", comment: ""))
-            } failure: { [weak self] (error) in
-                guard let self = self else { return }
-                let errorMessage = error?.localizedDescription ?? ""
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Reset Password", comment: ""), message: errorMessage)
-            }
-
-        } else {
-            TuyaSmartUser.sharedInstance().resetPassword(byPhone: countryCode, phoneNumber: account, newPassword: password, code: verificationCode) { [weak self] in
-                guard let self = self else { return }
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Password Reset Successfully", comment: ""), message: NSLocalizedString("Password Reset Successfully", comment: ""))
-                
-            } failure: { [weak self] (error) in
-                guard let self = self else { return }
-                let errorMessage = error?.localizedDescription ?? ""
-                Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Reset Password", comment: ""), message: errorMessage)
-            }
-
+        let npassword = accountTextField.text ?? ""
+        let verificationCode = countryCodeTextField.text ?? ""
+        if password.count == 0 || password != npassword {
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Invalid Password", comment: ""), message: "")
+            return
+        }
+        TuyaSmartUser.sharedInstance().resetPassword(byEmail: countryCode, email: email, newPassword: npassword, code: verificationCode) { [weak self] in
+            guard let self = self else { return }
+            Alert.showBasicAlert(on: self, with: nil, message: NSLocalizedString("Password Reset Successfully ", comment: ""), actions: [UIAlertAction(title: "OK", style: .cancel, handler: { [weak self] action in
+                self?.navigationController?.popViewController(animated: true)
+            })])
+        } failure: { [weak self] (error) in
+            guard let self = self else { return }
+            let errorMessage = error?.localizedDescription ?? ""
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Reset Password", comment: ""), message: errorMessage)
         }
     }
     
@@ -89,9 +91,10 @@ class ResetPasswordTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 1, indexPath.row == 1 {
-            sendVerificationCodeButton.sendActions(for: .touchUpInside)
+            
         } else if indexPath.section == 2 {
             resetButton.sendActions(for: .touchUpInside)
         }
+
     }
 }

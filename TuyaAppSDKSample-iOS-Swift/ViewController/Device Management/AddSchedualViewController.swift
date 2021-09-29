@@ -47,6 +47,7 @@ class AddSchedualViewController: BaseViewController {
     var wDays: [[String]] = []
     var activi: [[Bool]] = []
     var i = 0 // 发送指令的，当前是第几个
+    var bDeleteAction = false // 是不是删除操作？
     private let weekTitles = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     
     override func viewDidLoad() {
@@ -70,6 +71,7 @@ class AddSchedualViewController: BaseViewController {
         
         datePicker.datePickerMode = .time
         datePicker.isHidden = true
+        datePicker.locale = Locale(identifier: "en_US")
         datePicker.addTarget(self, action: #selector(dateChange(_:)), for: .valueChanged)
         
         switch1.tintColor = .lightGray
@@ -107,9 +109,17 @@ class AddSchedualViewController: BaseViewController {
             if value.count == 2 {
                 let hour = Int(value[0]) ?? 0
                 if hour >= 12 {
-                    startLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                    var h = hour - 12
+                    if h == 0 {
+                        h = 12
+                    }
+                    startLabel.text = "\(String(format: "%02d", h)):\(value[1]) PM"
                 } else {
-                    startLabel.text = "\(startTime) AM"
+                    var h = hour
+                    if h == 0 {
+                        h = 12
+                    }
+                    startLabel.text = "\(String(format: "%02d", h)):\(value[1]) AM"
                 }
             }
             
@@ -117,9 +127,17 @@ class AddSchedualViewController: BaseViewController {
             if value.count == 2 {
                 let hour = Int(value[0]) ?? 0
                 if hour >= 12 {
-                    endLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                    var h = hour - 12
+                    if h == 0 {
+                        h = 12
+                    }
+                    endLabel.text = "\(String(format: "%02d", h)):\(value[1]) PM"
                 } else {
-                    endLabel.text = "\(endTime) AM"
+                    var h = hour
+                    if h == 0 {
+                        h = 12
+                    }
+                    endLabel.text = "\(String(format: "%02d", h)):\(value[1]) AM"
                 }
             }
         }
@@ -129,9 +147,17 @@ class AddSchedualViewController: BaseViewController {
             if value.count == 2 {
                 let hour = Int(value[0]) ?? 0
                 if hour >= 12 {
-                    start2Label.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                    var h = hour - 12
+                    if h == 0 {
+                        h = 12
+                    }
+                    start2Label.text = "\(String(format: "%02d", h)):\(value[1]) PM"
                 } else {
-                    start2Label.text = "\(start2Time) AM"
+                    var h = hour
+                    if h == 0 {
+                        h = 12
+                    }
+                    start2Label.text = "\(String(format: "%02d", h)):\(value[1]) AM"
                 }
             }
             
@@ -139,9 +165,17 @@ class AddSchedualViewController: BaseViewController {
             if value.count == 2 {
                 let hour = Int(value[0]) ?? 0
                 if hour >= 12 {
-                    end2Label.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                    var h = hour - 12
+                    if h == 0 {
+                        h = 12
+                    }
+                    end2Label.text = "\(String(format: "%02d", h)):\(value[1]) PM"
                 } else {
-                    end2Label.text = "\(end2Time) AM"
+                    var h = hour
+                    if h == 0 {
+                        h = 12
+                    }
+                    end2Label.text = "\(String(format: "%02d", h)):\(value[1]) AM"
                 }
             }
         }
@@ -199,20 +233,31 @@ class AddSchedualViewController: BaseViewController {
         refreshUI()
     }
     
+    // 1.单个时段的结束时间不能小于起始时间；2.如果某一天，2个时段都是激活的状态，这两个时段不能重叠
     @IBAction func confirm(_ sender: Any) {
+        let v = checkScheduleIsValid()
+        if v >= 0 {
+            showAlert(value: v)
+            return
+        }
         SVProgressHUD.show()
+        bDeleteAction = false
         var s = wDays[0][0]
         s = s.replacingOccurrences(of: ":", with: "")
         s = s.replacingOccurrences(of: "-", with: "")
         publishMessage(with: ["8" : "6A00\(activi[0][0] ? "01" : "00")\(s)"])
     }
     
-    private func showAlert() {
+    private func showAlert(value: Int = -1) {
         let vc = LoadingViewController(nibName: "LoadingViewController", bundle: nil)
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overCurrentContext
         vc.delegate = self
-        vc.type = 2
+        if value >= 0 {
+            vc.type = value + 10
+        } else {
+            vc.type = bDeleteAction ? 3 : 2
+        }
         present(vc, animated: true) {
             
         }
@@ -327,6 +372,7 @@ class AddSchedualViewController: BaseViewController {
             self.activi = [[false, false], [false, false], [false, false], [false, false], [false, false], [false, false], [false, false]]
             self.refreshUI()
             SVProgressHUD.show()
+            self.bDeleteAction = true
             var s = self.wDays[0][0]
             s = s.replacingOccurrences(of: ":", with: "")
             s = s.replacingOccurrences(of: "-", with: "")
@@ -491,9 +537,17 @@ class AddSchedualViewController: BaseViewController {
                 if value.count == 2 {
                     let hour = Int(value[0]) ?? 0
                     if hour >= 12 {
-                        startLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                        var h = hour - 12
+                        if h == 0 {
+                            h = 12
+                        }
+                        startLabel.text = "\(String(format: "%02d", h)):\(value[1]) PM"
                     } else {
-                        startLabel.text = "\(s) AM"
+                        var h = hour
+                        if h == 0 {
+                            h = 12
+                        }
+                        startLabel.text = "\(String(format: "%02d", h)):\(value[1]) AM"
                     }
                 }
             }
@@ -507,9 +561,17 @@ class AddSchedualViewController: BaseViewController {
                 if value.count == 2 {
                     let hour = Int(value[0]) ?? 0
                     if hour >= 12 {
-                        endLabel.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                        var h = hour - 12
+                        if h == 0 {
+                            h = 12
+                        }
+                        endLabel.text = "\(String(format: "%02d", h)):\(value[1]) PM"
                     } else {
-                        endLabel.text = "\(s) AM"
+                        var h = hour
+                        if h == 0 {
+                            h = 12
+                        }
+                        endLabel.text = "\(String(format: "%02d", h)):\(value[1]) AM"
                     }
                 }
             }
@@ -523,9 +585,17 @@ class AddSchedualViewController: BaseViewController {
                 if value.count == 2 {
                     let hour = Int(value[0]) ?? 0
                     if hour >= 12 {
-                        start2Label.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                        var h = hour - 12
+                        if h == 0 {
+                            h = 12
+                        }
+                        start2Label.text = "\(String(format: "%02d", h)):\(value[1]) PM"
                     } else {
-                        start2Label.text = "\(s) AM"
+                        var h = hour
+                        if h == 0 {
+                            h = 12
+                        }
+                        start2Label.text = "\(String(format: "%02d", h)):\(value[1]) AM"
                     }
                 }
             }
@@ -539,9 +609,17 @@ class AddSchedualViewController: BaseViewController {
                 if value.count == 2 {
                     let hour = Int(value[0]) ?? 0
                     if hour >= 12 {
-                        end2Label.text = "\(String(format: "%02d", hour - 12)):\(value[1]) PM"
+                        var h = hour - 12
+                        if h == 0 {
+                            h = 12
+                        }
+                        end2Label.text = "\(String(format: "%02d", h)):\(value[1]) PM"
                     } else {
-                        end2Label.text = "\(s) AM"
+                        var h = hour
+                        if h == 0 {
+                            h = 12
+                        }
+                        end2Label.text = "\(String(format: "%02d", h)):\(value[1]) AM"
                     }
                 }
             }
@@ -574,10 +652,32 @@ class AddSchedualViewController: BaseViewController {
         }
     }
     
+    private func checkScheduleIsValid() -> Int {
+        for (i, day) in wDays.enumerated() {
+            for item in day {
+                let array = item.split(separator: "-").map {String($0)}
+                if array[0].compare(array[1]) == .orderedDescending {
+                    return i
+                }
+            }
+            let v = activi[i]
+            if v[0] && v[1] {
+                let a1 = day[0].split(separator: "-").map {String($0)}
+                let a2 = day[1].split(separator: "-").map {String($0)}
+                if  !(a1[0].compare(a2[1]) == .orderedDescending || a1[1].compare(a2[0]) == .orderedAscending)  {
+                    return i
+                }
+            }
+        }
+        return -1
+    }
 }
 
 extension AddSchedualViewController: LoadingViewDelegate {
-    func callbackContinue() {
+    func callbackContinue(tag: Int) {
+        if tag >= 10 {
+            return
+        }
         navigationController?.popViewController(animated: true)
     }
 }

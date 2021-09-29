@@ -19,16 +19,23 @@ class LoadingViewController: UIViewController {
             titleLabel.text = "Fragrance Updated!"
         } else if type == 2 {
             titleLabel.text = "Schedule Added!"
+        } else if type == 3 {
+            titleLabel.text = "Schedule Cleared!"
+        } else if type >= 10 {
+            let weekTitles = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+            titleLabel.text = "Invalid/Overlapping\nschedule:\(weekTitles[type - 10])"
+            continueButton.setTitle("Continue", for: .normal)
         }
+        view.tag = type
     }
 
     @IBAction func handleTap(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        delegate?.callbackContinue()
+        delegate?.callbackContinue(tag: view.tag)
     }
 
 }
 
 protocol LoadingViewDelegate: NSObjectProtocol {
-    func callbackContinue()
+    func callbackContinue(tag: Int)
 }

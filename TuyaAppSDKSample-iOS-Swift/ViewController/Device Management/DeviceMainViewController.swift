@@ -24,6 +24,7 @@ class DeviceMainViewController: BaseViewController {
     
     var latitude: CLLocationDegrees = 0
     var longitude: CLLocationDegrees = 0
+    var flag = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,34 +138,17 @@ class DeviceMainViewController: BaseViewController {
     }
     
     @objc public func handleScent(_ notification: Notification) {
-        let obj = notification.object as? Int ?? 0
+        let obj = notification.object as? String ?? ""
         let row = deviceList?.currentDeviceRow ?? 0
         guard let deviceModel = deviceList?.home?.deviceList[row] else { return }
-        var cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: Int] ?? [:]
-        var scent = cache[deviceModel.devId] ?? 0
-        let value = 128 + (scent & 3) + (obj << 2)
-        print("气味值：\(value)")
-        cache[deviceModel.devId] = value
+        var cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: String] ?? [:]
+        cache[deviceModel.devId] = obj
         UserDefaults.standard.setValue(cache, forKey: "Scent")
         UserDefaults.standard.synchronize()
-        if deviceModel.isOnline {
-            guard let deviceID = deviceModel.devId else { return }
-            guard let device = TuyaSmartDevice(deviceId: deviceID) else { return }
-            publishMessage(with: ["7": value], device: device)
-        }
         deviceList?.tableView.reloadData()
     }
     
     @objc public func handleAddDevice(_ notification: Notification) {
-        guard let dic = UserDefaults.standard.dictionary(forKey: "location") as? [String: Int] else {
-            return
-        }
-        for (devId, value) in dic {
-            var cache = UserDefaults.standard.dictionary(forKey: "Scent") as? [String: Int] ?? [:]
-            cache[devId] = value
-            UserDefaults.standard.setValue(cache, forKey: "Scent")
-            UserDefaults.standard.synchronize()
-        }
         deviceList?.loadData()
     }
     
@@ -196,18 +180,21 @@ extension DeviceMainViewController: LBXScanViewControllerDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
             [weak self] in
             if type == 1 {
-                let value = Int(scanResult.strScanned ?? "0") ?? 0
-                if value < 100 || value > 120 {
-                    return
-                }
                 let sb = UIStoryboard(name: "DeviceList", bundle: nil)
                 let vc = sb.instantiateViewController(withIdentifier: "AddScentViewController") as? AddScentViewController
-                vc?.scent = scanResult.strScanned ?? "0"
+                let value = scanResult.strScanned?.lowercased() ?? "0"
+                for (key, item) in scentPNG {
+                    let i = item.replacingOccurrences(of: "-product-image-min", with: "")
+                    if value.contains(i.lowercased()) {
+                        vc?.scent = key
+                        break
+                    }
+                }
                 self?.navigationController?.pushViewController(vc!, animated: true)
                 return
             }
             let sb = UIStoryboard(name: "DualMode", bundle: nil)
-            let vc = sb.instantiateViewController(withIdentifier: "DualModeTableViewController")
+            let vc = sb.instantiateViewController(withIdentifier: "DualModeViewController")
             self?.navigationController?.pushViewController(vc, animated: true)
         }
         
@@ -219,5 +206,22 @@ extension DeviceMainViewController: CLLocationManagerDelegate {
         guard let location = manager.location?.coordinate else { return }
         longitude = location.longitude
         latitude = location.latitude
+        
+        if Home.current == nil {
+            if flag {
+                return
+            }
+            flag = true 
+            homeManager.addHome(withName: "MyRoom", geoName: "Shenzhen", rooms: [""], latitude: latitude, longitude: longitude) { [weak self] _ in
+                self?.homeManager.getHomeList { (homeModels) in
+                    if homeModels?.count ?? 0 > 0  {
+                        Home.current = homeModels?.first
+                    }
+                } failure: { (error) in
+                
+                }
+            } failure: { (error) in
+            }
+        }
     }
 }
