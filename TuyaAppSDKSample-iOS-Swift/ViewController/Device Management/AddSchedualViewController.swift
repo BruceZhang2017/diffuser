@@ -49,11 +49,17 @@ class AddSchedualViewController: BaseViewController {
     var i = 0 // 发送指令的，当前是第几个
     var bDeleteAction = false // 是不是删除操作？
     private let weekTitles = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    var bWorking: Bool = false
+    var bRecordingCountFlag = 0 // 记录次数标签
+    var oldCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkLoading()
         wDays = weekdays
         activi = activates
+        let vv = UserDefaults.standard.value(forKey: "work") as? [String : Int] ?? [:]
+        bWorking = vv[device?.deviceModel.devId ?? ""] == 2
         
         for button in buttons {
             button.setTitleColor(UIColor.hex(color: "BB9BC5"), for: .selected)
@@ -87,6 +93,29 @@ class AddSchedualViewController: BaseViewController {
         switch2.layer.masksToBounds = true
         
         tabHeight.constant = UIDevice.isSameToIphoneX() ? 83 : 50
+    }
+    
+    @objc private func checkLoading() {
+        if bReadingDeviceInfoCount != 0 {
+            log.info("设备数据读取进行中，等待完成后再读取")
+            if oldCount == 0 {
+                SVProgressHUD.show()
+            }
+            if oldCount == bReadingDeviceInfoCount && bReadingDeviceInfoCount > 1 {
+                NotificationCenter.default.post(name: Notification.Name("DeviceInfoRead"), object: nil)
+            }
+            oldCount = bReadingDeviceInfoCount
+            perform(#selector(checkLoading), with: nil, afterDelay: 2)
+            return
+        }
+        SVProgressHUD.dismiss()
+        if oldCount > 0 {
+            print("执行重新刷新")
+            oldCount = 0
+            wDays = weekdays
+            activi = activates
+            refreshUI()
+        }
     }
     
     private func refreshUI() {
@@ -242,6 +271,21 @@ class AddSchedualViewController: BaseViewController {
         }
         SVProgressHUD.show()
         bDeleteAction = false
+        
+        sendAlarm()
+        
+    }
+    
+    @objc private func sendAlarm() {
+        if bReadingDeviceInfoCount != 0 && bRecordingCountFlag < 16 {
+            log.info("设备数据读取进行中，等待完成后再读取")
+            bRecordingCountFlag += 1
+            perform(#selector(sendAlarm), with: nil, afterDelay: 1)
+            return
+        }
+        log.info("设备数据读取完成，继续启动发送数据")
+        bReadingDeviceInfoCount = 0
+        bRecordingCountFlag = 0 // 如果大于5秒了则继续执行
         var s = wDays[0][0]
         s = s.replacingOccurrences(of: ":", with: "")
         s = s.replacingOccurrences(of: "-", with: "")
@@ -263,13 +307,16 @@ class AddSchedualViewController: BaseViewController {
         }
     }
     
-    private func publishMessage(with dps: NSDictionary) {
+    @objc private func publishMessage(with dps: NSDictionary) {
+        if !bWorking {
+            Toast(text: "The device is turned off").show()
+            return
+        }
         guard let dps = dps as? [AnyHashable : Any] else { return }
-
         device?.publishDps(dps, success: {
             [weak self] in
             self?.i += 1
-            self?.handle8CMD()
+            self?.perform(#selector(AddSchedualViewController.handle8CMD), with: nil, afterDelay: 0.5)
         }, failure: { (error) in
             let errorMessage = error?.localizedDescription ?? ""
             SVProgressHUD.showError(withStatus: errorMessage)

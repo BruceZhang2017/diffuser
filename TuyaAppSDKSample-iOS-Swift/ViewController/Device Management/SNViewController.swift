@@ -36,6 +36,10 @@ class SNViewController: BaseViewController {
                 Toast(text: "Invalid Fragrance Code").show()
                 return
             }
+            if !checkFragrance(value: sn) {
+                Toast(text: "Invalid Fragrance Code").show()
+                return
+            }
             let vc = storyboard?.instantiateViewController(withIdentifier: "AddScentViewController") as? AddScentViewController
             vc?.scent = sn 
             navigationController?.pushViewController(vc!, animated: true)
@@ -46,6 +50,16 @@ class SNViewController: BaseViewController {
             }
             performSegue(withIdentifier: "DualMode", sender: self)
         }
+    }
+    
+    private func checkFragrance(value: String) -> Bool {
+        let array = scentPNG.keys.map {String($0)}
+        for item in array {
+            if item.lowercased() == value.lowercased() {
+                return true
+            }
+        }
+        return false
     }
 
     private func checkSN(value: String) -> Bool {

@@ -10,6 +10,7 @@ import AVFoundation
 import AVKit
 import CoreLocation
 import TuyaSmartDeviceKit
+import Toaster
 
 class DeviceMainViewController: BaseViewController {
     @IBOutlet weak var tabView: UIView!
@@ -158,6 +159,13 @@ class DeviceMainViewController: BaseViewController {
         }, failure: { (error) in
         })
     }
+    
+    func checkSN(value: String) -> Bool {
+        let regex = "^\\d{5}[BW]\\d{5}$"
+        let RE = try? NSRegularExpression(pattern: regex, options: .caseInsensitive)
+        let matchs = RE?.matches(in: value, options: .reportProgress, range: NSRange(location: 0, length: value.count))
+        return (matchs?.count ?? 0) > 0
+    }
 }
 
 public extension UIDevice {
@@ -191,6 +199,11 @@ extension DeviceMainViewController: LBXScanViewControllerDelegate {
                     }
                 }
                 self?.navigationController?.pushViewController(vc!, animated: true)
+                return
+            }
+            let value = scanResult.strScanned?.lowercased() ?? "0"
+            if self?.checkSN(value: value) == false {
+                Toast(text: "nvalid Bar Code, Please Try Again!").show()
                 return
             }
             let sb = UIStoryboard(name: "DualMode", bundle: nil)

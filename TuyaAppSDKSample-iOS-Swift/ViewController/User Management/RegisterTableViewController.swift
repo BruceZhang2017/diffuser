@@ -22,6 +22,7 @@ class RegisterTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: 375, height: 200)
+        regDescLabel.isHidden = true
     }
 
     // MARK: - IBAction
@@ -55,8 +56,13 @@ class RegisterTableViewController: BaseTableViewController {
             Alert.showBasicAlert(on: self, with: NSLocalizedString("Failed to Register", comment: ""), message: NSLocalizedString("Please enter a valid email address", comment: ""), actions: [action])
             return
         }
+        let name = (countryCodeTextField.text ?? "") + " " + (lastNameTextField.text ?? "")
+        UserDefaults.standard.setValue(name, forKey: "UserName")
+        UserDefaults.standard.synchronize()
         TuyaSmartUser.sharedInstance().sendVerifyCode(byRegisterEmail: countryCode, email: account) {  [weak self] in
             guard let self = self else { return }
+            self.regDescLabel.text = "Enter the 6-digit code that was sent to \(account)"
+            self.regDescLabel.isHidden = false
             self.lastNameTextField.isHidden = true
             self.accountTextField.isHidden = true
             self.passwordTextField.isHidden = true
@@ -82,12 +88,11 @@ class RegisterTableViewController: BaseTableViewController {
         let account = accountTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         let verificationCode = countryCodeTextField.text ?? ""
-        let name = (countryCodeTextField.text ?? "") + " " + (lastNameTextField.text ?? "")
         if verificationCode.count != 6 {
             let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
                 
             }
-            Alert.showBasicAlert(on: self, with: NSLocalizedString("Invalid Code", comment: ""), message: NSLocalizedString("Please enter the 6-digit code that was sent to **User entered email** ", comment: ""), actions: [action])
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Invalid Code", comment: ""), message: NSLocalizedString("Please enter the 6-digit code that was sent to \(account)", comment: ""), actions: [action])
             return
         }
         TuyaSmartUser.sharedInstance().register(byEmail: countryCode, email: account, password: password, code: verificationCode) { [weak self] in
@@ -96,9 +101,7 @@ class RegisterTableViewController: BaseTableViewController {
             let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
                 self.navigationController?.popViewController(animated: true)
             }
-            UserDefaults.standard.setValue(name, forKey: "UserName")
-            UserDefaults.standard.synchronize()
-            Alert.showBasicAlert(on: self, with: NSLocalizedString("Registration Successful", comment: ""), message: NSLocalizedString("An account has been created for “**EMAIL USER ENTERED**”", comment: ""), actions: [action])
+            Alert.showBasicAlert(on: self, with: NSLocalizedString("Registration Successful", comment: ""), message: NSLocalizedString("An account has been created for \(account)", comment: ""), actions: [action])
         } failure: { [weak self] (error) in
             guard let self = self else { return }
             let errorMessage = error?.localizedDescription ?? ""

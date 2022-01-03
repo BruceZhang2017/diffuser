@@ -10,6 +10,7 @@ import Toaster
 import McPicker
 import SVProgressHUD
 
+var bReadingDeviceInfoCount = 0
 var weekdays = [["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"], ["08:00-20:00","08:00-20:00"]]
 var activates = [[false, false], [false, false], [false, false], [false, false], [false, false], [false, false], [false, false]]
 
@@ -56,6 +57,7 @@ class TuneSettingsViewController: BaseViewController {
     @IBOutlet weak var schedule1Label: UILabel!
     @IBOutlet weak var schedule2Label: UILabel!
     @IBOutlet weak var scheduleView: UIView!
+    @IBOutlet weak var currentTItleLabel: UILabel!
     @IBOutlet weak var noScheduleLabel: UILabel!
     @IBOutlet weak var midViewTopLC: NSLayoutConstraint!
     var device: TuyaSmartDevice?
@@ -65,27 +67,36 @@ class TuneSettingsViewController: BaseViewController {
     var stop = 0
     var current = 0 // 当前星期几的位置
     var i = 0
+    private var currentTitles = ["CURRENT SCHEDULE", "CURRENT FRAGRANCE", "GENERAL SETTINGS"]
     private let weekTitles = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    var bWorking: Bool = false
+    var currentdps: NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.clipsToBounds = true
         NotificationCenter.default.addObserver(self, selector: #selector(handleScent(_:)), name: Notification.Name("TuneSettings"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleReadAgain(_:)), name: Notification.Name("DeviceInfoRead"), object: nil)
         refreshScent()
         if let name = device?.deviceModel.name {
             let array = name.split(separator: "-")
             deviceNameLabel.text = String(array[0])
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: String(array[0]), style: .plain, target: nil, action: nil)
+            //navigationItem.rightBarButtonItem = UIBarButtonItem(title: String(array[0]), style: .plain, target: nil, action: nil)
+            let vv = UserDefaults.standard.value(forKey: "work") as? [String : Int] ?? [:]
+            bWorking = vv[device?.deviceModel.devId ?? ""] == 2
         }
-        //deviceNameLabel.isUserInteractionEnabled = true
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(modifyName))
-//        tap.numberOfTapsRequired = 1
-//        deviceNameLabel.addGestureRecognizer(tap)
         
         for button in dayButtons { // A0AEC0
             button.setTitleColor(UIColor.hex(color: "BB9BC5"), for: .selected)
         }
-        SVProgressHUD.show(withStatus: "Syncing")
+        //SVProgressHUD.show(withStatus: "Syncing")
+        if let values = UserDefaults.standard.value(forKey: "weekdays") as? [[String]] {
+            weekdays = values
+        }
+        if let values = UserDefaults.standard.value(forKey: "activates") as? [[Bool]] {
+            activates = values
+        }
+        bReadingDeviceInfoCount = 1
         publishMessage(with: ["8" : "8A"])
         width1LC.constant = (screenWidth - 48) / 3
         width2LC.constant = (screenWidth - 48) / 3
@@ -109,6 +120,11 @@ class TuneSettingsViewController: BaseViewController {
         scrollView.setContentOffset(CGPoint(x: screenWidth, y: 0), animated: false)
         
         midViewTopLC.constant = screenHeight <= 667 ? 0 : 30
+        
+        if let value = UserDefaults.standard.value(forKey: "intensity") as? Int {
+            v = value
+            refreshIntensity()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,6 +133,9 @@ class TuneSettingsViewController: BaseViewController {
     }
     
     deinit {
+        UserDefaults.standard.setValue(weekdays, forKey: "weekdays")
+        UserDefaults.standard.setValue(activates, forKey: "activates")
+        UserDefaults.standard.synchronize()
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -124,6 +143,7 @@ class TuneSettingsViewController: BaseViewController {
         for (i, button) in buttons.enumerated() {
             if schedualIndex == i {
                 button.backgroundColor = UIColor.hex(color: "BB9BC5")
+                currentTItleLabel.text = currentTitles[i]
             } else {
                 button.backgroundColor = UIColor.hex(color: "E2E8F0")
             }
@@ -338,6 +358,12 @@ class TuneSettingsViewController: BaseViewController {
         scentImageView.image = UIImage(named: scentPNG[obj] ?? "amore-product-image-min")
     }
     
+    @objc public func handleReadAgain(_ notification: Notification) {
+        if currentdps != nil {
+            publishMessage(with: currentdps)
+        }
+    }
+    
     @IBAction func changeScent(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ScanQRCodeViewController") as? ScanQRCodeViewController
         vc?.type = 1
@@ -346,7 +372,7 @@ class TuneSettingsViewController: BaseViewController {
     }
     
     @IBAction func changeIntensity(_ sender: Any) {
-        let titles = ["Low", "Medium", "High"]
+        let titles = ["Low", "High", "Medium"]
         let tag = (sender as! UIButton).tag
         let value = intensityValueLabel.text ?? ""
         for (i, title) in titles.enumerated() {
@@ -371,7 +397,7 @@ class TuneSettingsViewController: BaseViewController {
     }
     
     private func refreshIntensity() {
-        let titles = ["Low", "Medium", "High"]
+        let titles = ["Low", "High", "Medium"]
         intensityValueLabel.text = titles[v]
     }
     
@@ -386,13 +412,17 @@ class TuneSettingsViewController: BaseViewController {
     }
     
     private func publishMessage(with dps: NSDictionary) {
+        if !bWorking {
+            Toast(text: "The device is turned off").show()
+            return
+        }
+        currentdps = dps
         guard let dps = dps as? [AnyHashable : Any] else { return }
-
         device?.publishDps(dps, success: {
             [weak self] in
             if let _ = dps["8"] {
                 self?.i += 1
-                let d = (self?.i ?? 0) > 2 ? 0.9 : 2
+                let d = (self?.i ?? 0) > 2 ? 0.6 : 2
                 self?.perform(#selector(TuneSettingsViewController.handle8CMD), with: nil, afterDelay: d)
             }
         }, failure: { (error) in
@@ -428,6 +458,8 @@ class TuneSettingsViewController: BaseViewController {
             let end = value.index(value.startIndex, offsetBy: 3)
             let hexi:UInt = UInt(String(value[start...end]), radix: 16) ?? 0
             v = Int(hexi)
+            UserDefaults.standard.setValue(v, forKey: "intensity")
+            UserDefaults.standard.synchronize()
             refreshIntensity()
             if i > 2 {
                 return
@@ -464,6 +496,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[0][0] = v > 0
                 publishMessage(with: ["8" : "6A01"])
+                bReadingDeviceInfoCount = 1
             }
             if value.hasPrefix("6M01") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -476,6 +509,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[0][1] = v > 0
                 publishMessage(with: ["8" : "6A02"])
+                bReadingDeviceInfoCount = 2
             }
             if value.hasPrefix("6M02") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -488,6 +522,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[1][0] = ((v >> 1) & 1) > 0
                 publishMessage(with: ["8" : "6A03"])
+                bReadingDeviceInfoCount = 3
             }
             if value.hasPrefix("6M03") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -500,6 +535,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[1][1] = ((v >> 1) & 0x01) > 0
                 publishMessage(with: ["8" : "6A04"])
+                bReadingDeviceInfoCount = 4
             }
             if value.hasPrefix("6M04") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -512,6 +548,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[2][0] = ((v >> 2) & 0x01) > 0
                 publishMessage(with: ["8" : "6A05"])
+                bReadingDeviceInfoCount = 5
             }
             if value.hasPrefix("6M05") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -524,6 +561,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[2][1] = ((v >> 2) & 0x01) > 0
                 publishMessage(with: ["8" : "6A06"])
+                bReadingDeviceInfoCount = 6
             }
             if value.hasPrefix("6M06") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -536,6 +574,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[3][0] = ((v >> 3) & 0x01) > 0
                 publishMessage(with: ["8" : "6A07"])
+                bReadingDeviceInfoCount = 7
             }
             if value.hasPrefix("6M07") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -548,6 +587,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[3][1] = ((v >> 3) & 0x01) > 0
                 publishMessage(with: ["8" : "6A08"])
+                bReadingDeviceInfoCount = 8
             }
             if value.hasPrefix("6M08") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -560,6 +600,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[4][0] = ((v >> 4) & 0x01) > 0
                 publishMessage(with: ["8" : "6A09"])
+                bReadingDeviceInfoCount = 9
             }
             if value.hasPrefix("6M09") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -572,6 +613,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[4][1] = ((v >> 4) & 0x01) > 0
                 publishMessage(with: ["8" : "6A0a"])
+                bReadingDeviceInfoCount = 10
             }
             if value.hasPrefix("6M0a") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -584,6 +626,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[5][0] = ((v >> 5) & 0x01) > 0
                 publishMessage(with: ["8" : "6A0b"])
+                bReadingDeviceInfoCount = 11
             }
             if value.hasPrefix("6M0b") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -596,6 +639,7 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[5][1] = ((v >> 5) & 0x01) > 0
                 publishMessage(with: ["8" : "6A0c"])
+                bReadingDeviceInfoCount = 12
             }
             if value.hasPrefix("6M0c") {
                 let start = value.index(value.startIndex, offsetBy: 6)
@@ -608,9 +652,10 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[6][0] = ((v >> 6) & 0x01) > 0
                 publishMessage(with: ["8" : "6A0d"])
+                bReadingDeviceInfoCount = 13
             }
             if value.hasPrefix("6M0d") {
-                SVProgressHUD.dismiss()
+                //SVProgressHUD.dismiss()
                 let start = value.index(value.startIndex, offsetBy: 6)
                 let end = value.endIndex
                 var hexi = String(value[start..<end])
@@ -621,19 +666,23 @@ class TuneSettingsViewController: BaseViewController {
                 let v = getActiviteValue(value)
                 activates[6][1] = ((v >> 6) & 0x01) > 0
                 refreshSchedual()
+                bReadingDeviceInfoCount = 0
+                log.info("设备数据读取完毕")
             }
         }
     }
     
     private func getActiviteValue(_ value: String) -> Int {
-        let start = value.index(value.startIndex, offsetBy: 5)
-        let end = value.index(value.startIndex, offsetBy: 6)
+        let start = value.index(value.startIndex, offsetBy: 4)
+        let end = value.index(value.startIndex, offsetBy: 5)
         let hexi:UInt = UInt(String(value[start...end]), radix: 16) ?? 0
         return Int(hexi)
     }
     
     @IBAction func confirm(_ sender: Any) {
         publishMessage(with: ["8" : "9A0\(v)"])
+        UserDefaults.standard.setValue(v, forKey: "intensity")
+        UserDefaults.standard.synchronize()
     }
     
     @IBAction private func handleShowDeviceList(_ sender: Any) {
@@ -694,6 +743,12 @@ class TuneSettingsViewController: BaseViewController {
         refreshSchedual()
     }
     
+    func checkSN(value: String) -> Bool {
+        let regex = "^\\d{5}[BW]\\d{5}$"
+        let RE = try? NSRegularExpression(pattern: regex, options: .caseInsensitive)
+        let matchs = RE?.matches(in: value, options: .reportProgress, range: NSRange(location: 0, length: value.count))
+        return (matchs?.count ?? 0) > 0
+    }
 }
 
 extension TuneSettingsViewController {
@@ -740,6 +795,11 @@ extension TuneSettingsViewController: LBXScanViewControllerDelegate {
                     }
                 }
                 self?.navigationController?.pushViewController(vc!, animated: true)
+                return
+            }
+            let value = scanResult.strScanned?.lowercased() ?? "0"
+            if self?.checkSN(value: value) == false {
+                Toast(text: "nvalid Bar Code, Please Try Again!").show()
                 return
             }
             let sb = UIStoryboard(name: "DualMode", bundle: nil)

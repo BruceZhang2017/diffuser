@@ -28,6 +28,9 @@ class SettingsTableViewController: UITableViewController {
         tap.numberOfTapsRequired = 3
         settingsLabel.addGestureRecognizer(tap)
         settingsLabel.isUserInteractionEnabled = true
+        let currentVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+        versionLabel.text = "Software Version \(currentVersion)"
+        
     }
     
     @objc private func handleTap() {

@@ -117,8 +117,7 @@ class ScanQRCodeViewController: BaseViewController {
         // 相机运行
         scanObj?.start()
     }
-   
-
+    
     /**
      处理扫码结果，如果是继承本控制器的，可以重写该方法,作出相应地处理，或者设置delegate作出相应处理
      */

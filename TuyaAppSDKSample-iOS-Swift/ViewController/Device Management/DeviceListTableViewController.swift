@@ -7,6 +7,7 @@
 import UIKit
 import TuyaSmartDeviceKit
 import SVProgressHUD
+import Toaster
 
 class DeviceListTableViewController: UITableViewController {
     // MARK: - Property
@@ -158,7 +159,19 @@ class DeviceListTableViewController: UITableViewController {
             cell.controlButton.isSelected = false
             cell.controlButton.backgroundColor = UIColor.hex(color: "BB9BC5")
         }
-        
+        var vv = UserDefaults.standard.value(forKey: "work") as? [String : Int] ?? [:]
+        vv[deviceModel.devId] = work
+        UserDefaults.standard.setValue(vv, forKey: "work")
+        UserDefaults.standard.synchronize()
+        if let name = deviceModel.name {
+            let array = name.split(separator: "-")
+            let sn = String(array[0])
+            if sn.hasPrefix("21256B") {
+                cell.deviceImageView.image = UIImage(named: "diffuser_black")
+            } else {
+                cell.deviceImageView.image = UIImage(named: "diffuser")
+            }
+        }
         cell.selectionStyle = .none
         return cell
     }
@@ -253,6 +266,10 @@ extension DeviceListTableViewController: DeviceTableViewCellDelegate {
             } else {
                 button.backgroundColor = UIColor.hex(color: "BB9BC5")
             }
+            var vv = UserDefaults.standard.value(forKey: "work") as? [String : Int] ?? [:]
+            vv[deviceModel.devId] = button.isSelected ? 1 : 2
+            UserDefaults.standard.setValue(vv, forKey: "work")
+            UserDefaults.standard.synchronize()
         }
     }
     
@@ -269,6 +286,13 @@ extension DeviceListTableViewController: DeviceTableViewCellDelegate {
         vc?.scanResultDelegate = self
         navigationController?.pushViewController(vc!, animated: true)
         currentDeviceRow = tag
+    }
+    
+    func checkSN(value: String) -> Bool {
+        let regex = "^\\d{5}[BW]\\d{5}$"
+        let RE = try? NSRegularExpression(pattern: regex, options: .caseInsensitive)
+        let matchs = RE?.matches(in: value, options: .reportProgress, range: NSRange(location: 0, length: value.count))
+        return (matchs?.count ?? 0) > 0
     }
 }
 
@@ -291,6 +315,12 @@ extension DeviceListTableViewController: LBXScanViewControllerDelegate {
                 self?.navigationController?.pushViewController(vc!, animated: true)
                 return
             }
+            let value = scanResult.strScanned?.lowercased() ?? "0"
+            if self?.checkSN(value: value) == false {
+                Toast(text: "nvalid Bar Code, Please Try Again!").show()
+                return
+            }
+
             let sb = UIStoryboard(name: "DualMode", bundle: nil)
             let vc = sb.instantiateViewController(withIdentifier: "DualModeViewController")
             self?.navigationController?.pushViewController(vc, animated: true)

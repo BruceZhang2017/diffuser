@@ -10,6 +10,7 @@ import TuyaSmartBaseKit
 class ResetPasswordTableViewController: BaseTableViewController {
     
     // MARK: - IBOutlet
+    @IBOutlet weak var resetpasswordDescLabel: UILabel!
     @IBOutlet weak var countryCodeTextField: UITextField!
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -34,8 +35,8 @@ class ResetPasswordTableViewController: BaseTableViewController {
         
         TuyaSmartUser.sharedInstance().sendVerifyCode(byEmail: countryCode, email: account) { [weak self] in
             guard let self = self else { return }
-            self.refreshUI()
             self.email = account
+            self.refreshUI()
         } failure: { [weak self] (error) in
             guard let self = self else { return }
             Alert.showBasicAlert(on: self, with: NSLocalizedString("Invalid Email", comment: ""), message: NSLocalizedString("The email address entered does not exist or is not associated with an account.", comment: ""), actions: [UIAlertAction(title: "OK", style: .cancel, handler: { action in
@@ -60,6 +61,7 @@ class ResetPasswordTableViewController: BaseTableViewController {
         passwordTextField.isHidden = false
         countryCodeTextField.placeholder = "Verification Code"
         resetButton.setTitle("Sign In", for: .normal)
+        resetpasswordDescLabel.text = "A verification code has been sent to \(email).Please enter the 6-digit code and your new password."
     }
     
     @IBAction func resetPassword(_ sender: UIButton) {

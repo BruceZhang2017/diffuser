@@ -6,7 +6,7 @@
 
 import UIKit
 
-let scentName = ["AMR": "Amore","APL": "Apple Crate", "BEA": "Beach Cave",
+let scentName = ["AMR": "Amore","APL": "Apple Crate", "BEA": "Beach Cove",
                  "CAB": "Cactus Blossom", "CEV": "Cedar & Vine", "ECL": "Eclipse",
                  "LAV": "Lavender Vanilla", "LMG": "Lemongrass",
                  "LTH": "Lighthouse", "LIN": "Linen & Lilies", "PAR": "Paradise Blue",
@@ -19,7 +19,7 @@ let scentPNG = ["AMR": "amore-product-image-min","APL": "apple-crate-product-ima
                  "LTH": "lighthouse-product-image-min", "LIN": "linen-lilies-product-image-min", "PAR": "paradise-blue-product-image-min",
                  "SEA": "seaworthy-product-image-min", "SIM": "simply-citrus-product-image-min", "SLR": "sleigh-ride-product-image-min",
                  "SNO": "snowed-inn-product-image-min", "SPC": "spiced-cider-product-image-min", "SWT": "sweet-tobacco-product-image-min",
-                 "SMG": "sweet-magnolia-product-image-min", "UND": "under-the-tree-product-image-min", "WEL": "under-the-tree-product-image-min"]
+                 "SMG": "sweet-magnolia-product-image-min", "UND": "under-the-tree-product-image-min", "WEL": "welcome-home-product-image-min"]
 
 class AddScentViewController: UIViewController {
     
